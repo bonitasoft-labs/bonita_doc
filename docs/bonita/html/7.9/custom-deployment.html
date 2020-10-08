@@ -1,0 +1,77 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/custom-deployment.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Custom Deployment</h1>
+<div class="alert alert-warning" role="alert">
+<p>This installation procedure only specifically targets the Java EE application Servers that have been installed under a single root folder (typically, from a .zip file).
+Thus, for installations using native distribution packages (that more often than not split the binaries and the configuration files into separate folder hierarchies),
+it would be up to you to adapt the documented steps to your very own folder layout.</p>
+</div>
+<div class="alert alert-warning" role="alert">
+<p>Remember that the recommended way of installing Bonita is to use the provided <a href="?page=tomcat-bundle" ng-click="contentCtrl.goTo($event, 'tomcat-bundle')" class="alert-link">Tomcat</a> bundle.<br>
+It saves you from doing all the following configuration at hand, as the setup tool included handles it automatically.</p>
+</div>
+<h2>Installation</h2>
+<ol>
+<li>Download the Tomcat bundle file from the <a href="http://www.bonitasoft.com/downloads-v2">Bonitasoft download page</a> for the Community edition
+or from the <a href="https://customer.bonitasoft.com/download/request">Customer Portal</a> for Subscription editions.</li>
+<li>Unzip it into a temporary folder (BUNDLE_DIRECTORY).</li>
+<li>Follow the <a href="?hash=tomcat-installation&amp;page=" ng-click="contentCtrl.goTo($event, '', 'tomcat-installation')">Tomcat bundle steps</a>.</li>
+</ol>
+<a id="tomcat-installation" />
+<h2>Tomcat installation</h2>
+<h3>Install Bonita Platform in Tomcat</h3>
+<p>Copy, from the bundle into your Tomcat server:</p>
+<ul>
+<li><code>server/bin/setenv.sh</code> or <code>server/bin/setenv.bat</code>, depending if you are on Unix or Windows, to <code>bin</code></li>
+<li>The entirety of the bundle <code>server/conf</code> folder to <code>conf</code></li>
+<li>The entirety of the bundle <code>server/lib/bonita</code> folder to <code>lib/bonita</code></li>
+<li>The <code>server/webapps/bonita.war</code> and <code>webapps/ROOT/favicon.ico</code> to <code>webapps</code> and <code>webapps/ROOT/</code></li>
+<li>The entirety of the <code>setup</code> directory at the root of your tomcat server.</li>
+<li>The entirety of the <code>tools/request_key_utils-</code>. Includes script files to generate license request keys.</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p>Some configuration files from the bundle will overwrite some default tomcat configuration files. Proceed
+with care in a tomcat where other applications are already installed.</p>
+</div>
+<div class="alert alert-warning" role="alert">
+<p>There is an <a href="https://bz.apache.org/bugzilla/show_bug.cgi?id=58999" class="alert-link">issue on tomcat 8.0.32</a> preventing the portal Look &amp; feel to be compiled. If you deploy bonita on an existing tomcat installation, make sure it is a different version of tomcat (preferably 8.5.x with x&gt;=23).</p>
+</div>
+<h3>Configure data sources</h3>
+<ol>
+<li>Open the file TOMCAT_HOME/conf/Catalina/localhost/bonita.xml</li>
+<li>Remove or comment out the lines regarding the h2 database.</li>
+<li>Uncomment the lines matching your RDBMS.</li>
+<li>Update following attributes value:
+<ul>
+<li>username: your RDBMS user name.</li>
+<li>password: your RDBMS password.</li>
+<li>url: the URL, including the RDBMS server address, RDBMS server port and database (schema) name.</li>
+</ul>
+</li>
+<li>There are 4 datasources declared. Make sure you made the change for them all, named RawBonitaDS, bonitaSequenceManagerDS, RawBusinessDataDS, NotManagedBizDataDS.</li>
+</ol>
+<h3>Configure RDBMS vendor</h3>
+<ol>
+<li>Open the file TOMCAT_HOME/bin/setenv.(bat|sh)</li>
+<li>Change the value of sysprop.bonita.db.vendor according to your RDBMS vendor</li>
+<li>Change the value of sysprop.bonita.bdm.db.vendor according to your RDBMS vendor</li>
+</ol>
+<h3>Add Jdbc driver</h3>
+<p>You need to add your jdbc driver in TOMCAT_HOME/lib.
+MySQL, PostgreSQL and Microsoft SQL Server drivers can be found in the Tomcat bundle under DEPLOY_ZIP_HOME/setup/lib directory. For Oracle,
+use the <a href="?hash=proprietary_jdbc_drivers&amp;page=database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration', 'proprietary_jdbc_drivers')">jdbc driver</a> provided by Oracle.</p>
+<h2>License installation</h2>
+<p>If you are installing a Subscription edition, you need to <a href="?page=licenses" ng-click="contentCtrl.goTo($event, 'licenses')">request a license</a>.</p>
+<p>When you receive your license, copy the file to the <code>TOMCAT_DIRECTORY/setup/platform_conf/licenses</code> folder of your application server.</p>
+<h2>Database initialization</h2>
+<p>We assume here that the database has already been <a href="?hash=database_creation&amp;page=database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration', 'database_creation')">created and configured for Bonita</a>.
+Once created and configured you need to initialize it using the setup tool provided in the bundle.
+This will create database schema and initial values.</p>
+<ol>
+<li>In TOMCAT_DIRECTORY/setup folder, edit the file database.properties with properties matching your rdbms. Beware of <a href="?hash=backslash_support&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'backslash_support')">backslash characters</a>.</li>
+<li>In TOMCAT_DIRECTORY/setup/lib add your jdbc driver if needed (only for Oracle, see <a href="?hash=proprietary_jdbc_drivers&amp;page=database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration', 'proprietary_jdbc_drivers')">proprietary jdbc drivers</a>)</li>
+<li>In TOMCAT_DIRECTORY/setup folder, run <code>setup.(sh|bat) init</code></li>
+</ol>
+<h2>Next steps</h2>
+<p>You're done with Bonita installation. You can now start your application server as usual.
+When you have finished installing the deploy bundle, <a href="?page=first-steps-after-setup" ng-click="contentCtrl.goTo($event, 'first-steps-after-setup')">complete the setup</a> of your system by validating the installation, setting passwords, and creating the Administrator user.</p>
+<!-- Generated on Wed Dec 04 2019 17:46:51 GMT+0100 (Paris, Madrid) -->

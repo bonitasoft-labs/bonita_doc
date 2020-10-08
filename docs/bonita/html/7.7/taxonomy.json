@@ -1,0 +1,1160 @@
+[
+    {
+        "name": "Release notes",
+        "page": "bonita/7.7/release-notes"
+    },
+    {
+        "name": "Migration tool change log",
+        "page": "bonita/7.7/migration-tool"
+    },
+    {
+        "name": "Application and Process Design",
+        "page": "bonita/7.7/_application-and-process-design",
+        "children": [
+            {
+                "name": "Bonita overview",
+                "page": "bonita/7.7/bonita-bpm-overview"
+            },
+            {
+                "name": "Application and process design overview",
+                "page": "bonita/7.7/_application-and-process-design-overview",
+                "children": [
+                    {
+                        "name": "Getting started tutorial",
+                        "page": "bonita/7.7/getting-started-tutorial"
+                    },
+                    {
+                        "name": "Key concepts",
+                        "page": "bonita/7.7/key-concepts"
+                    },
+                    {
+                        "name": "Comparison of 7.x and 6.x",
+                        "page": "bonita/7.7/comparison-of-7-x-and-6-x"
+                    },
+                    {
+                        "name": "Lifecycle and profiles",
+                        "page": "bonita/7.7/lifecycle-and-profiles"
+                    },
+                    {
+                        "name": "Design methodology",
+                        "page": "bonita/7.7/design-methodology"
+                    }
+                ]
+            },
+            {
+                "name": "Bonita Studio preferences",
+                "page": "bonita/7.7/bonita-bpm-studio-preferences"
+            },
+            {
+                "name": "Bonita Studio hints and tips",
+                "page": "bonita/7.7/bonita-bpm-studio-hints-and-tips"
+            },
+            {
+                "name": "Organization",
+                "page": "bonita/7.7/_organization",
+                "children": [
+                    {
+                        "name": "Organization overview",
+                        "page": "bonita/7.7/organization-overview"
+                    },
+                    {
+                        "name": "Approaches to managing organizations and actor mapping",
+                        "page": "bonita/7.7/approaches-to-managing-organizations-and-actor-mapping"
+                    },
+                    {
+                        "name": "Organization management in Bonita Studio",
+                        "page": "bonita/7.7/organization-management-in-bonita-bpm-studio"
+                    },
+                    {
+                        "name": "Custom User Information in Bonita Studio",
+                        "page": "bonita/7.7/custom-user-information-in-bonita-bpm-studio"
+                    },
+                    {
+                        "name": "LDAP synchronizer",
+                        "page": "bonita/7.7/ldap-synchronizer"
+                    }
+                ]
+            },
+            {
+                "name": "Profiles",
+                "page": "bonita/7.7/_profiles",
+                "children": [
+                    {
+                        "name": "Profiles overview",
+                        "page": "bonita/7.7/profiles-overview"
+                    },
+                    {
+                        "name": "Profiles editor",
+                        "page": "bonita/7.7/profileCreation"
+                    }
+                ]
+            },
+            {
+                "name": "Process modeling",
+                "page": "bonita/7.7/_process-modeling",
+                "children": [
+                    {
+                        "name": "Diagrams",
+                        "page": "bonita/7.7/_diagrams",
+                        "children": [
+                            {
+                                "name": "Diagram overview",
+                                "page": "bonita/7.7/diagram-overview"
+                            },
+                            {
+                                "name": "Pools and lanes",
+                                "page": "bonita/7.7/pools-and-lanes"
+                            },
+                            {
+                                "name": "Tasks",
+                                "page": "bonita/7.7/diagram-tasks"
+                            },
+                            {
+                                "name": "Gateways",
+                                "page": "bonita/7.7/gateways"
+                            },
+                            {
+                                "name": "Transitions",
+                                "page": "bonita/7.7/transitions"
+                            },
+                            {
+                                "name": "Events",
+                                "page": "bonita/7.7/events"
+                            },
+                            {
+                                "name": "Called processes",
+                                "page": "bonita/7.7/called-processes"
+                            },
+                            {
+                                "name": "Event subprocesses",
+                                "page": "bonita/7.7/event-subprocesses"
+                            },
+                            {
+                                "name": "Text annotations",
+                                "page": "bonita/7.7/text-annotations"
+                            },
+                            {
+                                "name": "Migrate a process from Bonita Open Solution 5.x",
+                                "page": "bonita/7.7/migrate-a-process-from-bonita-open-solution-5-x"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Naming conventions",
+                        "page": "bonita/7.7/naming-conventions"
+                    },
+                    {
+                        "name": "Generate process documentation",
+                        "page": "bonita/7.7/generate-process-documentation"
+                    },
+                    {
+                        "name": "Refactoring",
+                        "page": "bonita/7.7/refactoring"
+                    },
+                    {
+                        "name": "Actors",
+                        "page": "bonita/7.7/actors"
+                    },
+                    {
+                        "name": "Actor filters",
+                        "page": "bonita/7.7/actor-filtering"
+                    },
+                    {
+                        "name": "Iteration",
+                        "page": "bonita/7.7/iteration"
+                    }
+                ]
+            },
+            {
+                "name": "Data",
+                "page": "bonita/7.7/_data",
+                "children": [
+                    {
+                        "name": "Data handling overview",
+                        "page": "bonita/7.7/data-handling-overview"
+                    },
+                    {
+                        "name": "Define and deploy the BDM",
+                        "page": "bonita/7.7/define-and-deploy-the-bdm"
+                    },
+                    {
+                        "name": "Define access control on business objects",
+                        "page": "bonita/7.7/bdm-access-control"
+                    },
+                    {
+                        "name": "Specify data in a process definition",
+                        "page": "bonita/7.7/specify-data-in-a-process-definition"
+                    },
+                    {
+                        "name": "Parameters",
+                        "page": "bonita/7.7/parameters"
+                    },
+                    {
+                        "name": "Contracts and contexts",
+                        "page": "bonita/7.7/contracts-and-contexts"
+                    },
+                    {
+                        "name": "Documents",
+                        "page": "bonita/7.7/documents"
+                    },
+                    {
+                        "name": "Complex data types",
+                        "page": "bonita/7.7/create-a-complex-data-type"
+                    },
+                    {
+                        "name": "Search keys",
+                        "page": "bonita/7.7/define-a-search-index"
+                    },
+                    {
+                        "name": "Expressions and scripts",
+                        "page": "bonita/7.7/expressions-and-scripts"
+                    },
+                    {
+                        "name": "Operations",
+                        "page": "bonita/7.7/operations"
+                    }
+                ]
+            },
+            {
+                "name": "Page and form development",
+                "page": "bonita/7.7/_page-and-form-development",
+                "children": [
+                    {
+                        "name": "Page and form development overview",
+                        "page": "bonita/7.7/page-and-form-development-overview"
+                    },
+                    {
+                        "name": "UI Designer",
+                        "page": "bonita/7.7/_using-the-ui-designer",
+                        "children": [
+                            {
+                                "name": "UI Designer overview",
+                                "page": "bonita/7.7/ui-designer-overview"
+                            },
+                            {
+                                "name": "Create or modify UI artifacts",
+                                "page": "bonita/7.7/create-or-modify-a-page"
+                            },
+                            {
+                                "name": "Widgets",
+                                "page": "bonita/7.7/widgets"
+                            },
+                            {
+                                "name": "Widget properties",
+                                "page": "bonita/7.7/widget-properties"
+                            },
+                            {
+                                "name": "Widget use examples",
+                                "page": "bonita/7.7/_widget-use-examples",
+                                "children": [
+                                    {
+                                        "name": "Repeat a container for a collection of data",
+                                        "page": "bonita/7.7/repeat-a-container-for-a-collection-of-data"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Fragments",
+                                "page": "bonita/7.7/fragments"
+                            },
+                            {
+                                "name": "Custom widgets",
+                                "page": "bonita/7.7/custom-widgets"
+                            },
+                            {
+                                "name": "Variables",
+                                "page": "bonita/7.7/variables"
+                            },
+                            {
+                                "name": "Appearance",
+                                "page": "bonita/7.7/appearance"
+                            },
+                            {
+                                "name": "Assets",
+                                "page": "bonita/7.7/assets"
+                            },
+                            {
+                                "name": "Multi-language pages",
+                                "page": "bonita/7.7/multi-language-pages"
+                            },
+                            {
+                                "name": "Migrate a form from 6.x",
+                                "page": "bonita/7.7/migrate-a-form-from-6-x"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "6.x legacy forms",
+                        "page": "bonita/7.7/6-x-legacy-forms"
+                    },
+                    {
+                        "name": "Cache configuration and policy",
+                        "page": "bonita/7.7/cache-configuration-and-policy"
+                    }
+                ]
+            },
+            {
+                "name": "Application descriptor",
+                "page": "bonita/7.7/applicationCreation"
+            },
+            {
+                "name": "Connectivity",
+                "page": "bonita/7.7/_connectivity",
+                "children": [
+                    {
+                        "name": "Connectivity overview",
+                        "page": "bonita/7.7/connectivity-overview"
+                    },
+                    {
+                        "name": "Alfresco",
+                        "page": "bonita/7.7/alfresco"
+                    },
+                    {
+                        "name": "CMIS",
+                        "page": "bonita/7.7/cmis"
+                    },
+                    {
+                        "name": "Database",
+                        "page": "bonita/7.7/_database",
+                        "children": [
+                            {
+                                "name": "List of database connectors",
+                                "page": "bonita/7.7/list-of-database-connectors"
+                            },
+                            {
+                                "name": "Database connector configuration",
+                                "page": "bonita/7.7/database-connector-configuration"
+                            },
+                            {
+                                "name": "Graphical query builder",
+                                "page": "bonita/7.7/graphical-query-builder"
+                            },
+                            {
+                                "name": "Initialize a variable from a database without scripting or Java code",
+                                "page": "bonita/7.7/initialize-a-variable-from-a-database-without-scripting-or-java-code"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Insert data in a .docx/.odt template",
+                        "page": "bonita/7.7/insert-data-in-a-docx-odt-template"
+                    },
+                    {
+                        "name": "Google Calendar",
+                        "page": "bonita/7.7/google-calendar"
+                    },
+                    {
+                        "name": "LDAP",
+                        "page": "bonita/7.7/ldap"
+                    },
+                    {
+                        "name": "Messaging",
+                        "page": "bonita/7.7/messaging"
+                    },
+                    {
+                        "name": "Generate PDF from an Office document",
+                        "page": "bonita/7.7/generate-pdf-from-an-office-document"
+                    },
+                    {
+                        "name": "Salesforce",
+                        "page": "bonita/7.7/salesforce"
+                    },
+                    {
+                        "name": "SAP JCo 2",
+                        "page": "bonita/7.7/sap-jco-2"
+                    },
+                    {
+                        "name": "SAP JCo 3",
+                        "page": "bonita/7.7/sap-jco-3"
+                    },
+                    {
+                        "name": "Script",
+                        "page": "bonita/7.7/script"
+                    },
+                    {
+                        "name": "Twitter",
+                        "page": "bonita/7.7/twitter"
+                    },
+                    {
+                        "name": "Web service",
+                        "page": "bonita/7.7/_web-service",
+                        "children": [
+                            {
+                                "name": "Web service connector overview",
+                                "page": "bonita/7.7/web-service-connector-overview"
+                            },
+                            {
+                                "name": "Web service connector tutorial",
+                                "page": "bonita/7.7/web-service-tutorial"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Reporting",
+                "page": "bonita/7.7/_reporting",
+                "children": [
+                    {
+                        "name": "Reporting overview",
+                        "page": "bonita/7.7/reporting-overview"
+                    },
+                    {
+                        "name": "Set up a reporting database",
+                        "page": "bonita/7.7/set-up-a-reporting-database"
+                    },
+                    {
+                        "name": "Set up KPIs",
+                        "page": "bonita/7.7/set-up-kpis"
+                    },
+                    {
+                        "name": "Create a report",
+                        "page": "bonita/7.7/create-a-report"
+                    }
+                ]
+            },
+            {
+                "name": "Import and export a process",
+                "page": "bonita/7.7/import-and-export-a-process"
+            },
+            {
+                "name": "Process configuration",
+                "page": "bonita/7.7/_process-configuration",
+                "children": [
+                    {
+                        "name": "Process configuration overview",
+                        "page": "bonita/7.7/process-configuration-overview"
+                    },
+                    {
+                        "name": "Environments",
+                        "page": "bonita/7.7/environments"
+                    },
+                    {
+                        "name": "Configure a process",
+                        "page": "bonita/7.7/configuring-a-process"
+                    },
+                    {
+                        "name": "Manage JAR files",
+                        "page": "bonita/7.7/manage-jar-files"
+                    },
+                    {
+                        "name": "Manage dependencies",
+                        "page": "bonita/7.7/managing-dependencies"
+                    }
+                ]
+            },
+            {
+                "name": "Process testing",
+                "page": "bonita/7.7/_process-testing",
+                "children": [
+                    {
+                        "name": "Process testing overview",
+                        "page": "bonita/7.7/process-testing-overview"
+                    },
+                    {
+                        "name": "Configure a test organization",
+                        "page": "bonita/7.7/configure-a-test-organization"
+                    },
+                    {
+                        "name": "Run a process from Bonita Studio for testing",
+                        "page": "bonita/7.7/run-a-process-from-bonita-bpm-studio-for-testing"
+                    },
+                    {
+                        "name": "Log files",
+                        "page": "bonita/7.7/log-files"
+                    }
+                ]
+            },
+            {
+                "name": "Build a process for deployment",
+                "page": "bonita/7.7/build-a-process-for-deployment"
+            }
+        ]
+    },
+    {
+        "name": "Installation",
+        "page": "bonita/7.7/_installation",
+        "children": [
+            {
+                "name": "Bonita installation overview",
+                "page": "bonita/7.7/bonita-bpm-installation-overview"
+            },
+            {
+                "name": "Bonita Studio installation",
+                "page": "bonita/7.7/bonita-bpm-studio-installation"
+            },
+            {
+                "name": "Basic Bonita Platform installation",
+                "page": "bonita/7.7/_basic-bonita-platform-installation",
+                "children": [
+                    {
+                        "name": "Hardware and software requirements",
+                        "page": "bonita/7.7/hardware-and-software-requirements"
+                    },
+                    {
+                        "name": "Tomcat bundle",
+                        "page": "bonita/7.7/tomcat-bundle"
+                    },
+                    {
+                        "name": "WildFly bundle",
+                        "page": "bonita/7.7/wildfly-bundle"
+                    },
+                    {
+                        "name": "Deploy bundle",
+                        "page": "bonita/7.7/deploy-bundle"
+                    },
+                    {
+                        "name": "Platform configuration",
+                        "page": "bonita/7.7/BonitaBPM_platform_setup"
+                    },
+                    {
+                        "name": "Database creation and customization to work with Bonita",
+                        "page": "bonita/7.7/database-configuration"
+                    },
+                    {
+                        "name": "First steps after setup",
+                        "page": "bonita/7.7/first-steps-after-setup"
+                    },
+                    {
+                        "name": "Licenses",
+                        "page": "bonita/7.7/licenses"
+                    }
+                ]
+            },
+            {
+                "name": "Advanced Bonita Platform installation",
+                "page": "bonita/7.7/_advanced-bonita-platform-installation",
+                "children": [
+                    {
+                        "name": "Security and authentication",
+                        "page": "bonita/7.7/_security-and-authentication",
+                        "children": [
+                            {
+                                "name": "User authentication overview",
+                                "page": "bonita/7.7/user-authentication-overview"
+                            },
+                            {
+                                "name": "Active Directory or LDAP authentication",
+                                "page": "bonita/7.7/active-directory-or-ldap-authentication"
+                            },
+                            {
+                                "name": "Single sign-on with CAS",
+                                "page": "bonita/7.7/single-sign-on-with-cas"
+                            },
+                            {
+                                "name": "Single sign-on with SAML",
+                                "page": "bonita/7.7/single-sign-on-with-saml"
+                            },
+                            {
+                                "name": "Enforce password policy",
+                                "page": "bonita/7.7/enforce-password-policy"
+                            },
+                            {
+                                "name": "REST API authorization",
+                                "page": "bonita/7.7/rest-api-authorization"
+                            },
+                            {
+                                "name": "CSRF security",
+                                "page": "bonita/7.7/csrf-security"
+                            },
+                            {
+                                "name": "Enable CORS in Tomcat bundle",
+                                "page": "bonita/7.7/enable-cors-in-tomcat-bundle"
+                            },
+                            {
+                                "name": "SSL",
+                                "page": "bonita/7.7/ssl"
+                            },
+                            {
+                                "name": "Tenant administrator credentials",
+                                "page": "bonita/7.7/tenant_admin_credentials"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Set log and archive levels",
+                        "page": "bonita/7.7/set-log-and-archive-levels"
+                    },
+                    {
+                        "name": "Configurable Archive",
+                        "page": "bonita/7.7/configurable-archive"
+                    },
+                    {
+                        "name": "Performance tuning",
+                        "page": "bonita/7.7/performance-tuning"
+                    },
+                    {
+                        "name": "Performance troubleshooting",
+                        "page": "bonita/7.7/performance-troubleshooting"
+                    },
+                    {
+                        "name": "Use gzip compression",
+                        "page": "bonita/7.7/use-gzip-compression"
+                    },
+                    {
+                        "name": "Two main types of deployment",
+                        "page": "bonita/7.7/two-main-types-of-deployment"
+                    },
+                    {
+                        "name": "Bonita in a cluster",
+                        "page": "bonita/7.7/_bonita-in-a-cluster",
+                        "children": [
+                            {
+                                "name": "Overview of Bonita in a cluster",
+                                "page": "bonita/7.7/overview-of-bonita-bpm-in-a-cluster"
+                            },
+                            {
+                                "name": "Install a Bonita cluster",
+                                "page": "bonita/7.7/install-a-bonita-bpm-cluster"
+                            },
+                            {
+                                "name": "Cluster administration",
+                                "page": "bonita/7.7/cluster-administration"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Multi-tenancy and tenant configuration",
+                        "page": "bonita/7.7/multi-tenancy-and-tenant-configuration"
+                    }
+                ]
+            },
+            {
+                "name": "Platform installation examples",
+                "page": "bonita/7.7/_platform-installation-examples",
+                "children": [
+                    {
+                        "name": "Ubuntu + OpenJDK + Tomcat + PostgreSQL",
+                        "page": "bonita/7.7/ubuntu-openjdk-tomcat-postgresql"
+                    },
+                    {
+                        "name": "Install Tomcat with Bonita as a service in Windows",
+                        "page": "bonita/7.7/bonita-as-windows-service"
+                    }
+                ]
+            },
+            {
+                "name": "Back up Bonita Platform",
+                "page": "bonita/7.7/back-up-bonita-bpm-platform"
+            },
+            {
+                "name": "Migration",
+                "page": "bonita/7.7/_migration",
+                "children": [
+                    {
+                        "name": "Migration overview",
+                        "page": "bonita/7.7/migration-overview"
+                    },
+                    {
+                        "name": "Migrate from an earlier version of Bonita",
+                        "page": "bonita/7.7/migrate-from-an-earlier-version-of-bonita-bpm"
+                    }
+                ]
+            },
+            {
+                "name": "Community to Subscription upgrade",
+                "page": "bonita/7.7/upgrade-from-community-to-a-subscription-edition"
+            }
+        ]
+    },
+    {
+        "name": "Bonita Portal Administration",
+        "page": "bonita/7.7/_bonita-portal-administration",
+        "children": [
+            {
+                "name": "Bonita Portal interface",
+                "page": "bonita/7.7/_bonita-portal-interface",
+                "children": [
+                    {
+                        "name": "Bonita Portal overview",
+                        "page": "bonita/7.7/bonita-bpm-portal-interface-overview"
+                    },
+                    {
+                        "name": "User task list",
+                        "page": "bonita/7.7/user-task-list"
+                    },
+                    {
+                        "name": "Languages",
+                        "page": "bonita/7.7/languages"
+                    },
+                    {
+                        "name": "Log in and log out",
+                        "page": "bonita/7.7/log-in-and-log-out"
+                    },
+                    {
+                        "name": "About Bonita Portal",
+                        "page": "bonita/7.7/about"
+                    }
+                ]
+            },
+            {
+                "name": "Mobile Portal",
+                "page": "bonita/7.7/mobile-portal"
+            },
+            {
+                "name": "Process maintenance",
+                "page": "bonita/7.7/_process-maintenance",
+                "children": [
+                    {
+                        "name": "Processes",
+                        "page": "bonita/7.7/processes"
+                    },
+                    {
+                        "name": "Cases",
+                        "page": "bonita/7.7/cases"
+                    },
+                    {
+                        "name": "Tasks",
+                        "page": "bonita/7.7/tasks"
+                    },
+                    {
+                        "name": "Subtasks",
+                        "page": "bonita/7.7/subtasks"
+                    },
+                    {
+                        "name": "Monitoring",
+                        "page": "bonita/7.7/monitoring"
+                    },
+                    {
+                        "name": "Pause and resume services",
+                        "page": "bonita/7.7/pause-and-resume-bpm-services"
+                    },
+                    {
+                        "name": "BDM Management in Bonita Portal",
+                        "page": "bonita/7.7/bdm-management-in-bonita-bpm-portal"
+                    }
+                ]
+            },
+            {
+                "name": "Applications",
+                "page": "bonita/7.7/applications"
+            },
+            {
+                "name": "Resources",
+                "page": "bonita/7.7/_resources",
+                "children": [
+                    {
+                        "name": "Resource management",
+                        "page": "bonita/7.7/resource-management"
+                    },
+                    {
+                        "name": "Pages",
+                        "page": "bonita/7.7/pages"
+                    },
+                    {
+                        "name": "Forms",
+                        "page": "bonita/7.7/forms"
+                    },
+                    {
+                        "name": "Layouts",
+                        "page": "bonita/7.7/layouts"
+                    },
+                    {
+                        "name": "Themes",
+                        "page": "bonita/7.7/themes"
+                    },
+                    {
+                        "name": "REST API extensions",
+                        "page": "bonita/7.7/api-extensions"
+                    }
+                ]
+            },
+            {
+                "name": "Live update",
+                "page": "bonita/7.7/live-update"
+            },
+            {
+                "name": "Organization in Bonita Portal",
+                "page": "bonita/7.7/_organization-in-bonita-portal",
+                "children": [
+                    {
+                        "name": "Organization in Bonita Portal overview",
+                        "page": "bonita/7.7/organization-in-bonita-bpm-portal-overview"
+                    },
+                    {
+                        "name": "Organization maintenance",
+                        "page": "bonita/7.7/_organization-maintenance",
+                        "children": [
+                            {
+                                "name": "Import/export an organization",
+                                "page": "bonita/7.7/import-export-an-organization"
+                            },
+                            {
+                                "name": "Manage groups",
+                                "page": "bonita/7.7/group"
+                            },
+                            {
+                                "name": "Manage roles",
+                                "page": "bonita/7.7/role"
+                            },
+                            {
+                                "name": "Manage users",
+                                "page": "bonita/7.7/_user",
+                                "children": [
+                                    {
+                                        "name": "Manage a user",
+                                        "page": "bonita/7.7/manage-a-user"
+                                    },
+                                    {
+                                        "name": "Deactivate a user",
+                                        "page": "bonita/7.7/deactivate-a-user"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Custom User Information in Bonita Portal",
+                                "page": "bonita/7.7/custom-user-information-in-bonita-bpm-portal"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Analytics",
+                "page": "bonita/7.7/analytics"
+            },
+            {
+                "name": "User profiles",
+                "page": "bonita/7.7/_user-profiles",
+                "children": [
+                    {
+                        "name": "Administrator rights",
+                        "page": "bonita/7.7/administrator-rights"
+                    },
+                    {
+                        "name": "Process manager",
+                        "page": "bonita/7.7/process-manager"
+                    },
+                    {
+                        "name": "Custom profiles",
+                        "page": "bonita/7.7/custom-profiles"
+                    },
+                    {
+                        "name": "Deploy profiles with export and import",
+                        "page": "bonita/7.7/deploying-profiles-with-export-and-import"
+                    }
+                ]
+            },
+            {
+                "name": "Look & Feel",
+                "page": "bonita/7.7/_look-feel",
+                "children": [
+                    {
+                        "name": "Manage Look & Feel",
+                        "page": "bonita/7.7/managing-look-feel"
+                    },
+                    {
+                        "name": "Create a new Look & Feel",
+                        "page": "bonita/7.7/creating-a-new-look-feel"
+                    }
+                ]
+            },
+            {
+                "name": "Search keys",
+                "page": "bonita/7.7/search-index"
+            }
+        ]
+    },
+    {
+        "name": "Bonita Platform Maintenance Operations",
+        "page": "bonita/7.7/maintenance-operation"
+    },
+    {
+        "name": "Development",
+        "page": "bonita/7.7/_development",
+        "children": [
+            {
+                "name": "Software extensibility",
+                "page": "bonita/7.7/software-extensibility"
+            },
+            {
+                "name": "Bonita artifacts",
+                "page": "bonita/7.7/_bonita-artifacts",
+                "children": [
+                    {
+                        "name": "Connectors",
+                        "page": "bonita/7.7/_connectors",
+                        "children": [
+                            {
+                                "name": "Connectors overview",
+                                "page": "bonita/7.7/connectors-overview"
+                            },
+                            {
+                                "name": "Connector development toolkit",
+                                "page": "bonita/7.7/connector-development-toolkit"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Create an actor filter",
+                        "page": "bonita/7.7/creating-an-actor-filter"
+                    }
+                ]
+            },
+            {
+                "name": "API glossary",
+                "page": "bonita/7.7/api-glossary"
+            },
+            {
+                "name": "REST API",
+                "page": "bonita/7.7/_rest-api",
+                "children": [
+                    {
+                        "name": "REST API overview",
+                        "page": "bonita/7.7/rest-api-overview"
+                    },
+                    {
+                        "name": "REST Authentication",
+                        "page": "bonita/7.7/rest-api-authentication"
+                    },
+                    {
+                        "name": "application API",
+                        "page": "bonita/7.7/application-api"
+                    },
+                    {
+                        "name": "access control API",
+                        "page": "bonita/7.7/access-control-api"
+                    },
+                    {
+                        "name": "bdm API",
+                        "page": "bonita/7.7/bdm-api"
+                    },
+                    {
+                        "name": "bpm API",
+                        "page": "bonita/7.7/bpm-api"
+                    },
+                    {
+                        "name": "customuserinfo API",
+                        "page": "bonita/7.7/customuserinfo-api"
+                    },
+                    {
+                        "name": "form API",
+                        "page": "bonita/7.7/form-api"
+                    },
+                    {
+                        "name": "identity API",
+                        "page": "bonita/7.7/identity-api"
+                    },
+                    {
+                        "name": "platform API",
+                        "page": "bonita/7.7/platform-api"
+                    },
+                    {
+                        "name": "portal API",
+                        "page": "bonita/7.7/portal-api"
+                    },
+                    {
+                        "name": "system API",
+                        "page": "bonita/7.7/system-api"
+                    },
+                    {
+                        "name": "tenant API",
+                        "page": "bonita/7.7/tenant-api"
+                    },
+                    {
+                        "name": "REST API extensions",
+                        "page": "bonita/7.7/rest-api-extensions"
+                    },
+                    {
+                        "name": "Manage files using upload servlet and REST API",
+                        "page": "bonita/7.7/manage-files-using-upload-servlet-and-rest-api"
+                    }
+                ]
+            },
+            {
+                "name": "Engine API",
+                "page": "bonita/7.7/_engine-api",
+                "children": [
+                    {
+                        "name": "Engine API overview",
+                        "page": "bonita/7.7/engine-api-overview"
+                    },
+                    {
+                        "name": "Create your first project with the Engine APIs and Maven",
+                        "page": "bonita/7.7/create-your-first-project-with-the-engine-apis-and-maven"
+                    },
+                    {
+                        "name": "Configure connection to Bonita Engine",
+                        "page": "bonita/7.7/configure-client-of-bonita-bpm-engine"
+                    },
+                    {
+                        "name": "Javadoc",
+                        "href": "http://documentation.bonitasoft.com/javadoc/api/7.7/index.html"
+                    },
+                    {
+                        "name": "Examples",
+                        "page": "bonita/7.7/_examples",
+                        "children": [
+                            {
+                                "name": "Manage a process",
+                                "page": "bonita/7.7/manage-a-process"
+                            },
+                            {
+                                "name": "Handle a failed activity",
+                                "page": "bonita/7.7/handle-a-failed-activity"
+                            },
+                            {
+                                "name": "Manage an organization",
+                                "page": "bonita/7.7/manage-an-organization"
+                            },
+                            {
+                                "name": "Manage users",
+                                "page": "bonita/7.7/manage-users"
+                            },
+                            {
+                                "name": "Handle documents",
+                                "page": "bonita/7.7/handling-documents"
+                            },
+                            {
+                                "name": "Create administration tools",
+                                "page": "bonita/7.7/create-administration-tools"
+                            },
+                            {
+                                "name": "Restore the default Look & Feel",
+                                "page": "bonita/7.7/restore-default-look-feel"
+                            },
+                            {
+                                "name": "Manage the platform",
+                                "page": "bonita/7.7/manage-the-platform"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "List and search methods",
+                        "page": "bonita/7.7/using-list-and-search-methods"
+                    },
+                    {
+                        "name": "Log in with CAS",
+                        "page": "bonita/7.7/log-in-with-cas"
+                    }
+                ]
+            },
+            {
+                "name": "Bonita Portal URLs",
+                "page": "bonita/7.7/bonita-bpm-portal-urls"
+            },
+            {
+                "name": "Bonita Engine architecture",
+                "page": "bonita/7.7/_engine-architecture",
+                "children": [
+                    {
+                        "name": "Bonita Engine architecture overview",
+                        "page": "bonita/7.7/engine-architecture-overview"
+                    },
+                    {
+                        "name": "Services",
+                        "page": "bonita/7.7/_services",
+                        "children": [
+                            {
+                                "name": "Event handlers",
+                                "page": "bonita/7.7/event-handlers"
+                            },
+                            {
+                                "name": "Queriable logger",
+                                "page": "bonita/7.7/queriable-logging"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "BPM process / task execution sequence",
+                        "page": "bonita/7.7/execution-sequence-states-and-transactions"
+                    }
+                ]
+            },
+            {
+                "name": "Living application",
+                "page": "bonita/7.7/_living-application",
+                "children": [
+                    {
+                        "name": "Customize living application layout",
+                        "page": "bonita/7.7/customize-living-application-layout"
+                    }
+                ]
+            },
+            {
+                "name": "Logs",
+                "page": "bonita/7.7/logging"
+            },
+            {
+                "name": "Preload the forms cache",
+                "page": "bonita/7.7/preloading-the-forms-cache"
+            },
+            {
+                "name": "Workspaces and repositories",
+                "page": "bonita/7.7/workspaces-and-repositories"
+            },
+            {
+                "name": "Build Bonita Community edition from source files",
+                "page": "bonita/7.7/building-community-edition-from-source"
+            },
+            {
+                "name": "Continuous integration",
+                "page": "bonita/7.7/_continuous-integration",
+                "children": [
+                    {
+                        "name": "Automate builds",
+                        "page": "bonita/7.7/automating-builds"
+                    },
+                    {
+                        "name": "Set up continuous integration",
+                        "page": "bonita/7.7/set-up-continuous-integration"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Howtos",
+        "page": "bonita/7.7/_howtos",
+        "children": [
+            {
+                "name": "Create a modal window using CSS",
+                "page": "bonita/7.7/uid-modal-tutorial"
+            },
+            {
+                "name": "Create a case overview page using the UI Designer",
+                "page": "bonita/7.7/uid-case-overview-tutorial"
+            },
+            {
+                "name": "Create unique task names for the user task list",
+                "page": "bonita/7.7/optimize-user-tasklist"
+            },
+            {
+                "name": "Control and validate forms in the UI Designer",
+                "page": "bonita/7.7/manage-control-in-forms"
+            },
+            {
+                "name": "Manage a list of documents",
+                "page": "bonita/7.7/list-of-documents"
+            },
+            {
+                "name": "Manage multiple references in Business Objects",
+                "page": "bonita/7.7/bo-multiple-refs-tutorial"
+            },
+            {
+                "name": "Map authorization rules",
+                "page": "bonita/7.7/custom-authorization-rule-mapping"
+            },
+            {
+                "name": "Use the rich textarea widget in a mail template",
+                "page": "bonita/7.7/rta-mail-template"
+            },
+            {
+                "name": "Manage dates and times in BDM and User Interfaces",
+                "page": "bonita/7.7/datetimes-management-tutorial"
+            },
+            {
+                "name": "Manage BDM in custom Rest APIs",
+                "page": "bonita/7.7/bdm-in-rest-api"
+            },
+            {
+                "name": "Share a repository on GitHub",
+                "page": "bonita/7.7/share-a-repository-on-github"
+            },
+            {
+                "name": "Migrate a SVN repository to a Git repository",
+                "page": "bonita/7.7/migrate-a-svn-repository-to-github"
+            }
+        ]
+    }
+]

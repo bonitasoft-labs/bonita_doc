@@ -1,0 +1,55 @@
+<div style="position: relative;"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="bonita/images/7.3/outOfSupport.png" alt="Out of support"></div>
+<h1>Community to Subscription upgrade</h1>
+<p>Upgrading means moving from a Bonita BPM Community edition environment to any Bonita BPM Subscription
+edition environment.</p>
+<p><strong>Warnings:</strong></p>
+<ul>
+<li>An upgrade can only be performed on a single Bonita BPM versions. You cannot migrate to a new version at the same time as you update edition.</li>
+<li>After it is applied, an upgrade cannot be undone.</li>
+</ul>
+<p>An upgrade is performed in two phases.</p>
+<h2>Bonita BPM Studio upgrade</h2>
+<p>To upgrade a Community edition Bonita BPM Studio and its resources (such as process diagrams, data models), follow these steps:</p>
+<ol>
+<li><a href="?page=bonita-bpm-studio-installation" ng-click="contentCtrl.goTo($event, 'bonita-bpm-studio-installation')">Install a Bonita BPM Studio</a> Subscription edition.</li>
+<li>Export your resources from the Bonita BPM Studio Community edition to <code>.bos</code> files. We recommend that you keep these resource files as a backup.</li>
+<li>Import your resource files into the Bonita BPM Studio in Subscription edition.</li>
+</ol>
+<p>The upgrade is performed automatically and silently when importing resources into Bonita BPM Studio Subscription edition.</p>
+<p>Remember that an upgrade is a non-reversible operation:
+after your resources are imported in the Subscription edition, you will not be able to export from the Subscription edition Studio and then import them back into the Community edition.</p>
+<h2>Bonita BPM platform upgrade</h2>
+<p>Upgrading a Bonita BPM platform allows you to keep the platform data (process definitions, cases, BDM...)
+while benefiting from the Subscription edition features.</p>
+<p>The upgrade procedure is quite simple and only requires a limited service downtime (less than an hour for basic configurations).</p>
+<div class="alert alert-warning" role="alert">
+<p>A Bonita BPM platform upgrade can only be performed on the same database type.</p>
+</div>
+<p>To upgrade a Bonita BPM platform from Community edition to a Subscription edition, follow these steps:</p>
+<ol>
+<li><a href="?page=back-up-bonita-bpm-platform" ng-click="contentCtrl.goTo($event, 'back-up-bonita-bpm-platform')">Backup your Bonita BPM platform and databases</a>.</li>
+<li>Make sure that the platform is shut down.</li>
+<li>Download the <a href="?page=deploy-bundle" ng-click="contentCtrl.goTo($event, 'deploy-bundle')">Deploy bundle</a>.</li>
+<li>Update the configuration using the Platform setup tool included:
+<ol>
+<li>Configure the <a href="?hash=configure_tool&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'configure_tool')">Platform setup tool</a> to use your database.</li>
+<li>Copy the content of <code>platform_conf/initial</code> in a directory named e.g. <code>sp_conf</code>.</li>
+<li>Run <code>setup.sh pull</code> or <code>setup.bat pull</code> to get your current configuration in <code>platform_conf/current</code>.</li>
+<li>Reapply the customizations made in the current configuration to the configuration in the <code>sp_conf</code>.</li>
+<li>Delete the content of the folder <code>platform_conf/current</code>.</li>
+<li>Put the content of the folder <code>sp_conf</code> in <code>platform_conf/current</code>.</li>
+<li>Set the edition in the <code>sp_conf</code> configuration folder, see <a href="?hash=edition_specification&amp;page=tomcat-bundle" ng-click="contentCtrl.goTo($event, 'tomcat-bundle', 'edition_specification')">here</a>.</li>
+<li><a href="?page=licenses" ng-click="contentCtrl.goTo($event, 'licenses')">Put your license</a> in <code>platform_conf/licenses</code>.</li>
+<li>Run <code>setup.sh push</code> or <code>setup.bat push</code> to push this configuration in database.</li>
+</ol>
+</li>
+<li>Replace the community bonita.war with the subscription version of bonita.war. You can find it in the Deploy bundle.
+<ul>
+<li>on Tomcat simply delete the <code>webapps/bonita.war</code> file and the <code>webapps/bonita</code> folder and copy the new war here.</li>
+<li>on JBoss delete <code>standalone/deployments/bonita-all-in-one-&lt;VERSION&gt;.ear</code> and the file having the same name with <code>.deployed</code>, then copy the new ear in the same place.</li>
+</ul>
+</li>
+<li>Start you platform again.</li>
+</ol>
+<p>The Upgrade is now finished, you can verify that you are now running a subscription edition in the portal user interface, the dialog displayed from the top right &quot;Settings / About&quot; menu should indicates the correct Subscription edition.</p>
+<!-- Generated on Tue Jun 19 2018 09:27:08 GMT+0200 (Paris, Madrid (heure d’été)) -->

@@ -1,0 +1,76 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/create-application.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Create an application</h1>
+<p>Creating the application is the final step of this Getting Started tutorial.</p>
+<p>But before we actually create the application, we need to deploy our application page in the Bonita Portal:</p>
+<ol>
+<li>
+<p>In the Bonita Studio project explorer, go to <strong>Pages/Forms/Layouts</strong></p>
+</li>
+<li>
+<p>Select <em>claimsList</em> page</p>
+</li>
+<li>
+<p>Right click and select <strong>Deploy</strong></p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/create-application/application-page-deployment.png" alt="Application page deployment" title="Application page deployment"></p>
+</li>
+</ol>
+<p>Now we are ready to actually create the application. In the Bonita Community Edition, the easiest way to create an application is to use the Bonita Portal:</p>
+<ol>
+<li>
+<p>Click on the Portal icon <img src="bonita/images/7.10/getting-started-tutorial/create-application/portal-icon.png" alt="Portal icon" title="Portal icon"> in the Bonita Studio tool bar</p>
+</li>
+<li>
+<p>In the upper right corner of the window, click on the <strong>User</strong> drop down menu</p>
+</li>
+<li>
+<p>Select <strong>Administrator</strong></p>
+</li>
+<li>
+<p>Click on the <strong>Applications</strong> tab</p>
+</li>
+<li>
+<p>Click on the <strong>New</strong> button</p>
+</li>
+<li>
+<p>Configure the application:</p>
+<ul>
+<li>Display name: <em>Claims</em></li>
+<li>URL: <em>claims</em></li>
+<li>Version: <em>1.0</em></li>
+<li>Profile: <em>User</em></li>
+<li>Description: <em>Claims management application</em></li>
+</ul>
+</li>
+<li>
+<p>Click on the <strong>Create</strong> button</p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/create-application/create-application.gif" alt="Create an application" title="Create an application"></p>
+</li>
+</ol>
+<p>You now need to edit the application to add the previously created application page:</p>
+<ol>
+<li>
+<p>Click on the <strong>...</strong> icon in the <strong>Actions</strong> column</p>
+</li>
+<li>
+<p>In the <strong>Pages</strong> section, click on the <strong>Add</strong> button</p>
+</li>
+<li>
+<p>In the drop down list, select <em>custompage_claimsList - claimsList</em></p>
+</li>
+<li>
+<p>In <strong>URL</strong> type: <em>claims-list</em></p>
+</li>
+<li>
+<p>Click on the <strong>Add</strong> button</p>
+</li>
+<li>
+<p>In the pages list, click on the <strong>home icon</strong> to set claims-list as the home page and delete the default home</p>
+</li>
+<li>
+<p>We've kept this application very simple, with only a single page, so we don't need to define a navigation menu</p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/create-application/add-page-to-application.gif" alt="Add page to application" title="Add page to application"></p>
+</li>
+</ol>
+<p>You can now click on the application URL, and you'll see the application page displayed in the default application layout.</p>
+<p>Congratulations! You have successfully created your first process and application with Bonita. If you want to learn more about Bonita components and concepts we recommend the <a href="https://www.youtube.com/playlist?list=PLvvoQatxaHOMHRiP7hFayNXTJNdxIEiYp">Bonita Camp tutorial</a>. Of course <a href="https://documentation.bonitasoft.com">official documentation</a> is also a great place to learn more about Bonita. And remember, you can always get help and <a href="https://community.bonitasoft.com/questions-and-answers/">ask questions of the Bonita Community</a>.</p>
+<!-- Generated on Tue Dec 10 2019 12:49:51 GMT+0100 (Paris, Madrid) -->

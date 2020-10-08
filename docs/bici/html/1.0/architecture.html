@@ -1,0 +1,22 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-ici-doc/edit/1.0/md/architecture.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"/></a></div>
+<h1>Architecture</h1>
+<p>Bonita Intelligent Continuous Improvement Add-on (ICI) extracts data of the Bonita Engine database, transforms it, and stores documents in an Elasticsearch storage engine. A set of REST APIs allow to query this storage. Those APIs are used in two Living Applications deployed on Bonita Platform to configure processes and render predictions.</p>
+<p><img src="bici/images/1.0/ici_architecture.png" alt="Bonita Intelligent Continuous Improvement Add-on Architecture" title="Bonita Intelligent Continuous Improvement Add-on Architecture"></p>
+<h2>Overview</h2>
+<p>ICI connects to the Bonita Engine database, using its own connection pool to read events from the archives.
+Events are stored in Elasticsearch.</p>
+<p>When configuring processes using the &quot;Configuration&quot; Living Application, a REST API extension calls the ICI REST API to store the configuration.</p>
+<p>Data is polled from Bonita on a configurable time interval.</p>
+<p>Once configured, the developer can configure the relevant processes using <a href="?page=configure" ng-click="contentCtrl.goTo($event, 'configure')">ICI Configuration living application</a>
+and start the creation of the prediction model based on completed cases and then applied on open cases.</p>
+<p>The &quot;Operations Management&quot; Living Application is a mobile first -usable on a desktop- UI which displays predictions.</p>
+<h2>Components</h2>
+<h3>ICI Server</h3>
+<p>The backend server polls data, creates process mining models, and serves the REST APIs.</p>
+<h3>ICI Storage</h3>
+<p>It stores ICI data and predictive models, and it relies on Elasticsearch engine.</p>
+<h3>ICI Configuration Living Application</h3>
+<p>This Living Application is used to configure the processes.</p>
+<h3>ICI Operation Management Living Application</h3>
+<p>This Living Application is used to display case execution information and predictions to the Operation Managers.</p>
+<!-- Generated on Thu Oct 04 2018 10:45:17 GMT+0200 (Paris, Madrid (heure d’été)) -->

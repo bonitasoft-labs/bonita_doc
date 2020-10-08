@@ -1,0 +1,33 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.5/md/manage-the-platform.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Manage the platform</h1>
+<p>This example shows how to use Bonita BPM Engine API to manage the platform.</p>
+<p>You can create the platform, initialize the platform, start Bonita BPM Engine, and stop Bonita BPM Engine.</p>
+<p>Before you can create the platform, you need to log in and get the platformAPI:</p>
+<pre><code class="language-bash">// Get platform login API using the PlatformAPIAccessor
+PlatformLoginAPI platformLoginAPI = PlatformAPIAccessor.getPlatformLoginAPI();
+// Log in to the platform
+PlatformSession platformSession = platformLoginAPI.login(&quot;platformAdmin&quot;, &quot;platform&quot;);
+
+// Get the platform API
+PlatformAPI platformAPI = PlatformAPIAccessor.getPlatformAPI(platformSession);    
+</code></pre>
+<p><strong>Create the platform</strong> by calling the createPlatform method. This will create the database structure and put the platform state into persistent storage.</p>
+<pre><code class="language-bash">// create the platform
+platformAPI.createPlatform();
+</code></pre>
+<p>The next step is to <strong>initialize the platform</strong>, that is, create the default tenant and initialize Bonita BPM Engine environment.
+After this step, the technical user will be able to connect to the engine and create new users or <a href="?page=manage-an-organization" ng-click="contentCtrl.goTo($event, 'manage-an-organization')">import the organization</a>.</p>
+<pre><code class="language-bash">// initialize the platform
+platformAPI.initializePlatform();
+</code></pre>
+<p>No users are created by default and the default username/password for the technical user to connect to Bonita BPM Engine can be retrieved in the file <code>setup/platform_conf/current/tenants/[tenant_id]/tenant_engine/bonita-tenant-community-custom.properties</code> using the <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')">plaform setup tool</a> (<code>[tenant_id]</code> being the default tenant ID, that is to say <code>1</code> when using the default configuration on a fresh installation).</p>
+<p>Once you retrieved the default configuration using the <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')">plaform setup tool</a>, you can change this username/password by editing the file <code>bonita-tenant-community-custom.properties</code> and use the tool again to <a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">push the configuration to database</a>.</p>
+<p>Next, <strong>start Bonita BPM engine</strong>. Starting the engine on a node starts the Scheduler service and restarts elements that were not finished by the Work service on the previous shutdown. Bonita BPM Engine environment is marked as activated.</p>
+<pre><code class="language-bash">// start the execution engine
+platformAPI.startNode();
+</code></pre>
+<p>To <strong>stop Bonita BPM engine</strong>, call the stopNode method. Stopping the node stops the Scheduler service. Bonita BPM Engine environment is marked as deactivated.</p>
+<pre><code class="language-bash">// stop the execution engine
+platformAPI.stopNode();
+</code></pre>
+<!-- Generated on Wed Jan 31 2018 10:20:49 GMT+0100 (Paris, Madrid) -->

@@ -1,0 +1,219 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/optimize-user-tasklist.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>How to have unique task names in the task list</h1>
+<p>Leverage Bonita Studio to optimize user comfort and efficiency by inserting case information in task name and task description.</p>
+<div class="alert alert-info" role="alert">
+<p><strong>Note</strong>: This howto applies to the legacy task list -Bonita 6.0 to 6.5.x versions- as well as the <a href="?page=user-task-list" ng-click="contentCtrl.goTo($event, 'user-task-list')" class="alert-link">new task list - from Bonita 7.3 and above</a>.</p>
+</div>
+<p>During process modeling, a task is given a generic definition in the process definition, so its name is generic, such as &quot;Validate request&quot;. This is useful for development.<br>
+Within a process instance (case), this task name must be contextualized with business information specific to the case so that, in the user task list, users efficiently pick the right task to do.</p>
+<h2>Pre-requisites: create the process example</h2>
+<h3>Pool</h3>
+<p>First, create a new diagram. Then model the process in the first pool:</p>
+<ol>
+<li>Rename the diagram into &quot;Request management&quot; by clicking in the blanck space around the pool</li>
+<li>Rename the pool into &quot;Leave request management&quot;</li>
+<li>Rename the lane into &quot;Manager&quot;</li>
+<li>Rename the start event into &quot;New leave request&quot;</li>
+<li>Since the submission of a new leave request happens at pool level (process instantiation), no need for a <strong>Submit request</strong> task ; just rename the default <em>human task</em> into &quot;Validate request&quot;</li>
+<li>Add a <em>terminate end event</em> that you can rename &quot;Happy end&quot;</li>
+</ol>
+<p>The pool is shown here:</p>
+<p><img src="bonita/images/7.9/leave_request_management_process_tasklist.png" alt="Process" class="img-responsive img-thumbnail" title="Process"></p>
+<h3>Data model</h3>
+<p>Then, define a business object that will hold the leave requests data:</p>
+<ol>
+<li>Go to the <strong>Development</strong> &gt; <strong>Business Data Model</strong> &gt; <strong>Manage</strong> menu option</li>
+<li>Add a business object named <em>LeaveRequest</em> (with an upper case &quot;L&quot;), with 4 attributes:</li>
+</ol>
+<ul>
+<li><em>startDate</em>: as a DATE. Set it as mandatory</li>
+<li><em>endDate</em>: as a DATE, Set it as mandatory</li>
+<li><em>requesterName</em>: employee who submits the leave request, as a STRING</li>
+<li><em>status</em>: whether the request is &quot;submitted&quot; or &quot;approved&quot;, as a STRING</li>
+</ul>
+<ol start="3">
+<li>Click <strong>Finish</strong></li>
+</ol>
+<h3>Variables</h3>
+<p>To allow this business object to be instantiated with each process instance, create a business variable at pool level:</p>
+<ol>
+<li>In the <strong>Data</strong> pane of the pool, <strong>Pool variables</strong> tab, <strong>Business variables</strong> table, <strong>Add</strong> a business variable named <em>leaveRequest</em> (with a lower case &quot;l&quot;).</li>
+<li>For <strong>Business object</strong>, choose <strong>LeaveRequest</strong> (the default value if you only have one object)</li>
+<li>Click <strong>Finish</strong></li>
+</ol>
+<h3>Process instantiation contract</h3>
+<p>To make sure the process gets the information it needs to start a new instance, create a contract:</p>
+<ol>
+<li>In the <strong>Execution</strong> pane &gt; <strong>Contract</strong> tab, click on <strong>Add from data...</strong> to generate the contract inputs from the business variable</li>
+<li>Choose the <strong>Business variable</strong> option, and then the <strong>leaveRequest</strong> variable</li>
+<li>Click <strong>Next</strong></li>
+<li>Unselect <strong>requesterName</strong> and <strong>status</strong> as the process doesn't need this information from the form to instantiate<br>
+The default values of business data attributes mapped to contract inputs are automatically set thanks to a script generated along with the contract inputs themselves.</li>
+<li>Click <strong>Finish</strong>, carefully read the warnings, and press <strong>OK</strong> and <strong>OK</strong>.</li>
+<li>In the <strong>Execution</strong> pane &gt; <strong>Contract</strong> tab, a complex contract input is created, mapped to the selected attributes of the <strong>leaveRequest</strong> business variable, as shown here:</li>
+</ol>
+<p><img src="bonita/images/7.9/contract_for_tasklist.png" alt="Contract" class="img-responsive img-thumbnail" title="Contract"></p>
+<p>In actual BPM projects, we recommend you to also add a description to each contract input. It will be used as input field caption for end-users in the auto-generated form, if you decide to use such forms up to the User Acceptance Test phase of your project.</p>
+<p>When the leave request is submitted, <em>status</em> and <em>requesterName</em> default values must be set. To do so, edit the script:</p>
+<ol>
+<li>
+<p>Go back to the <strong>Data</strong> pane, <strong>Pool variables</strong> tab, <strong>Business variables</strong> table</p>
+</li>
+<li>
+<p>Click on <strong>leaveRequest</strong> and on the <strong>Edit...</strong> button</p>
+</li>
+<li>
+<p>Close to the <strong>Default value</strong> field, click on the pencil icon</p>
+</li>
+<li>
+<p>In the script, add: <code>leaveRequestVar.status = &quot;submitted&quot;</code>, and</p>
+<pre><code class="language-groovy">def initiator = BonitaUsers.getProcessInstanceInitiator(apiAccessor,processInstanceId);
+leaveRequestVar.requesterName = &quot;$initiator.firstName $initiator.lastName&quot;
+</code></pre>
+<p>so it becomes:</p>
+<pre><code class="language-groovy">def leaveRequestVar = new com.company.model.LeaveRequest()
+leaveRequestVar.startDate = leaveRequestInput.startDate
+leaveRequestVar.endDate = leaveRequestInput.endDate
+leaveRequestVar.status = &quot;submitted&quot;
+def initiator = BonitaUsers.getProcessInstanceInitiator(apiAccessor,processInstanceId);
+leaveRequestVar.requesterName = &quot;$initiator.firstName $initiator.lastName&quot;
+return leaveRequestVar
+</code></pre>
+</li>
+<li>
+<p>Click <strong>OK</strong>, and <strong>OK</strong>.</p>
+</li>
+</ol>
+<h3>Instantiation form</h3>
+<p>The Studio generates a form based on the contract requirements, for test purposes only.
+This is the form used in this howto, to save some time.</p>
+<h3>&quot;Validate request&quot; task</h3>
+<p>For the sake of this howto, do not specify any contract or form on the task, but just create an operation to switch the request status from &quot;submitted&quot; to &quot;validated&quot; when the task is completed.</p>
+<ol>
+<li>Click on task &quot;Validate request&quot;</li>
+<li>Go to the <strong>Execution</strong> pane &gt; <strong>Operations</strong> tab</li>
+<li>Click on <strong>Add</strong></li>
+<li>In the left operand, select <em>leaveRequest</em></li>
+<li>As operator, select <strong>Use a Java method</strong> and then <strong>setStatus(String) - void</strong></li>
+<li>Click <strong>OK</strong></li>
+<li>In the right operand, write <em>approved</em></li>
+</ol>
+<p>The operation is shown here:</p>
+<p><img src="bonita/images/7.9/operation_on_status.png" alt="Operation on status" class="img-responsive img-thumbnail" title="Operation on status"></p>
+<p>There you go. The process is ready. So how can you set a unique name for tasks, to be displayed in the user task list?</p>
+<h2>Configure the display options</h2>
+<p>For each case (request), the task should display the requester's name, the request start date, end date, and status. After the task is submitted, the status will change and the task can also display the validator's name.</p>
+<p>As a good practice, we advise to display static information that defines the task in the <strong>Display name</strong> field, and dynamic information that appears, disappears or changes over the life of the case in the <strong>Display description</strong> and <strong>Description after completion</strong> fields. Therefore:</p>
+<ul>
+<li>Start date, end date, and requester's name will be managed in the task name</li>
+<li>Status and validator's name will be managed in the description</li>
+</ul>
+<p>To configure the display options:</p>
+<ol>
+<li>Select the <strong>Validate request</strong> task</li>
+<li>Go to <strong>General</strong> pane &gt; <strong>Portal</strong> tab.</li>
+</ol>
+<h3>Display name</h3>
+<p>The task display name will be made of the requester's first name, last name, and the leave start date and end date.</p>
+<ol>
+<li>
+<p>Next to the <strong>Display name</strong> field, click the <strong>pencil</strong> icon to display the expression editor.</p>
+</li>
+<li>
+<p>Select the <strong>Script</strong> expression</p>
+</li>
+<li>
+<p>Give it a name: <strong>buildValidateRequestDisplayName()</strong></p>
+</li>
+<li>
+<p>Type the script.</p>
+<pre><code class="language-groovy">return &quot;Validate leave: ${leaveRequest.requesterName}: ${leaveRequest.startDate.format('yyyy-M-d')} / ${leaveRequest.endDate.format('yyyy-M-d')}&quot;.toString()
+</code></pre>
+</li>
+<li>
+<p>Click <strong>OK</strong>.</p>
+</li>
+</ol>
+<h3>Display description</h3>
+<p>As a dynamic information, status is addressed here:</p>
+<ol>
+<li>
+<p>Next to the <strong>Display description</strong> field, click the <strong>pencil</strong> icon to display the expression editor.</p>
+</li>
+<li>
+<p>Select the <strong>Script</strong> expression type</p>
+</li>
+<li>
+<p>Give it a name: <strong>buildValidateRequestDisplayDescription()</strong></p>
+</li>
+<li>
+<p>Type the script.</p>
+<pre><code class="language-groovy">return &quot;${leaveRequest.status}&quot;.toString()
+</code></pre>
+</li>
+<li>
+<p>Click <strong>OK</strong>.</p>
+</li>
+</ol>
+<h3>Description after completion</h3>
+<p>The status of the request when it's validated as well as the validator's name are displayed in the <strong>Done tasks</strong> filter of the user task list. To define it:</p>
+<ol>
+<li>
+<p>Next to the <strong>Description after completion</strong> field, click the <strong>pencil</strong> icon to display the expression editor.</p>
+</li>
+<li>
+<p>Select the <strong>Script</strong> expression type</p>
+</li>
+<li>
+<p>Give it a name: <strong>buildValidateRequestDescAfterCompletion()</strong></p>
+</li>
+<li>
+<p>Type the script.</p>
+<pre><code class="language-groovy">import com.bonitasoft.engine.api.APIAccessor;
+
+def executedBy = BonitaUsers.getUser(apiAccessor, apiAccessor.processAPI.getHumanTaskInstance(activityInstanceId).executedBy);
+return &quot;${leaveRequest.status} by ${executedBy.firstName} ${executedBy.lastName}&quot;.toString()
+</code></pre>
+</li>
+<li>
+<p>Click <strong>OK</strong></p>
+</li>
+</ol>
+<p>When reusing these features for your own projects, make sure that the result of your scripts do not exceed 255 characters.</p>
+<h2>View it in the task list</h2>
+<ol>
+<li>Save the diagram</li>
+<li>Run the pool. The default logged in user is Walter Bates</li>
+<li>Fill out the default instantiation form with two dates</li>
+<li>Click on <strong>Start</strong></li>
+</ol>
+<p>Once you are sent to the task list, you can see that the task name is contextualized.<br>
+It is computed once, when the task becomes ready.</p>
+<p><strong>Note:</strong> The following set of instructions only applies to the task list in Bonita 7.3.0 and above. In earlier versions, the <strong>Description</strong> field is displayed by default.</p>
+<p>To display the <strong>Description</strong> column and view the <em>submitted</em> status:</p>
+<ol>
+<li>Click on the <strong>settings wheel</strong> icon on the top right of the list</li>
+<li>Select <strong>Description</strong></li>
+<li>Click outside the settings box
+The table settings have changed to display the <strong>Description</strong> column. It will be stored in the local storage of the browser</li>
+</ol>
+<p>You can see the description field, showing the status: &quot;submitted&quot;, as shown here:</p>
+<p><img src="bonita/images/7.9/display_task_name_and_description.png" alt="display task name and description" class="img-responsive img-thumbnail" title="display task name and description"></p>
+<ol>
+<li>Logout</li>
+<li>Login with helen.kelly / bpm credentials (since Helen Kelly is Walter Bates' manager)</li>
+<li>Perform the task</li>
+<li>Go to the <strong>Done tasks</strong> filter</li>
+</ol>
+<p>The <strong>Description</strong> column now shows the description after completion, with an edited status as well as the name of who performed the task, as shown here :</p>
+<p><img src="bonita/images/7.9/description_after_completion.png" alt="description after completion" class="img-responsive img-thumbnail" title="description after completion"></p>
+<p>If you don't use the description after completion field, the <strong>Description</strong> column will still show the &quot;display description&quot; information.</p>
+<p>Unlike the &quot;technical&quot; name and description of a task in the Studio, which are useful for development, information for each task as <em>display name</em>, <em>display description</em> and <em>description after completion</em> will be unique for each case in the task list, to make the task list more efficient for the users.</p>
+<h2>Search a task name based on word-based search</h2>
+<p>Another feature you can use to improve end users efficiency and satisfaction is <em>word-based search</em>:<br>
+To allow users to efficiently search by task name, you can configure the search option: from <em>starts by</em> (the beginning of the whole task name string), you can switch to <em>word-based search</em> (the beginning of every word in the task name).</p>
+<p>To do so, go to <a href="?hash=word_based_search&amp;page=using-list-and-search-methods" ng-click="contentCtrl.goTo($event, 'using-list-and-search-methods', 'word_based_search')">word-based search</a>.</p>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> Setting the word-based search may result in lesser performance, with some delay experienced by users on the display of search results. Turning this feature on requires some testing on your environment.</p>
+</div>
+<!-- Generated on Wed Dec 04 2019 17:46:51 GMT+0100 (Paris, Madrid) -->

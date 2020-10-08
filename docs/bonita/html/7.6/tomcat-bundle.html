@@ -1,0 +1,178 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/tomcat-bundle.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Tomcat bundle</h1>
+<p>You will find here steps needed to install and configure a Tomcat bundle.</p>
+<p>The Tomcat bundle is a .zip archive that contains the Apache Tomcat Java EE application server prepackaged along with Bonita and <a href="?hash=platform_setup_tool&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'platform_setup_tool')">Bonita platform setup tool</a>.
+The Tomcat bundle is a regular .zip archive based on Tomcat zip distribution.</p>
+<div class="alert alert-warning" role="alert">
+<p>There is a known issue between Bitronix (the Transaction Manager shipped by Bonitasoft in the Tomcat bundle) and the Microsoft SQL Server JDBC driver
+(refer to: <a href="https://msdn.microsoft.com/en-us/library/aa342335.aspx" class="alert-link">MSDN note</a>, <a href="http://bitronix-transaction-manager.10986.n7.nabble.com/Failed-to-recover-SQL-Server-Restart-td148.html" class="alert-link">Bitronix note</a>).
+Therefore, using Bitronix as a Transaction Manager with SQL Server is not recommended. Our recommendation is to use the <a href="?page=wildfly-bundle" ng-click="contentCtrl.goTo($event, 'wildfly-bundle')" class="alert-link">WildFly bundle</a> provided by Bonitasoft.</p>
+</div>
+<h2>Installation of the Tomcat bundle</h2>
+<h3>Download and unzip the Tomcat bundle</h3>
+<a id="download" />
+<h4>Download</h4>
+<p>For the Community edition:</p>
+<ul>
+<li>Go to the <a href="http://www.bonitasoft.com/downloads-v2">Bonitasoft website</a> and get the Bonita Community edition Tomcat bundle.</li>
+</ul>
+<p>For a Subscription edition:</p>
+<ul>
+<li>Go to the <a href="https://customer.bonitasoft.com/download/request">Customer Portal</a> and download the Bonita Subscription edition Tomcat bundle.</li>
+</ul>
+<h4>Unzip</h4>
+<p>The fully qualified folder path (including the Bonita-x.y.z-Tomcat-8.5.23 folder) to the folder where you unzip the Tomcat bundle is referred to as <code>&lt;TOMCAT_HOME&gt;</code>. We recommend the following locations:</p>
+<ul>
+<li>Windows: <code>C:\Bonita</code>.</li>
+<li>Linux: in <code>/opt/Bonita</code>. Make sure that Linux user account used to execute Tomcat is the owner of the folders and files.</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p>Whatever location you choose, <strong>do not</strong> leave blank spaces in the path to the directory, nor in the folder name.</p>
+</div>
+<h4>Content of the Tomcat bundle</h4>
+<p>The Tomcat bundle is based on a standard Tomcat installation with the following additions:</p>
+<ul>
+<li><code>server/bin/setenv.bat</code>: script to configure JVM system properties for Windows.</li>
+<li><code>server/bin/setenv.sh</code>: script to configure JVM system properties for Linux.</li>
+<li><code>server/conf/Catalina/localhost/bonita.xml</code>: Tomcat context configuration for Bonita web application. Define data sources used by Bonita Engine.</li>
+<li><code>server/conf/catalina.properties</code>: modified to include lib/bonita folder to Tomcat classpath.</li>
+<li><code>server/conf/context.xml</code>: modified to add JTA support using Bitronix library.</li>
+<li><code>server/conf/logging.properties</code>: modified to create a log file dedicated to Bonita.</li>
+<li><code>server/conf/server.xml</code>: modified to add listener for Bitronix and h2 (see below for modification needed if you want to switch to another RDBMS).</li>
+<li><code>server/conf/bitronix-*.properties</code>: configuration files for Bitronix.</li>
+<li><code>server/lib/bonita</code>: extra libraries needed by Bonita. The following libraries are included: Bitronix JTA Transaction Manager, h2, SLF4J (required by Bitronix).</li>
+<li><code>server/request_key_utils</code>: folder containing script to generate license request keys (Subscription editions only).</li>
+<li><code>server/webapps/bonita.war</code>: the Bonita web application.</li>
+<li><code>setup/</code>: a tool to manage Bonita Platform configuration, stored in database instead of filesystem. Also ships a tool to centralize all the required Tomcat bundle configuration.</li>
+<li><code>start-bonita.bat</code>: script to start the bundle on Windows.</li>
+<li><code>start-bonita.sh</code>: script to start the bundle on Linux.</li>
+<li><code>stop-bonita.bat</code>: script to stop the bundle on Windows.</li>
+<li><code>stop-bonita.sh</code>: script to stop the bundle on Linux.</li>
+</ul>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> Beginning with version 7.3.0, Bonita Platform configuration, including the license file, is stored in the same database as the Bonita Engine data, namely in the <code>CONFIGURATION</code> table.
+The initialization of this configuration happens during <code>start-bonita.bat</code> (for Windows) or <code>start.bonita.sh</code> (for Linux) execution.<br>
+Once initialized, to update this configuration, use the <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')" class="alert-link"><em>Platform setup tool</em></a> embedded in Bonita bundles.</p>
+</div>
+<h3>Get and install a license (Subscription editions only)</h3>
+<p>First, request a license.
+If this is the first time you generate a license, you need to generate a request key.</p>
+<h4>Generate the request key</h4>
+<p>On the server where you installed Bonita Platform:</p>
+<ol>
+<li>Go to the request_key_utils folder</li>
+<li>Run the <code>generateRequestKey.bat</code> script (for Windows) or the <code>generateRequestKey.sh</code> script (for Linux)</li>
+</ol>
+<h4>Request the new license</h4>
+<ol>
+<li>Copy your request key and go to the Customer Portal license request page.</li>
+<li>Fill in the details in the form, copy the request key in the <em>Request Key</em> field, and submit.
+Note: keep the brackets () in the key; if the key is separated by a line break, remove it and put the key on a single line.</li>
+</ol>
+<p>The license file will be sent to you by email.</p>
+<a id="license" />
+<p>When you receive your license:
+Copy the file to the <code>&lt;TOMCAT_HOME&gt;/setup/platform_conf/licenses</code> folder before starting the bundle.</p>
+<h3>Change the default credentials (optional, recommended for production)</h3>
+<p>As a security precaution, we <strong>strongly recommend</strong> that before you start your application server, you change the default username and password used for the platform administrator and for the default tenant administrator.</p>
+<h4>Platform administrator</h4>
+<p>The username and password for the platform administrator are defined in the file <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')"><code>&lt;TOMCAT_HOME&gt;/setup/platform_conf/initial/platform_engine/bonita-platform-community-custom.properties</code></a>, by the following properties:</p>
+<ul>
+<li><code>platformAdminUsername</code> defines the username (default <code>platformAdmin</code>)</li>
+<li><code>platformAdminPassword</code> defines the password (default <code>platform</code>)</li>
+</ul>
+<p>This password is used for platform-level administration tasks, such as creating a tenant.</p>
+<h4>Tenant administrator</h4>
+<p>Each tenant has an administrator, with a tenant-specific username and password. The tenant administrator is also known as the tenant technical user.</p>
+<p>When the platform is created, default values for the tenant administrator username and password are defined in the file <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')"><code>&lt;TOMCAT_HOME&gt;/setup/platform_conf/initial/tenant_template_engine/bonita-tenant-community-custom.properties</code></a>, by the following properties:</p>
+<ul>
+<li><code>userName</code> defines the username (default <code>install</code>)</li>
+<li><code>userPassword</code> defines the password (default <code>install</code>)</li>
+</ul>
+<p>When you create a tenant, the tenant administrator is created with the default username and password, unless you specify new values.
+Change these tenant-specific credentials for an existing tenant by updating the <code>userName</code> and <code>userPassword</code> properties in <code>bonita-tenant-community-custom.properties</code>.</p>
+<div class="alert alert-warning" role="alert">
+<p>For the default tenant, the tenant administrator username and password must also be defined in file <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')" class="alert-link"><code>&lt;TOMCAT_HOME&gt;/setup/platform_conf/initial/platform_portal/platform-tenant-config.properties</code></a>, with exactly the same values that you set in <code>bonita-tenant-community-custom.properties</code>.
+At platform creation, this file contains the default username and password for the default tenant.</p>
+</div>
+<a id="configuration" />
+<h3>Configure the Tomcat bundle</h3>
+<div class="alert alert-info" role="alert">
+<p>If you just want to try Bonita Platform with the embedded H2 database (only for development and testing phases of your project), you can skip the next paragraph.
+For production, you are recommended to use one of the supported databases, with the following steps.</p>
+</div>
+<ol>
+<li>Make sure <a href="?hash=database_creation&amp;page=database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration', 'database_creation')">your databases are created</a> and <a href="?hash=specific_database_configuration&amp;page=database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration', 'specific_database_configuration')">customized to work with Bonita</a>.</li>
+<li>Edit file <code>&lt;TOMCAT_HOME&gt;/setup/database.properties</code> and modify the properties to suit your databases (Bonita internal database &amp; Business Data database). Beware of <a href="?hash=backslash_support&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'backslash_support')">backslash characters</a>.</li>
+<li>If you use <strong>Microsoft SQL Server</strong> or <strong>Oracle</strong> database, copy your <a href="?hash=proprietary_jdbc_drivers&amp;page=database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration', 'proprietary_jdbc_drivers')">jdbc driver</a> in <code>&lt;TOMCAT_HOME&gt;/setup/lib/</code> folder.</li>
+<li>Run <code>&lt;TOMCAT_HOME&gt;\setup\start-bonita.bat</code> (Windows system) or <code>&lt;TOMCAT_HOME&gt;/setup/start-bonita.sh</code> (Unix system) to run Bonita Tomcat bundle (see <a href="?hash=tomcat_start&amp;page=" ng-click="contentCtrl.goTo($event, '', 'tomcat_start')">Tomcat start script</a>)</li>
+</ol>
+<div class="alert alert-info" role="alert">
+<p>The <strong>start-bonita</strong> script does the following:</p>
+<ol>
+<li>Runs the <strong><code>setup init</code></strong> command:
+<ol>
+<li>initializes the Bonita internal database (the one you have defined in file <code>&lt;TOMCAT_HOME&gt;/setup/database.properties</code>): creates the tables that Bonita uses internally + stores the configuration in the database.</li>
+<li>installs the license files (Subscription editions only) in the database.</li>
+</ol>
+</li>
+<li>Runs the <strong><code>setup configure</code></strong> command:
+The Setup Configure command configures the Tomcat environment to access the right databases:
+<ol>
+<li>updates the file setenv.sh (Unix system) or setenv.bat (Windows system) to set the database vendor values for <strong>Bonita internal database</strong> &amp; <strong>Business Data database</strong></li>
+<li>updates the file <code>&lt;TOMCAT_HOME&gt;/setup/tomcat-templates/bitronix-resources.properties</code> with the values you set in file <code>database.properties</code> <strong>Bonita internal database</strong> &amp; <strong>Business Data database</strong></li>
+<li>updates the file <code>&lt;TOMCAT_HOME&gt;/setup/tomcat-templates/bonita.xml</code> with the values you set in file <code>database.properties</code></li>
+<li>copies your database vendor-specific drivers from <code>&lt;TOMCAT_HOME&gt;/setup/lib</code> to <code>&lt;TOMCAT_HOME&gt;/setup/server/lib/bonita</code></li>
+</ol>
+</li>
+<li>Starts the Tomcat bundle</li>
+</ol>
+<p>For advanced server configuration needs: check out <a href="?hash=run_bundle_configure&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'run_bundle_configure')" class="alert-link">Bundle configuration</a> to finely tune your Tomcat bundle, using templates used by Bonita.</p>
+</div>
+<a id="start" />
+<h3>Starting and shutting down Tomcat</h3>
+<a id="tomcat_start" />
+<h4>Tomcat start script</h4>
+<p>Tomcat can be started by executing the following script:</p>
+<ul>
+<li>Windows: <code>&lt;TOMCAT_HOME&gt;\start-bonita.bat</code></li>
+<li>Linux: <code>&lt;TOMCAT_HOME&gt;/start-bonita.sh</code></li>
+</ul>
+<h4>Tomcat stop script</h4>
+<p>Tomcat can be shut down by executing the following script:</p>
+<ul>
+<li>Windows: <code>&lt;TOMCAT_HOME&gt;\stop-bonita.bat</code></li>
+<li>Linux: <code>&lt;TOMCAT_HOME&gt;/stop-bonita.sh</code></li>
+</ul>
+<p><strong>Troubleshooting:</strong>
+If you see <code>checkThreadLocalMapForLeaks</code> errors, they probably indicate that Tomcat is shutting down before all work threads are completed.
+You can <a href="?page=performance-tuning" ng-click="contentCtrl.goTo($event, 'performance-tuning')">increase the work service termination timeout</a> to ensure that work is complete before shutdown.</p>
+<h2>After installation</h2>
+<h3>First steps after installation</h3>
+<p>Once you have your Tomcat bundle up and running, complete these <a href="?page=first-steps-after-setup" ng-click="contentCtrl.goTo($event, 'first-steps-after-setup')">few extra steps</a> to get Bonita Platform fully operational.</p>
+<h3>Configuration update</h3>
+<p>To update Bonita configuration after the first run, take a look at the <a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">platform setup tool</a></p>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong></p>
+<ul>
+<li>The file <code>database.properties</code> is the entry point to configure the <a href="?hash=run_bundle_configure&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'run_bundle_configure')" class="alert-link">Tomcat environment</a> and the <a href="?hash=configure_tool&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'configure_tool')" class="alert-link">Bonita Platform configuration</a>.</li>
+<li>You can use command line arguments to specify database properties directly from the command line. Use <code>&lt;TOMCAT_HOME&gt;/setup/setup.sh --help</code> on Linux or <code>&lt;TOMCAT_HOME&gt;\setup\setup.bat --help</code> on Windows to have a list of available options.</li>
+</ul>
+</div>
+<h3>License update</h3>
+<p>To update the licenses after the first run, take a look at the <a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">platform setup tool</a></p>
+<h2>Troubleshooting</h2>
+<hr>
+<p><strong>Problem</strong>:<br>
+My <strong>Microsoft SQL Server</strong> or <strong>Oracle</strong> database drivers do not seem to be taken into account when I put them in <code>&lt;TOMCAT_HOME&gt;/setup/lib</code> folder.</p>
+<p><strong>Cause</strong>:<br>
+Driver file must respect some naming convention.</p>
+<p><strong>Solution</strong>:<br>
+For Microsoft SQL Server, rename it so that the name contains at least the word <code>sqlserver</code> or <code>sqljdbc</code> or <code>mssql</code> (case insensitive)<br>
+For Oracle, rename it so that the name contains at least the word <code>oracle</code> or <code>ojdbc</code> (case insensitive)</p>
+<hr>
+<p><strong>Issue</strong>: When I run <code>start-bonita.sh</code> or <code>start-bonita.bat</code>, I get the error message <code>Invalid Java version (1.7) &lt; 1.8. Please set JRE_HOME or JAVA_HOME variable to a JRE / JDK 1.8+</code></p>
+<p><strong>Cause</strong>: Bonita 7.5+ requires Java 1.8 to run</p>
+<p><strong>Solution</strong>: Ensure your running environment has a JDK or JRE 1.8 installed and set either JRE_HOME or JAVA_HOME environment variable to point to it.</p>
+<hr>
+<!-- Generated on Fri Jan 19 2018 16:08:27 GMT+0100 (Paris, Madrid) -->

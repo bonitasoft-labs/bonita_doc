@@ -1,0 +1,39 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-ici-doc/edit/1.0/md/getting_started.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"/></a></div>
+<h1>Getting started</h1>
+<p>Bonita Intelligent Continuous Improvement Add-on (ICI Add-on) installation and configuration instructions.</p>
+<p>This chapter covers <em>Evaluation</em> and <em>Production</em>, two different installation modes.</p>
+<h2>Download</h2>
+<p>Download ICI Add-on from <a href="https://customer.bonitasoft.com/">Bonitasoft Customer Portal</a>.</p>
+<p>The archive contains:</p>
+<ul>
+<li>An installation guide: <code>installation-guide.md</code></li>
+<li>The ICI application: <code>ici-application-&lt;version&gt;.zip</code></li>
+<li>Two Living Applications: Case Monitoring with predictions, and Configuration of the first application</li>
+<li>An installer: <code>bin/bonita-ici</code></li>
+</ul>
+<h2>Installation</h2>
+<p>Installation can be done in a <em>Evaluation</em> or <em>Production</em> mode. The major difference between those modes is that in the <em>Evaluation</em> mode, Elasticsearch and ICI servers are provided in Docker containers, with basic settings.<br>
+This mode is very easy to install, to get immediate value from the ICI add-on.</p>
+<p>However, to ensure the best performance of a system using Elasticsearch, advanced settings are needed. This means that the ICI Add-on installed in <em>Evaluation</em> mode may not handle a large volume of data efficiently.</p>
+<p>So, for production, we recommand to switch to a clusterized and configured Elasticsearch instance, and install ICI on <em>Production</em> mode.</p>
+<div class="alert alert-info" role="alert">
+<p>Check all <a href="?page=.%2Fprerequisites" ng-click="contentCtrl.goTo($event, './prerequisites')" class="alert-link">pre-requisites</a> prior to install.</p>
+</div>
+<h3>Evaluation mode</h3>
+<ol>
+<li>Ensure you have java installed, using command <code>java -version</code></li>
+<li>Ensure you have Docker installed, using command <code>docker --version</code></li>
+<li>Docker requires an active Internet connection to pull the Elasticsearch Docker image and to build the ICI application image</li>
+<li>Follow the installation guide &quot;evaluation mode&quot; instructions from the archive.</li>
+</ol>
+<h3>Production mode</h3>
+<ol>
+<li>Ensure you have Java installed, using the command <code>java -version</code></li>
+<li>Follow the installation guide &quot;production mode&quot; instructions.</li>
+</ol>
+<h2>Configuration</h2>
+<p>Most of the configuration is done by the installer.</p>
+<p>Once installed, you need to setup the Bonita Portal profile mapping for profiles <code>Configuration</code> and <code>Process Manager</code>.</p>
+<p><code>Process Manager mapping</code> must also be configured for each process in order to display them in the <code>Operations Management</code>
+living application.</p>
+<!-- Generated on Thu Oct 04 2018 10:45:17 GMT+0200 (Paris, Madrid (heure d’été)) -->

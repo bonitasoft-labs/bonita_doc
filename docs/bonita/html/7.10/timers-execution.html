@@ -1,0 +1,31 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/timers-execution.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Timers execution</h1>
+<h2>What are timers</h2>
+<p>Timers are BPMN event that are executed at a <strong>given date</strong> (type <strong>DATE</strong>), after a <strong>periode of time</strong> (type <strong>DURATION</strong>) or following a <strong>CRON expression</strong> (type <strong>CYCLE</strong>)</p>
+<h2>Execution mechanism</h2>
+<p>Their execution is delegated to the <strong>Quartz Job Scheduler</strong>, a popular Java scheduling library.</p>
+<h2>Change timers execution data</h2>
+<p>Execution date for timer of type <strong>DATE</strong> or <strong>DURATION</strong> (not <strong>CYCLE</strong>) can be changed using the <a href="bonita/7.10/bpm-api" ng-click="contentCtrl.goTo($event, 'bpm-api', 'timers')">BPM Rest API</a></p>
+<h2>Handle failures on timer execution</h2>
+<h3>Failure behavior</h3>
+<p>When a timer fails the following happens:</p>
+<ul>
+<li>a FailJob is registered that contains
+<ul>
+<li>The id of the <code>JobDescriptor</code> that failed</li>
+<li>The stacktrace of the last failure</li>
+<li>The date of the failure</li>
+<li>The number of times it has failed</li>
+</ul>
+</li>
+<li>If the timer is of type <strong>CYCLE</strong> subsequent executions will still be triggered</li>
+</ul>
+<h3>Handling the failure</h3>
+<p>To check for failure you can call the API method <code>org.bonitasoft.engine.api.ProcessRuntimeAPI#getFailedJobs(int, int)</code></p>
+<p>Then you can replay a timer that failed using <code>org.bonitasoft.engine.api.ProcessRuntimeAPI#replayFailedJob(long)</code></p>
+<p>If the job failed more than one time, you can restart this job multiple times by calling this api method the number of times you wish.</p>
+<p>Once this method is called (at least once) the <code>FailedJob</code>s for this timer will be cleared.</p>
+<h2>Tune performance of timers execution</h2>
+<p>If you notice that timers are executed significantly after the date they should be executed, you might suffer Quartz performance issues.
+Check <a href="bonita/7.10/performance-tuning" ng-click="contentCtrl.goTo($event, 'performance-tuning', 'cron')">this page</a> to fine tune Quartz performance.</p>
+<!-- Generated on Tue Dec 10 2019 12:49:52 GMT+0100 (Paris, Madrid) -->

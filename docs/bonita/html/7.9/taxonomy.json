@@ -1,0 +1,1238 @@
+[
+    {
+        "name": "Getting started tutorial",
+        "page": "_getting-started-tutorial",
+        "children": [
+            {
+                "name": "What is Bonita?",
+                "page": "what-is-bonita"
+            },
+            {
+                "name": "Download and install",
+                "page": "bonita-studio-download-installation"
+            },
+            {
+                "name": "Draw a BPMN diagram",
+                "page": "draw-bpmn-diagram"
+            },
+            {
+                "name": "Define business data model (BDM)",
+                "page": "define-business-data-model"
+            },
+            {
+                "name": "Declare business variables",
+                "page": "declare-business-variables"
+            },
+            {
+                "name": "Declare contracts",
+                "page": "declare-contracts"
+            },
+            {
+                "name": "Create web user Interfaces",
+                "page": "create-web-user-interfaces"
+            },
+            {
+                "name": "Define who can do what",
+                "page": "define-who-can-do-what"
+            },
+            {
+                "name": "Configure an email connector",
+                "page": "configure-email-connector"
+            },
+            {
+                "name": "Design an application page",
+                "page": "design-application-page"
+            },
+            {
+                "name": "Create an application",
+                "page": "create-application"
+            }
+        ]
+    },
+    {
+        "name": "Release notes",
+        "page": "release-notes"
+    },
+    {
+        "name": "Migration tool change log",
+        "page": "migration-tool"
+    },
+    {
+        "name": "Application and Process Design",
+        "page": "_application-and-process-design",
+        "children": [
+            {
+                "name": "Bonita overview",
+                "page": "bonita-bpm-overview"
+            },
+            {
+                "name": "Application and process design overview",
+                "page": "_application-and-process-design-overview",
+                "children": [
+                    {
+                        "name": "Key concepts",
+                        "page": "key-concepts"
+                    },
+                    {
+                        "name": "Comparison of 7.x and 6.x",
+                        "page": "comparison-of-7-x-and-6-x"
+                    },
+                    {
+                        "name": "Lifecycle and profiles",
+                        "page": "lifecycle-and-profiles"
+                    },
+                    {
+                        "name": "Design methodology",
+                        "page": "design-methodology"
+                    }
+                ]
+            },
+            {
+                "name": "Bonita Studio preferences",
+                "page": "bonita-bpm-studio-preferences"
+            },
+            {
+                "name": "Bonita Studio hints and tips",
+                "page": "bonita-bpm-studio-hints-and-tips"
+            },
+            {
+                "name": "Organization",
+                "page": "_organization",
+                "children": [
+                    {
+                        "name": "Organization overview",
+                        "page": "organization-overview"
+                    },
+                    {
+                        "name": "Approaches to managing organizations and actor mapping",
+                        "page": "approaches-to-managing-organizations-and-actor-mapping"
+                    },
+                    {
+                        "name": "Organization management in Bonita Studio",
+                        "page": "organization-management-in-bonita-bpm-studio"
+                    },
+                    {
+                        "name": "Custom User Information in Bonita Studio",
+                        "page": "custom-user-information-in-bonita-bpm-studio"
+                    },
+                    {
+                        "name": "LDAP synchronizer",
+                        "page": "ldap-synchronizer"
+                    }
+                ]
+            },
+            {
+                "name": "Profiles",
+                "page": "_profiles",
+                "children": [
+                    {
+                        "name": "Profiles overview",
+                        "page": "profiles-overview"
+                    },
+                    {
+                        "name": "Profiles editor",
+                        "page": "profileCreation"
+                    }
+                ]
+            },
+            {
+                "name": "Process modeling",
+                "page": "_process-modeling",
+                "children": [
+                    {
+                        "name": "Diagrams",
+                        "page": "_diagrams",
+                        "children": [
+                            {
+                                "name": "Diagram overview",
+                                "page": "diagram-overview"
+                            },
+                            {
+                                "name": "Pools and lanes",
+                                "page": "pools-and-lanes"
+                            },
+                            {
+                                "name": "Tasks",
+                                "page": "diagram-tasks"
+                            },
+                            {
+                                "name": "Gateways",
+                                "page": "gateways"
+                            },
+                            {
+                                "name": "Transitions",
+                                "page": "transitions"
+                            },
+                            {
+                                "name": "Events",
+                                "page": "events"
+                            },
+                            {
+                                "name": "Called processes",
+                                "page": "called-processes"
+                            },
+                            {
+                                "name": "Event subprocesses",
+                                "page": "event-subprocesses"
+                            },
+                            {
+                                "name": "Text annotations",
+                                "page": "text-annotations"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Naming conventions",
+                        "page": "naming-conventions"
+                    },
+                    {
+                        "name": "Refactoring",
+                        "page": "refactoring"
+                    },
+                    {
+                        "name": "Actors",
+                        "page": "actors"
+                    },
+                    {
+                        "name": "Actor filters",
+                        "page": "actor-filtering"
+                    },
+                    {
+                        "name": "Iteration",
+                        "page": "iteration"
+                    }
+                ]
+            },
+            {
+                "name": "Data",
+                "page": "_data",
+                "children": [
+                    {
+                        "name": "Data handling overview",
+                        "page": "data-handling-overview"
+                    },
+                    {
+                        "name": "Define and deploy the BDM",
+                        "page": "define-and-deploy-the-bdm"
+                    },
+                    {
+                        "name": "Define access control on business objects",
+                        "page": "bdm-access-control"
+                    },
+                    {
+                        "name": "Specify data in a process definition",
+                        "page": "specify-data-in-a-process-definition"
+                    },
+                    {
+                        "name": "Parameters",
+                        "page": "parameters"
+                    },
+                    {
+                        "name": "Contracts and contexts",
+                        "page": "contracts-and-contexts"
+                    },
+                    {
+                        "name": "Documents",
+                        "page": "documents"
+                    },
+                    {
+                        "name": "Complex data types",
+                        "page": "create-a-complex-data-type"
+                    },
+                    {
+                        "name": "Search keys",
+                        "page": "define-a-search-index"
+                    },
+                    {
+                        "name": "Expressions and scripts",
+                        "page": "expressions-and-scripts"
+                    },
+                    {
+                        "name": "Operations",
+                        "page": "operations"
+                    }
+                ]
+            },
+            {
+                "name": "Page and form development",
+                "page": "_page-and-form-development",
+                "children": [
+                    {
+                        "name": "Page and form development overview",
+                        "page": "page-and-form-development-overview"
+                    },
+                    {
+                        "name": "UI Designer",
+                        "page": "_using-the-ui-designer",
+                        "children": [
+                            {
+                                "name": "UI Designer overview",
+                                "page": "ui-designer-overview"
+                            },
+                            {
+                                "name": "Create or modify UI artifacts",
+                                "page": "create-or-modify-a-page"
+                            },
+                            {
+                                "name": "Widgets",
+                                "page": "widgets"
+                            },
+                            {
+                                "name": "Widget properties",
+                                "page": "widget-properties"
+                            },
+                            {
+                                "name": "Widget use examples",
+                                "page": "_widget-use-examples",
+                                "children": [
+                                    {
+                                        "name": "Repeat a container for a collection of data",
+                                        "page": "repeat-a-container-for-a-collection-of-data"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Fragments",
+                                "page": "fragments"
+                            },
+                            {
+                                "name": "Custom widgets",
+                                "page": "custom-widgets"
+                            },
+                            {
+                                "name": "Variables",
+                                "page": "variables"
+                            },
+                            {
+                                "name": "Appearance",
+                                "page": "appearance"
+                            },
+                            {
+                                "name": "Assets",
+                                "page": "assets"
+                            },
+                            {
+                                "name": "Multi-language pages",
+                                "page": "multi-language-pages"
+                            },
+                            {
+                                "name": "Migrate a form from 6.x",
+                                "page": "migrate-a-form-from-6-x"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Cache configuration and policy",
+                        "page": "cache-configuration-and-policy"
+                    }
+                ]
+            },
+            {
+                "name": "Application descriptor",
+                "page": "applicationCreation"
+            },
+            {
+                "name": "Connectivity",
+                "page": "_connectivity",
+                "children": [
+                    {
+                        "name": "Connectivity overview",
+                        "page": "connectivity-overview"
+                    },
+                    {
+                        "name": "Alfresco",
+                        "page": "alfresco"
+                    },
+                    {
+                        "name": "CMIS",
+                        "page": "cmis"
+                    },
+                    {
+                        "name": "Database",
+                        "page": "_database",
+                        "children": [
+                            {
+                                "name": "List of database connectors",
+                                "page": "list-of-database-connectors"
+                            },
+                            {
+                                "name": "Database connector configuration",
+                                "page": "database-connector-configuration"
+                            },
+                            {
+                                "name": "Graphical query builder",
+                                "page": "graphical-query-builder"
+                            },
+                            {
+                                "name": "Initialize a variable from a database without scripting or Java code",
+                                "page": "initialize-a-variable-from-a-database-without-scripting-or-java-code"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Insert data in a .docx/.odt template",
+                        "page": "insert-data-in-a-docx-odt-template"
+                    },
+                    {
+                        "name": "Google Calendar",
+                        "page": "google-calendar"
+                    },
+                    {
+                        "name": "LDAP",
+                        "page": "ldap"
+                    },
+                    {
+                        "name": "Messaging",
+                        "page": "messaging"
+                    },
+                    {
+                        "name": "Generate PDF from an Office document",
+                        "page": "generate-pdf-from-an-office-document"
+                    },
+                    {
+                        "name": "Salesforce",
+                        "page": "salesforce"
+                    },
+                    {
+                        "name": "SAP JCo 3",
+                        "page": "sap-jco-3"
+                    },
+                    {
+                        "name": "Script",
+                        "page": "script"
+                    },
+                    {
+                        "name": "Twitter",
+                        "page": "twitter"
+                    },
+                    {
+                        "name": "UiPath",
+                        "page": "uipath"
+                    },
+                    {
+                        "name": "Web service",
+                        "page": "_web-service",
+                        "children": [
+                            {
+                                "name": "Web service connector overview",
+                                "page": "web-service-connector-overview"
+                            },
+                            {
+                                "name": "Web service connector tutorial",
+                                "page": "web-service-tutorial"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Reporting",
+                "page": "_reporting",
+                "children": [
+                    {
+                        "name": "Reporting overview",
+                        "page": "reporting-overview"
+                    },
+                    {
+                        "name": "Set up a reporting database",
+                        "page": "set-up-a-reporting-database"
+                    },
+                    {
+                        "name": "Set up KPIs",
+                        "page": "set-up-kpis"
+                    },
+                    {
+                        "name": "Create a report",
+                        "page": "create-a-report"
+                    }
+                ]
+            },
+            {
+                "name": "Import and export a process",
+                "page": "import-and-export-a-process"
+            },
+            {
+                "name": "Process configuration",
+                "page": "_process-configuration",
+                "children": [
+                    {
+                        "name": "Process configuration overview",
+                        "page": "process-configuration-overview"
+                    },
+                    {
+                        "name": "Environments",
+                        "page": "environments"
+                    },
+                    {
+                        "name": "Configure a process",
+                        "page": "configuring-a-process"
+                    },
+                    {
+                        "name": "Manage JAR files",
+                        "page": "manage-jar-files"
+                    },
+                    {
+                        "name": "Manage dependencies",
+                        "page": "managing-dependencies"
+                    }
+                ]
+            },
+            {
+                "name": "Process testing",
+                "page": "_process-testing",
+                "children": [
+                    {
+                        "name": "Process testing overview",
+                        "page": "process-testing-overview"
+                    },
+                    {
+                        "name": "Configure a test organization",
+                        "page": "configure-a-test-organization"
+                    },
+                    {
+                        "name": "Run a process from Bonita Studio for testing",
+                        "page": "run-a-process-from-bonita-bpm-studio-for-testing"
+                    },
+                    {
+                        "name": "Log files",
+                        "page": "log-files"
+                    }
+                ]
+            },
+            {
+                "name": "Build a process for deployment",
+                "page": "build-a-process-for-deployment"
+            }
+        ]
+    },
+    {
+        "name": "Installation",
+        "page": "_installation",
+        "children": [
+            {
+                "name": "Bonita installation overview",
+                "page": "bonita-bpm-installation-overview"
+            },
+            {
+                "name": "Bonita Studio installation",
+                "page": "bonita-bpm-studio-installation"
+            },
+            {
+                "name": "Basic Bonita Platform installation",
+                "page": "_basic-bonita-platform-installation",
+                "children": [
+                    {
+                        "name": "Hardware and software requirements",
+                        "page": "hardware-and-software-requirements"
+                    },
+                    {
+                        "name": "Tomcat bundle",
+                        "page": "tomcat-bundle"
+                    },
+                    {
+                        "name": "WildFly bundle",
+                        "page": "wildfly-bundle"
+                    },
+                    {
+                        "name": "Custom Deployment into existing Tomcat installation",
+                        "page": "custom-deployment"
+                    },
+                    {
+                        "name": "Platform configuration",
+                        "page": "BonitaBPM_platform_setup"
+                    },
+                    {
+                        "name": "Database creation and customization to work with Bonita",
+                        "page": "database-configuration"
+                    },
+                    {
+                        "name": "First steps after setup",
+                        "page": "first-steps-after-setup"
+                    },
+                    {
+                        "name": "Licenses",
+                        "page": "licenses"
+                    }
+                ]
+            },
+            {
+                "name": "Advanced Bonita Platform installation",
+                "page": "_advanced-bonita-platform-installation",
+                "children": [
+                    {
+                        "name": "Security and authentication",
+                        "page": "_security-and-authentication",
+                        "children": [
+                            {
+                                "name": "User authentication overview",
+                                "page": "user-authentication-overview"
+                            },
+                            {
+                                "name": "Active Directory or LDAP authentication",
+                                "page": "active-directory-or-ldap-authentication"
+                            },
+                            {
+                                "name": "Single sign-on with CAS",
+                                "page": "single-sign-on-with-cas"
+                            },
+                            {
+                                "name": "Single sign-on with SAML",
+                                "page": "single-sign-on-with-saml"
+                            },
+                            {
+                                "name": "Single sign-on with Kerberos",
+                                "page": "single-sign-on-with-kerberos"
+                            },
+                            {
+                                "name": "Enforce password policy",
+                                "page": "enforce-password-policy"
+                            },
+                            {
+                                "name": "REST API authorization",
+                                "page": "rest-api-authorization"
+                            },
+                            {
+                                "name": "CSRF security",
+                                "page": "csrf-security"
+                            },
+                            {
+                                "name": "Enable CORS in Tomcat bundle",
+                                "page": "enable-cors-in-tomcat-bundle"
+                            },
+                            {
+                                "name": "SSL",
+                                "page": "ssl"
+                            },
+                            {
+                                "name": "Tenant administrator credentials",
+                                "page": "tenant_admin_credentials"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Set log and archive levels",
+                        "page": "set-log-and-archive-levels"
+                    },
+                    {
+                        "name": "Configurable Archive",
+                        "page": "configurable-archive"
+                    },
+                    {
+                        "name": "Performance tuning",
+                        "page": "performance-tuning"
+                    },
+                    {
+                        "name": "Performance troubleshooting",
+                        "page": "performance-troubleshooting"
+                    },
+                    {
+                        "name": "Use gzip compression",
+                        "page": "use-gzip-compression"
+                    },
+                    {
+                        "name": "Two main types of deployment",
+                        "page": "two-main-types-of-deployment"
+                    },
+                    {
+                        "name": "Bonita in a cluster",
+                        "page": "_bonita-in-a-cluster",
+                        "children": [
+                            {
+                                "name": "Overview of Bonita in a cluster",
+                                "page": "overview-of-bonita-bpm-in-a-cluster"
+                            },
+                            {
+                                "name": "Install a Bonita cluster",
+                                "page": "install-a-bonita-bpm-cluster"
+                            },
+                            {
+                                "name": "Cluster administration",
+                                "page": "cluster-administration"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Multi-tenancy and tenant configuration",
+                        "page": "multi-tenancy-and-tenant-configuration"
+                    }
+                ]
+            },
+            {
+                "name": "Embed engine - Lab",
+                "page": "embed-engine"
+            },
+            {
+                "name": "Platform installation examples",
+                "page": "_platform-installation-examples",
+                "children": [
+                    {
+                        "name": "Ubuntu + OpenJDK + Tomcat + PostgreSQL",
+                        "page": "ubuntu-openjdk-tomcat-postgresql"
+                    },
+                    {
+                        "name": "Install Tomcat with Bonita as a service in Windows",
+                        "page": "bonita-as-windows-service"
+                    }
+                ]
+            },
+            {
+                "name": "Back up Bonita Platform",
+                "page": "back-up-bonita-bpm-platform"
+            },
+            {
+                "name": "Migration",
+                "page": "_migration",
+                "children": [
+                    {
+                        "name": "Migration overview",
+                        "page": "migration-overview"
+                    },
+                    {
+                        "name": "Migrate from an earlier version of Bonita",
+                        "page": "migrate-from-an-earlier-version-of-bonita-bpm"
+                    }
+                ]
+            },
+            {
+                "name": "Community to Subscription upgrade",
+                "page": "upgrade-from-community-to-a-subscription-edition"
+            }
+        ]
+    },
+    {
+        "name": "Bonita Portal Administration",
+        "page": "_bonita-portal-administration",
+        "children": [
+            {
+                "name": "Bonita Portal interface",
+                "page": "_bonita-portal-interface",
+                "children": [
+                    {
+                        "name": "Bonita Portal overview",
+                        "page": "bonita-bpm-portal-interface-overview"
+                    },
+                    {
+                        "name": "User task list",
+                        "page": "user-task-list"
+                    },
+                    {
+                        "name": "Languages",
+                        "page": "languages"
+                    },
+                    {
+                        "name": "Log in and log out",
+                        "page": "log-in-and-log-out"
+                    },
+                    {
+                        "name": "About Bonita Portal",
+                        "page": "about"
+                    }
+                ]
+            },
+            {
+                "name": "Mobile Portal",
+                "page": "mobile-portal"
+            },
+            {
+                "name": "Process maintenance",
+                "page": "_process-maintenance",
+                "children": [
+                    {
+                        "name": "Processes",
+                        "page": "processes"
+                    },
+                    {
+                        "name": "Cases",
+                        "page": "cases"
+                    },
+                    {
+                        "name": "Tasks",
+                        "page": "tasks"
+                    },
+                    {
+                        "name": "Monitoring",
+                        "page": "monitoring"
+                    },
+                    {
+                        "name": "Pause and resume services",
+                        "page": "pause-and-resume-bpm-services"
+                    },
+                    {
+                        "name": "BDM Management in Bonita Portal",
+                        "page": "bdm-management-in-bonita-bpm-portal"
+                    }
+                ]
+            },
+            {
+                "name": "Applications",
+                "page": "applications"
+            },
+            {
+                "name": "Resources",
+                "page": "_resources",
+                "children": [
+                    {
+                        "name": "Resource management",
+                        "page": "resource-management"
+                    },
+                    {
+                        "name": "Pages",
+                        "page": "pages"
+                    },
+                    {
+                        "name": "Forms",
+                        "page": "forms"
+                    },
+                    {
+                        "name": "Layouts",
+                        "page": "layouts"
+                    },
+                    {
+                        "name": "Themes",
+                        "page": "themes"
+                    },
+                    {
+                        "name": "REST API extensions",
+                        "page": "api-extensions"
+                    }
+                ]
+            },
+            {
+                "name": "Live update",
+                "page": "live-update"
+            },
+            {
+                "name": "Organization in Bonita Portal",
+                "page": "_organization-in-bonita-portal",
+                "children": [
+                    {
+                        "name": "Organization in Bonita Portal overview",
+                        "page": "organization-in-bonita-bpm-portal-overview"
+                    },
+                    {
+                        "name": "Organization maintenance",
+                        "page": "_organization-maintenance",
+                        "children": [
+                            {
+                                "name": "Import/export an organization",
+                                "page": "import-export-an-organization"
+                            },
+                            {
+                                "name": "Manage groups",
+                                "page": "group"
+                            },
+                            {
+                                "name": "Manage roles",
+                                "page": "role"
+                            },
+                            {
+                                "name": "Manage users",
+                                "page": "_user",
+                                "children": [
+                                    {
+                                        "name": "Manage a user",
+                                        "page": "manage-a-user"
+                                    },
+                                    {
+                                        "name": "Deactivate a user",
+                                        "page": "deactivate-a-user"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "Custom User Information in Bonita Portal",
+                                "page": "custom-user-information-in-bonita-bpm-portal"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Analytics",
+                "page": "analytics"
+            },
+            {
+                "name": "User profiles",
+                "page": "_user-profiles",
+                "children": [
+                    {
+                        "name": "Administrator rights",
+                        "page": "administrator-rights"
+                    },
+                    {
+                        "name": "Process manager",
+                        "page": "process-manager"
+                    },
+                    {
+                        "name": "Custom profiles",
+                        "page": "custom-profiles"
+                    },
+                    {
+                        "name": "Deploy profiles with export and import",
+                        "page": "deploying-profiles-with-export-and-import"
+                    }
+                ]
+            },
+            {
+                "name": "Look & Feel",
+                "page": "_look-feel",
+                "children": [
+                    {
+                        "name": "Manage Look & Feel",
+                        "page": "managing-look-feel"
+                    },
+                    {
+                        "name": "Create a new Look & Feel",
+                        "page": "creating-a-new-look-feel"
+                    }
+                ]
+            },
+            {
+                "name": "Search keys",
+                "page": "search-index"
+            }
+        ]
+    },
+    {
+        "name": "Bonita Platform Maintenance Operations",
+        "page": "maintenance-operation"
+    },
+    {
+        "name": "Development",
+        "page": "_development",
+        "children": [
+            {
+                "name": "Software extensibility",
+                "page": "software-extensibility"
+            },
+            {
+                "name": "Bonita artifacts",
+                "page": "_bonita-artifacts",
+                "children": [
+                    {
+                        "name": "Connectors",
+                        "page": "_connectors",
+                        "children": [
+                            {
+                                "name": "Connectors overview",
+                                "page": "connectors-overview"
+                            },
+                            {
+                                "name": "Connector development toolkit",
+                                "page": "connector-development-toolkit"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Create an actor filter",
+                        "page": "creating-an-actor-filter"
+                    }
+                ]
+            },
+            {
+                "name": "API glossary",
+                "page": "api-glossary"
+            },
+            {
+                "name": "REST API",
+                "page": "_rest-api",
+                "children": [
+                    {
+                        "name": "REST API overview",
+                        "page": "rest-api-overview"
+                    },
+                    {
+                        "name": "REST Authentication",
+                        "page": "rest-api-authentication"
+                    },
+                    {
+                        "name": "application API",
+                        "page": "application-api"
+                    },
+                    {
+                        "name": "access control API",
+                        "page": "access-control-api"
+                    },
+                    {
+                        "name": "bdm API",
+                        "page": "bdm-api"
+                    },
+                    {
+                        "name": "bpm API",
+                        "page": "bpm-api"
+                    },
+                    {
+                        "name": "customuserinfo API",
+                        "page": "customuserinfo-api"
+                    },
+                    {
+                        "name": "form API",
+                        "page": "form-api"
+                    },
+                    {
+                        "name": "identity API",
+                        "page": "identity-api"
+                    },
+                    {
+                        "name": "platform API",
+                        "page": "platform-api"
+                    },
+                    {
+                        "name": "portal API",
+                        "page": "portal-api"
+                    },
+                    {
+                        "name": "system API",
+                        "page": "system-api"
+                    },
+                    {
+                        "name": "tenant API",
+                        "page": "tenant-api"
+                    },
+                    {
+                        "name": "REST API extensions",
+                        "page": "rest-api-extensions"
+                    },
+                    {
+                        "name": "Manage files using upload servlet and REST API",
+                        "page": "manage-files-using-upload-servlet-and-rest-api"
+                    }
+                ]
+            },
+            {
+                "name": "Engine API",
+                "page": "_engine-api",
+                "children": [
+                    {
+                        "name": "Engine API overview",
+                        "page": "engine-api-overview"
+                    },
+                    {
+                        "name": "Create your first project with the Engine APIs and Maven",
+                        "page": "create-your-first-project-with-the-engine-apis-and-maven"
+                    },
+                    {
+                        "name": "Configure connection to Bonita Engine",
+                        "page": "configure-client-of-bonita-bpm-engine"
+                    },
+                    {
+                        "name": "Javadoc",
+                        "href": "http://documentation.bonitasoft.com/javadoc/api/7.9/index.html"
+                    },
+                    {
+                        "name": "Examples",
+                        "page": "_examples",
+                        "children": [
+                            {
+                                "name": "Manage a process",
+                                "page": "manage-a-process"
+                            },
+                            {
+                                "name": "Handle a failed activity",
+                                "page": "handle-a-failed-activity"
+                            },
+                            {
+                                "name": "Manage an organization",
+                                "page": "manage-an-organization"
+                            },
+                            {
+                                "name": "Manage users",
+                                "page": "manage-users"
+                            },
+                            {
+                                "name": "Handle documents",
+                                "page": "handling-documents"
+                            },
+                            {
+                                "name": "Create administration tools",
+                                "page": "create-administration-tools"
+                            },
+                            {
+                                "name": "Restore the default Look & Feel",
+                                "page": "restore-default-look-feel"
+                            },
+                            {
+                                "name": "Manage the platform",
+                                "page": "manage-the-platform"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "List and search methods",
+                        "page": "using-list-and-search-methods"
+                    },
+                    {
+                        "name": "Log in with CAS",
+                        "page": "log-in-with-cas"
+                    }
+                ]
+            },
+            {
+                "name": "Bonita Portal URLs",
+                "page": "bonita-bpm-portal-urls"
+            },
+            {
+                "name": "Bonita Engine architecture",
+                "page": "_engine-architecture",
+                "children": [
+                    {
+                        "name": "Bonita Engine architecture overview",
+                        "page": "engine-architecture-overview"
+                    },
+                    {
+                        "name": "Services",
+                        "page": "_services",
+                        "children": [
+                            {
+                                "name": "Event handlers",
+                                "page": "event-handlers"
+                            },
+                            {
+                                "name": "Queriable logger",
+                                "page": "queriable-logging"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Work execution audit",
+                        "page": "work-execution-audit"
+                    },
+                    {
+                        "name": "Timers execution",
+                        "page": "timers-execution"
+                    },
+                    {
+                        "name": "Connectors execution",
+                        "page": "connectors-execution"
+                    },
+                    {
+                        "name": "BPM process / task execution sequence",
+                        "page": "execution-sequence-states-and-transactions"
+                    }
+                ]
+            },
+            {
+                "name": "Living application",
+                "page": "_living-application",
+                "children": [
+                    {
+                        "name": "Bonita Layout",
+                        "page": "bonita-layout"
+                    },
+                    {
+                        "name": "Living application layout",
+                        "page": "living-application-layout"
+                    },
+                    {
+                        "name": "Customize layouts",
+                        "page": "customize-layouts"
+                    },
+                    {
+                        "name": "Customize living application theme",
+                        "page": "customize-living-application-theme"
+                    }
+                ]
+            },
+            {
+                "name": "Logs",
+                "page": "logging"
+            },
+            {
+                "name": "Workspaces and projects",
+                "page": "workspaces-and-repositories"
+            },
+            {
+                "name": "Build Bonita Community edition from source files",
+                "page": "building-community-edition-from-source"
+            },
+            {
+                "name": "Continuous integration",
+                "page": "_continuous-integration",
+                "children": [
+                    {
+                        "name": "Automate builds",
+                        "page": "automating-builds"
+                    },
+                    {
+                        "name": "Set up continuous integration",
+                        "page": "set-up-continuous-integration"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Howtos",
+        "page": "_howtos",
+        "children": [
+            {
+                "name": "Create a modal window using CSS",
+                "page": "uid-modal-tutorial"
+            },
+            {
+                "name": "Create a case overview page using the UI Designer",
+                "page": "uid-case-overview-tutorial"
+            },
+            {
+                "name": "Create unique task names for the user task list",
+                "page": "optimize-user-tasklist"
+            },
+            {
+                "name": "Control and validate forms in the UI Designer",
+                "page": "manage-control-in-forms"
+            },
+            {
+                "name": "Manage a list of documents",
+                "page": "list-of-documents"
+            },
+            {
+                "name": "Manage multiple references in Business Objects",
+                "page": "bo-multiple-refs-tutorial"
+            },
+            {
+                "name": "Map authorization rules",
+                "page": "custom-authorization-rule-mapping"
+            },
+            {
+                "name": "Use the rich textarea widget in a mail template",
+                "page": "rta-mail-template"
+            },
+            {
+                "name": "Manage dates and times in BDM and User Interfaces",
+                "page": "datetimes-management-tutorial"
+            },
+            {
+                "name": "Manage BDM in custom Rest APIs",
+                "page": "bdm-in-rest-api"
+            },
+            {
+                "name": "Share a project on GitHub Enterprise Edition",
+                "page": "share-a-repository-on-github"
+            },
+            {
+                "name": "Use Git for versioning with Community Edition",
+                "page": "git-versioning-community-edition"
+            },
+            {
+                "name": "Migrate a SVN repository to a Git repository",
+                "page": "migrate-a-svn-repository-to-github"
+            },
+            {
+                "name": "Create a vertical tabs container for all devices",
+                "page": "uid-vertical-tabs-container-tutorial"
+            },
+            {
+                "name": "Use Groovy in Bonita",
+                "page": "groovy-in-bonita"
+            },
+            {
+                "name": "Create a responsive web application with Community edition",
+                "page": "responsiveness-with-community-edition"
+            },
+            {
+                "name": "Enable Adaptive Case Management with Bonita",
+                "page": "use-bonita-acm"
+            }
+        ]
+    }
+]

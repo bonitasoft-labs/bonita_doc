@@ -1,0 +1,258 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/uipath.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>UiPath</h1>
+<p>This page explains how to configure the UiPath connectors in Bonita Studio.</p>
+<h2>UiPath - Add queue item</h2>
+<p>Add an item in a specific UiPath queue</p>
+<h3>Connector settings</h3>
+<p>Set connection and authentication connector parameters.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL</td>
+<td>UiPath Orchestrator endpoint url</td>
+<td>string</td>
+<td>https://demo.uipath.com/</td>
+</tr>
+<tr>
+<td>Tenant name</td>
+<td>Target tenant on the orchestrator</td>
+<td>string</td>
+<td>Default</td>
+</tr>
+<tr>
+<td>Username or Email</td>
+<td></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Password</td>
+<td></td>
+<td>password</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Queue item definition</h3>
+<p>Specify information for the new queue item</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Queue name</td>
+<td>The name of the queue into which the item will be added.</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>An optional, user-specified value for queue item identification (128 characters max).</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Priority</td>
+<td>Sets the processing importance for a given item.</td>
+<td>choice</td>
+<td>High,Normal,Low</td>
+</tr>
+<tr>
+<td>Defer date</td>
+<td>The earliest date and time (ISO-8601 format) at which the item is available for processing. If empty the item can be processed as soon as possible.</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Due date</td>
+<td>The latest date and time (ISO-8601 format) at which the item should be processed. If empty the item can be processed at any given time.</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Specific content</h3>
+<p>Key/value pairs containing custom data (complex type will be serialized in a JSON string)</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>queueContent</td>
+<td>Key,Value</td>
+<td>array</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>UiPath - Get job</h2>
+<p>Get a UiPath Job status</p>
+<h3>Connector settings</h3>
+<p>Set connection and authentication connector parameters.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL</td>
+<td>UiPath Orchestrator endpoint url</td>
+<td>string</td>
+<td>https://demo.uipath.com/</td>
+</tr>
+<tr>
+<td>Tenant name</td>
+<td>Target tenant on the orchestrator</td>
+<td>string</td>
+<td>Default</td>
+</tr>
+<tr>
+<td>Username or Email</td>
+<td></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Password</td>
+<td></td>
+<td>password</td>
+<td></td>
+</tr>
+<tr>
+<td>Job ID</td>
+<td>The ID of the job to request.</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>UiPath - Start jobs</h2>
+<p>Start UiPath jobs</p>
+<h3>Connection settings</h3>
+<p>Set connection and authentication connector parameters.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL</td>
+<td>UiPath Orchestrator endpoint url</td>
+<td>string</td>
+<td>https://demo.uipath.com/</td>
+</tr>
+<tr>
+<td>Tenant name</td>
+<td>Target tenant on the orchestrator</td>
+<td>string</td>
+<td>Default</td>
+</tr>
+<tr>
+<td>Username or Email</td>
+<td></td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Password</td>
+<td></td>
+<td>password</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Job configuration</h3>
+<p>Configure job parameters.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Process name</td>
+<td>The UiPath process name to execute</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Process version</td>
+<td>If empty, current process release will be used.</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>Strategy</td>
+<td>States which robots from the environment are being run by the process.</td>
+<td>choice</td>
+<td>All,Specific,JobsCount</td>
+</tr>
+<tr>
+<td>Robot names (if Specific strategy)</td>
+<td></td>
+<td>list</td>
+<td></td>
+</tr>
+<tr>
+<td>Jobs count (if JobsCount strategy)</td>
+<td>Number of pending jobs to be created in the environment, for the current process. This number must be greater than 0 only if the start strategy is JobsCount.</td>
+<td>integer</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3>Input parameters</h3>
+<p>Input parameters to be passed to job execution.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>inputArguments</td>
+<td>Key,Value</td>
+<td>array</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- Generated on Wed Dec 04 2019 17:46:52 GMT+0100 (Paris, Madrid) -->

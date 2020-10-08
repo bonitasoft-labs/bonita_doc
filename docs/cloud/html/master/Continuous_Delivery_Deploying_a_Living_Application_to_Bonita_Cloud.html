@@ -1,0 +1,40 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-cloud-doc/edit/master/md/Continuous_Delivery_Deploying_a_Living_Application_to_Bonita_Cloud.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"/></a></div>
+<h1>Deploying a Living Application to Bonita Cloud Non Production Runtimes</h1>
+<h2>Deploy Job</h2>
+<p>The job &quot;ACTION - Deploy a LivingApp to a runtime&quot; allows you deploy your living applications to any of your Bonita Cloud runtimes:</p>
+<div style="text-align:center">
+    <img src="cloud/images/master/DeployJob.png"> 
+</div>
+<!-- ![DeployJob](images/DeployJob.png) -->
+<h2>Launching a deployment</h2>
+<ol>
+<li>Click on the <img src="cloud/images/master/JenkinsPlayButton.png" alt="CDPlayButton" title="CDPlayButton"> of the &quot;ACTION - Deploy a LivingApp to a runtime&quot; job.</li>
+<li>Your default deploy configuration will be pre-loaded. If needed you can change it.</li>
+<li>You still neeed to select the build you want to deploy.
+You have several possibilities:
+<ul>
+<li>Last succesul build</li>
+<li>Specifc build</li>
+<li>Last Saved build</li>
+<li>Upstream that triggered this job</li>
+<li>Donwstream build of</li>
+<li>Last build with artifacts</li>
+<li>Last completed build</li>
+<li>Specified by permalink</li>
+<li>Copy from WORKSPACE of latest completed build</li>
+</ul>
+</li>
+<li>You can also require an extra validation after the artifact copy by ticking the &quot;Confirm deploy&quot; checkbox.</li>
+<li>Click on the build button (lower left).</li>
+<li>You should see the job progress and steps.</li>
+</ol>
+<h2>Result of a deployment</h2>
+<h3>Successful deployment</h3>
+<p>If the job is successful, you can directly access the corresponding portal (in order to test) by click on the link displayed in th job history:</p>
+<div style="text-align:center">
+    <img src="cloud/images/master/LinkToPortal.png" width="100%"> 
+</div>
+<!-- ![LinktoPortal](images/LinkToPortal.png) -->
+<h3>Failed deployment</h3>
+<p>If the job fails then you need to open its logs to understand the issues.</p>
+<!-- Generated on Tue Dec 10 2019 13:10:13 GMT+0100 (Paris, Madrid) -->

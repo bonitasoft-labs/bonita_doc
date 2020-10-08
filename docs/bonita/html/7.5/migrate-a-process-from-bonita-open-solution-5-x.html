@@ -1,0 +1,26 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.5/md/migrate-a-process-from-bonita-open-solution-5-x.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Migrate a process from Bonita Open Solution 5.x</h1>
+<p>A process exported from Bonita Open Solution 5.x must be modified to run in Bonita BPM because of the modifications and new features.<br>
+Bonita BPM provides a guided migration for importing a process from 5.9 or 5.10 to the Bonita BPM legacy 6.x concepts and tooling.<br>
+You can then modify the process definition to take advantage of the new features in the latest version of Bonita BPM.<br>
+To migrate a process from a version of Bonita Open Solution earlier than 5.9, you must first upgrade it to 5.9.</p>
+<p>When you import a process from Bonita Open Solution 5.9 or 5.10, Bonita BPM automatically modifies the process where possible, and provides a report indicating the items that need to be checked or that must be modified manually. You can use this report to track the status of the modifications required as you complete them.</p>
+<p>To migrate a process from Bonita Open Solution 5.9 or 5.10:</p>
+<ol>
+<li>Choose <strong>Import</strong> -&gt; <strong>Other..</strong> from the <strong>Diagram</strong> menu.</li>
+<li>Select the Bonita BAR 5.9/5.10 input format, and select the file to be imported.</li>
+<li>Click <strong><em>Import</em></strong>.</li>
+<li>A pop-up explaining the format of the import status report is displayed. You can choose not to see this popup for subsequent imports.</li>
+<li>Click <strong><em>Finish</em></strong>. The process is imported and Bonita BPM Studio displays an Import status report. This report lists the status of each item in the process definition.</li>
+<li>Select an item to see what migration action has been done, or to see what manual action is required.</li>
+</ol>
+<p>When an item has been completely migrated, either automatically or after review or manual action, check the box in the Reviewed column.   You can use this column to track what remaining migration is required.</p>
+<p>At any stage during migration, you can close the report and move out of migration mode. Note, however, that when you have closed the report you cannot reopen it. To close the report,click on <strong><em>Exit import mode</em></strong>.</p>
+<p>You can modify the view of the report as follows:</p>
+<ul>
+<li>You can sort the report by any of the columns by clicking on the relevant column heading.</li>
+<li>You can hide all items that have valid changes, by choosing <strong>Hide valid changes</strong> from the report menu.</li>
+<li>You can hide all reviewed changes, by choosing the <strong>Hide reviewed changes</strong> from the report menu.</li>
+</ul>
+<p>You can also create a PDF version of the report, by choosing <strong>Export PDF</strong> from the report menu.</p>
+<!-- Generated on Wed Jan 31 2018 10:20:49 GMT+0100 (Paris, Madrid) -->

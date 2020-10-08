@@ -1,0 +1,204 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/list-of-documents.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Manage a list of documents</h1>
+<p>Bonita allows you to group documents with lists.</p>
+<h2>How to</h2>
+<p>Manage a list of documents through a process means add / edit / remove documents from a multiple data of type <em>document</em>.</p>
+<h2>Exemple: Document validation process</h2>
+<div class="alert alert-warning" role="alert">
+<p>This tutorial assume that you are already familiar with Bonita. If not you might want to read the <a href="bonita/7.10/getting-started-tutorial" ng-click="contentCtrl.goTo($event, 'getting-started-tutorial')" class="alert-link">Getting started</a> first.</p>
+</div>
+<p>This exemple shows how to easily create a document validation process using Bonita Studio.<br>
+A document validation process is a process where a User should be able to first submit a list fo documents. Then, an other user can perform a review on the list submitted, and ask for some changes on the list. If the reviewer asks for it, then the submitter has to edit the list of documents by adding / editing / removing some documents of the list, according to the review.</p>
+<p>Here is a preview of the process we are going to build:<br>
+<img src="bonita/images/7.10/documentValidationProcess.png" alt="Validation process" title="Validation process"></p>
+<ol>
+<li>Create a process <em>documentValidation</em>, with two lanes: <em>Submitter lane</em> and <em>Reviewer lane</em>.</li>
+<li>Create also two actors: <em>Submitter actor</em> and <em>Reviewer actor</em>. Each actor should be mapped to a different part of the organization (two different groups for exemple). Set the <em>Submitter actor</em> as initiator, and map each lane to its actor.</li>
+<li>Create a multiple document variable named <em>documents</em>, and a process variable of type boolean named <em>submissionValid</em>.</li>
+<li>Select the pool and create a contract for the data <em>documents</em>.  ⚠️ Make sure to use the button <strong>Add from data</strong> to create your contract, the contract input will be bounded to the data, it will save you a lot of development time (operation &amp; form generation).</li>
+<li>Create the instantiation form using the Studio shortcut. Rename the form into <em>initDocuments</em>, and then go back to the Studio.</li>
+<li>Select the task <em>Review</em>. The objective of this task is to display the documents submitted to the reviewer. He should then be able to validate or not the submission, depending on the documents.
+<ul>
+<li>Create a contract input (using the button <em>add</em>) of type BOOLEAN, named <em>review</em>.</li>
+<li>Create the form using the Studio shortcut, and rename this form <em>review</em>. It should only contain a title, a checkbox <em>review</em> and a submit button. We are going to add some widgets to display the documents:
+<ul>
+<li>Above the checkbox, add a container with the following collection: <em>context.documents_ref</em></li>
+<li>In the container, add a File Viewer widget, with the following properties:
+<ul>
+<li><strong>File source</strong>: Process document</li>
+<li><strong>Process document</strong>: $item</li>
+<li><strong>Show preview</strong>: no (it is actually up to you, but display the preview often reduce the visibility of the form)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Save the form and go back to the Studio.</li>
+<li>On the operations panel, add an operation to assign the value of the contract input <em>review</em> to the process data <em>submitionValid</em>.</li>
+</ul>
+</li>
+<li>Select the output transition <em>No</em> (of the gateway <em>Is submission validated?</em>), and set it as the default flow. Select the other transition <em>Yes</em>, and use the process data <em>submissionValid</em> as expression. So, the transition <em>Yes</em> is used if the reviewer validate the submission.</li>
+<li>Select the task <em>modification</em>, add a contract input for the data <em>documents</em> (using the button <em>Add from data</em>). Create the form for this task using the Studio shortcut, rename it into <em>editSubmission</em> and go back to the Studio.</li>
+</ol>
+<p>And that's all, the document validation process is ready to be used. Start it from the Studio, and submit a couple of documents. Disconnect and then reconnect with a user mapped to the reviewer actor. '<em>Check</em>' the documents and refuse the submission. Reconnect with the first user, and try to delete a document, add a new one and edit an existing one. Reconnect with the reviewer, verify that the documents have been updated and then validate the submission.</p>
+<h2>REST APIs</h2>
+<p>A list of documents is represented by several documents having the same name (attribute &quot;name&quot;).
+It is possible to add/remove/edits elements to a list using the same methods as for a simple document.</p>
+<h3>Get the documents of the list</h3>
+<p>In a case with <code>myDocList</code> as a list of documents, use the following request to sort the result by ascending index value:</p>
+<p>Request URL:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Path + Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left"><code>/API/bpm/caseDocument?p=0&amp;c=10&amp;f=name=myDocList&amp;o=index ASC</code></td>
+</tr>
+</tbody>
+</table>
+<p>Response payload :</p>
+<pre><code class="language-json">[
+  { 
+    &quot;id&quot;:&quot;1&quot;, 
+    &quot;creationDate&quot;:&quot;2014-10-09 16:39:52.472&quot;, 
+    &quot;author&quot;:&quot;1&quot;, 
+    &quot;index&quot;:&quot;0&quot;, 
+    &quot;contentMimetype&quot;:&quot;text/plain&quot;, 
+    &quot;caseId&quot;:&quot;1&quot;, 
+    &quot;contentStorageId&quot;:&quot;1&quot;, 
+    &quot;isInternal&quot;:&quot;true&quot;, 
+    &quot;description&quot;:&quot;&quot;, 
+    &quot;name&quot;:&quot;myDocList&quot;, 
+    &quot;fileName&quot;:&quot;test1.txt&quot;, 
+    &quot;submittedBy&quot;:&quot;1&quot;, 
+    &quot;url&quot;:&quot;documentDownload?fileName=test1.txt&amp;contentStorageId=1&quot;, 
+    &quot;version&quot;:&quot;1&quot; 
+  }, {
+    &quot;id&quot;:&quot;2&quot;, 
+    &quot;creationDate&quot;:&quot;2014-10-09 16:39:52.473&quot;, 
+    &quot;author&quot;:&quot;1&quot;, 
+    &quot;index&quot;:&quot;1&quot;, 
+    &quot;contentMimetype&quot;:&quot;text/plain&quot;, 
+    &quot;caseId&quot;:&quot;1&quot;, 
+    &quot;contentStorageId&quot;:&quot;2&quot;, 
+    &quot;isInternal&quot;:&quot;true&quot;, 
+    &quot;description&quot;:&quot;&quot;, 
+    &quot;name&quot;:&quot;myDocList&quot;, 
+    &quot;fileName&quot;:&quot;test2.txt&quot;, 
+    &quot;submittedBy&quot;:&quot;1&quot;, 
+    &quot;url&quot;:&quot;documentDownload?fileName=test2.txt&amp;contentStorageId=2&quot;, 
+    &quot;version&quot;:&quot;1&quot; 
+  }, {
+    &quot;id&quot;:&quot;3&quot;, 
+    &quot;creationDate&quot;:&quot;2014-10-09 16:39:52.473&quot;, 
+    &quot;author&quot;:&quot;1&quot;, 
+    &quot;index&quot;:&quot;2&quot;, 
+    &quot;contentMimetype&quot;:&quot;text/plain&quot;, 
+    &quot;caseId&quot;:&quot;1&quot;, 
+    &quot;contentStorageId&quot;:&quot;3&quot;, 
+    &quot;isInternal&quot;:&quot;true&quot;, 
+    &quot;description&quot;:&quot;&quot;, 
+    &quot;name&quot;:&quot;myDocList&quot;, 
+    &quot;fileName&quot;:&quot;test3.txt&quot;, 
+    &quot;submittedBy&quot;:&quot;1&quot;, 
+    &quot;url&quot;:&quot;documentDownload?fileName=test3.txt&amp;contentStorageId=3&quot;,
+    &quot;version&quot;:&quot;1&quot;
+  }
+]
+</code></pre>
+<h3>Add a new document</h3>
+<p>To add a new document to the list <code>myDocList</code> at the end of the list, do a POST call without specifying the <em>index</em> attribute in the request payload.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Path + Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left"><code>/API/bpm/caseDocument</code></td>
+</tr>
+</tbody>
+</table>
+<p>Request payload:</p>
+<pre><code class="language-json">{ 
+  &quot;caseId&quot; : &quot;1&quot;, 
+  &quot;file&quot; : &quot;doc.jpg&quot;, 
+  &quot;name&quot; : &quot;myDocList&quot;, 
+  &quot;description&quot; : &quot;this is an element of the list&quot; 
+}
+</code></pre>
+<p>Response payload</p>
+<pre><code class="language-json">{
+  &quot;id&quot;:&quot;4&quot;, 
+  &quot;creationDate&quot;:&quot;2014-10-09 16:45:36.658&quot;, 
+  &quot;author&quot;:&quot;1&quot;, 
+  &quot;index&quot;:&quot;3&quot;, 
+  &quot;contentMimetype&quot;:&quot;application/octet-stream&quot;, 
+  &quot;caseId&quot;:&quot;1&quot;, 
+  &quot;contentStorageId&quot;:&quot;4&quot;, 
+  &quot;isInternal&quot;:&quot;true&quot;, 
+  &quot;description&quot;:&quot;this is a simple doc&quot;, 
+  &quot;name&quot;:&quot;myDocList&quot;, 
+  &quot;fileName&quot;:&quot;doc.jpg&quot;, 
+  &quot;submittedBy&quot;:&quot;1&quot;, 
+  &quot;url&quot;:&quot;documentDownload?fileName=doc.jpg&amp;contentStorageId=4&quot;, 
+  &quot;version&quot;:&quot;1&quot; 
+}
+</code></pre>
+<p><em>Note</em>: that this new document has got index=3.
+If you now rerun the first GET request, you will now get a list containing four documents with the new document as last element of the list.</p>
+<h3>Add a new document to the list at a given index</h3>
+<p>To add a new document to the list <code>myDocList</code> at index 1, do a POST call specifying the <em>index</em> attribute in the request payload.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Path + Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left"><code>/API/bpm/caseDocument</code></td>
+</tr>
+</tbody>
+</table>
+<p>Request payload</p>
+<pre><code class="language-json">{ 
+  &quot;caseId&quot; : &quot;1&quot;, 
+  &quot;file&quot; : &quot;doc.jpg&quot;, 
+  &quot;name&quot; : &quot;myDocList&quot;, 
+  &quot;description&quot; : &quot;this is an element of the list at index 1&quot;, 
+  &quot;index&quot; : &quot;1&quot;
+}
+</code></pre>
+<p>Response payload</p>
+<pre><code class="language-json">{
+  &quot;id&quot;:&quot;5&quot;, 
+  &quot;creationDate&quot;:&quot;2014-10-09 16:45:36.658&quot;, 
+  &quot;author&quot;:&quot;1&quot;, 
+  &quot;index&quot;:&quot;1&quot;, 
+  &quot;contentMimetype&quot;:&quot;application/octet-stream&quot;, 
+  &quot;caseId&quot;:&quot;1&quot;, 
+  &quot;contentStorageId&quot;:&quot;4&quot;, 
+  &quot;isInternal&quot;:&quot;true&quot;, 
+  &quot;description&quot;:&quot;this is a simple doc&quot;, 
+  &quot;name&quot;:&quot;myDocList&quot;, 
+  &quot;fileName&quot;:&quot;doc.jpg&quot;, 
+  &quot;submittedBy&quot;:&quot;1&quot;, 
+  &quot;url&quot;:&quot;documentDownload?fileName=doc.jpg&amp;contentStorageId=4&quot;, 
+  &quot;version&quot;:&quot;1&quot; 
+}
+</code></pre>
+<p><em>Note</em>: that this new document has index=1.</p>
+<p>If you now rerun the request in Example 1, you will see that the indexes of the documents in myDocList have been
+recalculated with respect to the newly added document index.</p>
+<p>Knowing the document Id of a document list, it is possible to update it (PUT) and remove it(DELETE) as for a simple document.</p>
+<!-- Generated on Tue Dec 10 2019 12:49:52 GMT+0100 (Paris, Madrid) -->

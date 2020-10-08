@@ -1,0 +1,43 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.5/md/talend-tis-job-launcher.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Talend TIS Job launcher</h1>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For Performance, Efficiency, and Teamwork editions only.</p>
+</div>
+<p>The Talend TIS Job launcher connector enables you to launch a Talend Integration Suite (TIS) job.</p>
+<p>For example, if you are using Talend Integration Suite (TIS) to provide an integrated view of data from many data sources and a process updates one of those data sources, you could trigger a job to update the view.</p>
+<p>The job is defined in TIS and specified by the id that was set when the job is created.</p>
+<p>You cannot pass data through the connector to the job, and the connector does not return any output.</p>
+<p>To configure the Talend TIS Job launcher connector, follow the steps in the wizard. To configure the job use the information below:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WSDL URL</td>
+<td>The URL of the TIS project, specified in webservice description language</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Login</td>
+<td>The login of the job owner</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>The password of the job owner</td>
+<td>string</td>
+</tr>
+<tr>
+<td>Task id</td>
+<td>The id of the task to launch. The id is defined in TIS when the job is created</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<p>When the connector runs in a process instance, it triggers the specified job in your TIS system.</p>
+<!-- Generated on Wed Jan 31 2018 10:20:49 GMT+0100 (Paris, Madrid) -->

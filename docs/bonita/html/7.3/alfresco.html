@@ -1,0 +1,18 @@
+<div style="position: relative;"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="bonita/images/7.3/outOfSupport.png" alt="Out of support"></div>
+<h1>Alfresco</h1>
+<p>Bonita BPM Studio contains connectors for Alfresco 3.4 and Alfresco 4.2. For each version, there are the following connectors:</p>
+<ul>
+<li>Delete an item by ID (folder, file, etc)</li>
+<li>Delete folder by path (delete a folder and its contents)</li>
+<li>Create a folder by path</li>
+<li>Upload a file to a destination folder</li>
+</ul>
+<p>Notes for using these connectors:</p>
+<ul>
+<li><strong>Warning:</strong>
+There is a conflict between libraries provided with the Alfresco connector and libraries provided by other connectors or the platform itself if you use a data of type Object.<br>
+When you configure a process that uses the Alfresco connector, you must <a href="?page=manage-jar-files" ng-click="contentCtrl.goTo($event, 'manage-jar-files')">manage the jar files</a>.</li>
+<li>To delete a folder, it must be empty.</li>
+<li>In the path, all parameters have to be <a href="http://www.w3schools.com/tags/ref_urlencode.asp">URL Encoded</a>. Spaces are not allowed. For example: <code>/User Homes/user</code> has to be written <code>/User%20Homes/user</code>.</li>
+</ul>
+<!-- Generated on Tue Jun 19 2018 09:27:07 GMT+0200 (Paris, Madrid (heure d’été)) -->

@@ -1,0 +1,47 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/define-business-data-model.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Define business data model (BDM)</h1>
+<p>The Bonita platform provides a means to define, manipulate and store your business data. This data management service will create Java objects to allow data manipulation, database tables for storage, and all operations required to get the data from your process into the database and vice versa.</p>
+<p>Data management involves several steps:</p>
+<ul>
+<li>Create the Business Data Model (BDM). This is the definition of the types of data you will deal with in your processes and applications.</li>
+<li>Declare business variables in the process definition. Variables are used to make the link between your process definition and the data it needs to create, read, update, and delete. Data can be created as part of process execution (on start or on a task) but processes can also read and update data created by other processes and of course can choose to delete data.</li>
+<li>Define process and task contracts. Contracts define the information process accepts from the user submitting the form.</li>
+</ul>
+<p>In this chapter we will focus on the creation of the Business Data Model (BDM) only. Declaration of business variables is part of the next chapter.</p>
+<p>In Bonita Studio, create a BDM:</p>
+<ol>
+<li>Go to <strong>Development &gt; Business Data Model &gt; Define...</strong> menu</li>
+</ol>
+<p><img src="bonita/images/7.10/getting-started-tutorial/define-business-data-model/define-business-data-model-menu.png" alt="Define business data model menu" title="Define business data model menu"></p>
+<ol>
+<li>Click on <strong>Add</strong> button</li>
+<li>Type the object name <em>Claim</em> (objects name must always start with an uppercase letter)</li>
+<li>In the <strong>Attributes</strong> tab, click on <strong>Add</strong> button</li>
+<li>Add 3 attributes (attributes name must always start with a lowercase letter):</li>
+<li><em>description</em> of type <em>STRING</em> and <em>mandatory</em> (check the checkbox in the <strong>mandatory</strong> column)</li>
+<li><em>answer</em> of type <em>STRING</em>, <em>optional</em></li>
+<li><em>satisfactionLevel</em> of type <em>INTEGER</em>,</li>
+</ol>
+<p><img src="bonita/images/7.10/getting-started-tutorial/define-business-data-model/create-business-object-with-attributes.gif" alt="Create business object with attributes" title="Create business object with attributes"></p>
+<ol>
+<li>Click on <strong>Finish</strong> button</li>
+</ol>
+<div class="alert alert-info" role="alert">
+<p><strong>Mandatory</strong> on a object attribute means that the object cannot be created with an empty value. If the <strong>mandatory</strong> option is not checked, it means that an object can be created with an empty value, for the attribute &quot;not mandatory&quot; (i.e. optional). In our example, the <em>answer</em> attribute is optional because at process start it will be empty. Later in the process execution, an employee will provide an answer and doing so will be mandatory (but this will not be enforced by BDM definition).</p>
+</div>
+<div class="alert alert-warning" role="alert">
+<p>When you edit the BDM in Bonita Studio, it is always recommended to reset the database after doing any modification on the model. Check the checkbox &quot;Reset BDM database,&quot; available in the pop-up window display when you validate your modifications.</p>
+</div>
+<div class="alert alert-info" role="alert">
+<p>When you click on the &quot;Finish&quot; button three different operations are performed:</p>
+<ul>
+<li>BDM definition is saved in your project (under <strong>Business Data Model</strong> category)</li>
+<li>Java classes are generated, compiled, packaged and the resulting jar file is added to your project (under <strong>Java dependencies</strong> category)</li>
+<li>Tables are created in the Bonita Studio embedded test database</li>
+</ul>
+</div>
+<div class="alert alert-info" role="alert">
+<p>Bonita Studio uses h2 to provide the database for testing. (You can use other types of databases such as Oracle, PostgreSQL, MySQL and SQL Server for production). Bonita Studio provides two database schemas: one for the Bonita Engine and one dedicated to BDM. You can view the tables created in the h2 BDM database by clicking in the Bonita Studio menu on <strong>Development &gt; Business Data Model &gt; Browse data (h2 console)...</strong>. In the h2 console (a web interface) you can see that a table named &quot;CLAIM&quot; was created. You can run an SQL query such as <code>SELECT * FROM CLAIM</code> which should return an empty result as there is no data yet.</p>
+</div>
+<p>Now you have a fully functional business data management model. You are ready to move to the next chapter and <a href="bonita/7.10/declare-business-variables" ng-click="contentCtrl.goTo($event, 'declare-business-variables')">start populating the database with data collected by the process</a>.</p>
+<!-- Generated on Tue Dec 10 2019 12:49:51 GMT+0100 (Paris, Madrid) -->

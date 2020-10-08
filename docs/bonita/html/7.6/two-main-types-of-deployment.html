@@ -1,0 +1,61 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/two-main-types-of-deployment.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Two main types of deployment</h1>
+<p><strong>Note:</strong> It is highly recommended to use the provided Tomcat or WildFly bundles or the artifacts <code>bonita.war</code> and <code>bonita.ear</code> provided in the deploy bundle, in order to carry out these deployments successfully.</p>
+<p>There are two main types of deployment.</p>
+<h2>Bonita Portal + Bonita Engine on the same application server</h2>
+<p><img src="bonita/images/7.6/images-6_0/poss_deploy1.png" alt="deploy1" title="deploy1"></p>
+<p>This is the simplest deployment configuration. The engine used is the one embedded in the webapp bonita.war. Using the pre-packaged Tomcat bundle is the easiest way to achieve this kind of deployment, but it is also possible to retrieve the <code>bonita.war</code> webapp provided in the <strong>deploy.zip</strong> and deploy it on another application server/servlet container.
+It is fast because the Bonita Portal and the Bonita Engine run on the same JVM and so there is no serialization and network overhead every time the Bonita Portal calls the engine.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>simple (single webapp and application server)</li>
+<li>works out of the box if you use the provided Tomcat bundle</li>
+<li>you can still access the embedded Bonita Engine API (or the Bonita Portal REST API) through HTTP if you need an external application to access it</li>
+<li>improved performance</li>
+</ul>
+<p><strong>Drawbacks</strong></p>
+<ul>
+<li>may not be adapted to some architecture constraints</li>
+</ul>
+<h2>Bonita Engine on a remote application server</h2>
+<p>Even if the <code>bonita.war</code> comes with an embedded Bonita Engine, you can choose <strong>not</strong> to use it.</p>
+<p>In this deployment you must configure the JVM containing the client Bonita Portal to use the remote connection to the engine. To do so see <a href="?hash=client_config&amp;page=configure-client-of-bonita-bpm-engine" ng-click="contentCtrl.goTo($event, 'configure-client-of-bonita-bpm-engine', 'client_config')">configuring the connection to a remote engine</a>.</p>
+<div class="alert alert-info" role="alert">
+<p>Don't forget to set in this JVM the following properties:</p>
+<ul>
+<li><code>org.bonitasoft.platform.username</code> must be set with the username of the platform admin</li>
+<li><code>org.bonitasoft.platform.password</code> must be set with the password of the platform admin</li>
+</ul>
+</div>
+<h3>Accessible through HTTP</h3>
+<p><img src="bonita/images/7.6/images-6_0/poss_deploy2.png" alt="deploy2" title="deploy2"></p>
+<p>With this deployment, the Bonita Engine is accessed by the portal (and possibly other applications) through HTTP. The Bonita Portal is deployed on one application server and the engine on another one.
+But you can still use the pre packaged Tomcat bundles or the <code>bonita.war</code> webapp provided in the <strong>deploy.zip</strong>, in both servers. On one of them, only the Bonita Portal part will be used and on the other one, only the engine server. Access to the portal can be de-activated by server or webapp configuration if necessary.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>may be adapted to some architecture and network constraints</li>
+</ul>
+<p><strong>Drawbacks</strong></p>
+<ul>
+<li>more complex than the first deployment option (two application servers instead of one)</li>
+<li>impact on performance (serialization + network overhead)</li>
+</ul>
+<h3>Accessible through RMI (EJB3)</h3>
+<p><img src="bonita/images/7.6/images-6_0/poss_deploy3.png" alt="deploy3" title="deploy3"></p>
+<p>With this third type of deployment, the engine is accessed by the Bonita Portal (and possibly other applications) through the EJB.
+The Portal is deployed on one application server and the engine on another one.
+However, you can still use the pre packaged Tomcat bundle for the Bonita Portal and the pre-packaged WildFly Bundle for the Bonita Engine.
+In this case, you will need to add the WildFly client libraries to the classpath of the Bonita Portal webapp.
+You can also use the bonita.war webapp provided in the deploy zip on the portal application server and use the bonita.ear application on the engine application server.
+On one of the application servers, only the portal part will be used and on the other one, only the engine server.
+Access to the Bonita Portal can be deactivated by server or app configuration, if necessary.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>may fit some architecture and network constraints</li>
+</ul>
+<p><strong>Drawbacks</strong></p>
+<ul>
+<li>more complex than the first deployment option (two application servers instead of one)</li>
+<li>impact on performance (serialization + network overhead) but it should be faster than the second option though (no HTTP protocol overhead)</li>
+</ul>
+<!-- Generated on Fri Jan 19 2018 16:08:27 GMT+0100 (Paris, Madrid) -->

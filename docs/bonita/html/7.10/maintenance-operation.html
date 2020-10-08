@@ -1,0 +1,23 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/maintenance-operation.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Bonita Platform Maintenance Operation</h1>
+<p>Learn how maintenance operations can help reducing disk space used by the Bonita Platform.</p>
+<h1>Purge archive tables</h1>
+<p>Archive tables contain the execution history of the Bonita Platform. Some of these tables can be purged to reduce size on disk.</p>
+<h2>Archive Contract Data</h2>
+<p>Archive contract data table keeps the information of all contracts sent to execute tasks or instantiate processes. After of a lot of tasks or processes were executed, the <code>archive_contract_data</code> table could become very big and consume a lot of disk spaces.</p>
+<p>Those information are not required by Bonita Platform to work so table could be purge to reduce disk space usage.</p>
+<p>These section will describe how to purge the <code>archive_contract_data</code> table, depending on the version of Bonita Platform installed.</p>
+<div class="alert alert-warning" role="alert">
+<p><em>This operation is destructive, data will be not usable for audit or analytic purpose. It is highly recommended to backup data before the purge.</em></p>
+</div>
+<p><em>Keep in mind that the contract data's will continue to be archived and the table will continue to be filled,  even after purge has been done. Hoverer, it's possible to deactivate the archiving of <code>contract data's</code>, please see (<a href="bonita/7.10/configurable-archive" ng-click="contentCtrl.goTo($event, 'configurable-archive')">Configurable Archive</a>.)</em></p>
+<p>To delete all rows from the <code>arch_contract_data</code>, you can use the <code>TRUNCATE TABLE</code> statement.</p>
+<pre><code>    TRUNCATE TABLE arch_contract_data;
+</code></pre>
+<div class="alert alert-info" role="alert">
+<p><strong>Note</strong>: After a migration to the bonita 7.7 version, the data of the <code>archive_contract_data</code> table has been moved to the new <code>arch_contract_data_backup</code> table for migration purpose.
+In that case, If the <code>live-migration</code> tool was not executed (please see [Bonita migration steps]|migrate-from-an-earlier-version-of-bonita-bpm.md), you will also need to drop the table <code>arch_contract_data_backup</code>:</p>
+<pre><code>    DROP TABLE arch_contract_data_backup;
+</code></pre>
+</div>
+<!-- Generated on Tue Dec 10 2019 12:49:52 GMT+0100 (Paris, Madrid) -->

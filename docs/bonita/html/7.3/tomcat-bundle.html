@@ -1,0 +1,140 @@
+<div style="position: relative;"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="bonita/images/7.3/outOfSupport.png" alt="Out of support"></div>
+<h1>Tomcat bundle installation</h1>
+<p>You will find here steps needed to install and configure a Tomcat bundle.</p>
+<p>The Tomcat bundle is a .zip archive that contains the Apache Tomcat JEE application server prepackaged along with Bonita BPM Portal and <a href="?hash=platform_setup_tool&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'platform_setup_tool')">Bonita configuration folder</a>.
+The Tomcat bundle is a regular .zip archive based on Tomcat zip distribution.</p>
+<div class="alert alert-warning" role="alert">
+<p>There is a known issue between Bitronix (the Transaction Manager shipped by Bonitasoft in the Tomcat bundle and in the Tomcat directories of the Deploy bundle) and the Microsoft SQL Server driver
+(refer to: <a href="https://msdn.microsoft.com/en-us/library/aa342335.aspx" class="alert-link">MSDN note</a>, <a href="http://bitronix-transaction-manager.10986.n7.nabble.com/Failed-to-recover-SQL-Server-Restart-td148.html" class="alert-link">Bitronix note</a>).
+Therefore, using Bitronix as a Transaction Manager with SQL Server is not recommended. Our recommendation is to use the JBoss bundle provided by Bonitasoft.</p>
+</div>
+<h2>Installation of the Tomcat bundle</h2>
+<h3>Download and unzip the Tomcat bundle</h3>
+<a id="download" />
+<h4>Download</h4>
+<p>For the Community edition:</p>
+<ul>
+<li>Go to the <a href="http://www.bonitasoft.com/downloads-v2">Bonitasoft website</a> and get the Bonita BPM Community edition Tomcat bundle.</li>
+</ul>
+<p>For a Subscription edition:</p>
+<ul>
+<li>Go to the <a href="https://customer.bonitasoft.com/download/request">Customer Portal</a> and download the Bonita BPM Subscription edition Tomcat bundle.</li>
+</ul>
+<h4>Unzip</h4>
+<p>The fully qualified folder path (including the BonitaBPM-x.y.z-Tomcat-7.0.67 folder) to the folder where you unzip the Tomcat bundle is referred to as <code>&lt;TOMCAT_HOME&gt;</code>. We recommend the following locations:</p>
+<ul>
+<li>Windows: <code>C:\BonitaBPM</code>.</li>
+<li>Linux: in <code>/opt/BonitaBPM</code>. Make sure that Linux user account used to execute Tomcat is the owner of the folders and files.</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p>Whatever location you choose, do not leave blank spaces in the path to the directory, nor in the folder name.</p>
+</div>
+<h4>Content of the Tomcat bundle</h4>
+<p>The Tomcat bundle is based on a standard Tomcat installation with the following additions:</p>
+<ul>
+<li><code>bin/setenv.bat</code>: script to configure JVM system properties for Windows.</li>
+<li><code>bin/setenv.sh</code>: script to configure JVM system properties for Linux.</li>
+<li><code>bonita-start.bat</code>: script to start the bundle on Windows.</li>
+<li><code>bonita-start.sh</code>: script to start the bundle on Linux.</li>
+<li><code>bonita-stop.bat</code>: script to stop the bundle on Windows.</li>
+<li><code>bonita-stop.sh</code>: script to stop the bundle on Linux.</li>
+<li><code>conf/Catalina/localhost/bonita.xml</code>: Tomcat context configuration for Bonita web application. Define data sources used by Bonita Engine.</li>
+<li><code>conf/bitronix-*.properties</code>: configuration files for Bitronix</li>
+<li><code>catalina.properties</code>: modified to include lib/bonita folder to Tomcat classpath.</li>
+<li><code>context.xml</code>: modified to add JTA support using Bitronix library.</li>
+<li><code>logging.properties</code>: modified to create a log file dedicated to Bonita.</li>
+<li><code>server.xml</code>: modified to add listener for Bitronix and h2 (see below for modification needed if you want to switch to another RDBMS).</li>
+<li><code>lib/bonita</code>: extra libraries needed by Bonita. The following libraries are included: Bitronix JTA Transaction Manager, h2, SLF4J (required by Bitronix).</li>
+<li><code>request_key_utils</code>: folder containing script to generate license request keys (Subscription editions only).</li>
+<li><code>webapps/bonita.war</code>: the Bonita web application.</li>
+</ul>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> Starting from Bonita BPM 7.3.0, Bonita BPM Platform configuration, including the license file, is stored in the same database as the Bonita BPM Engine data, namely in the <code>CONFIGURATION</code> table.
+To initialize and update this configuration, a <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')" class="alert-link"><em>Platform setup tool</em></a> is provided and embedded in Bonita BPM bundles.</p>
+</div>
+<p>So your bundle also contains:</p>
+<ul>
+<li><code>setup</code>: database management for Bonita BPM Platform configuration and Bonita BPM Engine data, and a tool to update the configuration.</li>
+</ul>
+<h3>Get and install a license</h3>
+<div class="alert alert-info" role="alert">
+<p>This is not necessary if you are installing the Community edition.</p>
+</div>
+<p>If you are installing a Subscription edition, you need to <a href="?page=licenses" ng-click="contentCtrl.goTo($event, 'licenses')">request a license</a>.</p>
+<a id="license" />
+<p>When you receive your license:
+If this is your first installation, copy the file to the <code>&lt;TOMCAT_HOME&gt;/setup/platform_conf/licenses</code> folder before starting the bundle.
+If this is a license update, use <a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">the <em>Platform setup tool</em></a>.</p>
+<a id="edition_specification" />
+<h3>Edition specification</h3>
+<p>If you are installing the Performance Subscription edition, you need to edit <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')"><code>setup/platform_conf/initial/platform_init_engine/bonita-platform-init-community-custom.properties</code></a> by uncommenting the line and changing the value of the <code>activeProfiles</code> key to <code>'community,performance'</code>. No change is needed for the Community, Teamwork, or Efficiency edition.</p>
+<a id="configuration" />
+<h3>Configure the Tomcat bundle</h3>
+<div class="alert alert-info" role="alert">
+<p>If you just want to try Bonita BPM Platform with the embedded h2 database (only for development phase of your project), you can skip the next paragraph.
+For production, you are recommended to use one of the supported databases, with the following steps.</p>
+</div>
+<a id="datasources_configuration" />
+<h4>Configure the Tomcat server datasources</h4>
+<p>Make sure your database is created before you start configuring the Tomcat datasources and make sure you do so before you start the Tomcat server.</p>
+<p>If you use the <a href="?page=define-and-deploy-the-bdm" ng-click="contentCtrl.goTo($event, 'define-and-deploy-the-bdm')">Business Data Model (BDM) feature</a>, we recommend that you configure a dedicated database.<br>
+You can also find more details on database configuration in the <a href="?page=database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration')">dedicated page</a>.</p>
+<p>Follow those steps:</p>
+<ol>
+<li>Edit file <code>[TOMCAT_HOME]</code>/conf/ <strong>server.xml</strong> and remove (or comment out) the following line to deactivate embedded h2 database:
+<code>&lt;Listener className=&quot;org.bonitasoft.tomcat.H2Listener&quot; tcpPort=&quot;9091&quot; baseDir=&quot;${org.bonitasoft.h2.database.dir}&quot; start=&quot;true&quot; /&gt;</code></li>
+<li>Drop your database vendor-specific drivers in <code>[TOMCAT_HOME]</code>/lib/bonita (you can copy the provided open-source drivers: PostgreSQL, MySQL) from <code>[TOMCAT_HOME]/setup/lib</code></li>
+<li>Edit file <code>[TOMCAT_HOME]</code>/conf/ <strong>bitronix-resources.properties</strong>
+<ol>
+<li>Comment the default embedded h2 database configuration (preceding the lines with a #)</li>
+<li>Uncomment the configuration for your database vendor (PostgreSQL, Oracle, SQL Server, or MySQL)</li>
+<li>Change the default values for your database configuration to point to an existing database instance and valid credentials
+Warning: this must be done for 2 different datasources in the file: <strong>resource.ds1.</strong> (for engine and configuration data) and <strong>resource.ds2.</strong> (for BDM data, optional but handy to configure in case some day you need to use it)</li>
+</ol>
+</li>
+<li>Edit file <code>[TOMCAT_HOME]</code>/conf/Catalina/localhost/ <strong>bonita.xml</strong>
+<ol>
+<li>Comment the default embedded H2 database configuration (with <code>&lt;!--</code> and <code>--&gt;</code> around the lines to comment)</li>
+<li>Uncomment the configuration for your database vendor (PostgreSQL, Oracle, SQL Server, or MySQL)</li>
+<li>Change the default values for your database configuration to point to an existing database instance and valid credentials
+Warning: this must be done for 2 different datasources in the file: <strong>bonitaSequenceManagerDS</strong> (for engine and configuration data, same base as <strong>resource.ds1.</strong>) and <strong>NotManagedBizDataDS</strong> (for BDM data, same base as <strong>resource.ds2.</strong>)</li>
+</ol>
+</li>
+<li>Edit file sentenv.sh (Unix system) or setenv.bat (Windows system)
+<ol>
+<li>For engine and configuration data, change the <strong>DB_OPTS</strong> property and change the default <strong>h2</strong> value for the one corresponding to your database vendor</li>
+<li>For BDM data, change the <strong>BDM_DB_OPTS</strong> property and change the default <strong>h2</strong> value for the one corresponding to your database vendor</li>
+</ol>
+</li>
+</ol>
+<a id="start" />
+<h3>Start and shut down Tomcat</h3>
+<h4>Tomcat start script</h4>
+<p>Tomcat can be started by executing the following commands:</p>
+<ul>
+<li>Windows: <code>&lt;TOMCAT_HOME&gt;\bonita-start.bat</code></li>
+<li>Linux: <code>&lt;TOMCAT_HOME&gt;/bonita-start.sh</code></li>
+</ul>
+<h4>Shut down Tomcat</h4>
+<p>Tomcat can be shut down by executing the following command:</p>
+<ul>
+<li>
+<p>Windows: <code>&lt;TOMCAT_HOME&gt;\bonita-stop.bat</code></p>
+</li>
+<li>
+<p>Linux: <code>&lt;TOMCAT_HOME&gt;/bonita-stop.sh</code></p>
+</li>
+</ul>
+<p>If you see <code>checkThreadLocalMapForLeaks</code> errors, the probably indicates that Tomcat is shutting down before all work threads are completed.
+You can <a href="?page=performance-tuning" ng-click="contentCtrl.goTo($event, 'performance-tuning')">increase the work service termination timeout</a> to ensure that work is complete before shutdown.</p>
+<a id="post-install" />
+<h2>After installation</h2>
+<h3>First steps after installation</h3>
+<p>Once you have got your Tomcat bundle up and running a <a href="?page=first-steps-after-setup" ng-click="contentCtrl.goTo($event, 'first-steps-after-setup')">few extra steps</a> are required in order to get a fully operational Bonita BPM platform.</p>
+<h3>How to update the configuration</h3>
+<p>To update the configuration after the first run please take a look at the <a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">platform setup tool</a></p>
+<div class="alert alert-info" role="alert">
+<p><strong>Keep in mind</strong> that <a href="?hash=configure_tool&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'configure_tool')" class="alert-link">platform setup tool</a> is independent from Tomcat Bundle and thus needs to be configured by itself to point to the right database.
+This is done by editing file <code>database.properties</code></p>
+</div>
+<!-- Generated on Tue Jun 19 2018 09:27:08 GMT+0200 (Paris, Madrid (heure d’été)) -->

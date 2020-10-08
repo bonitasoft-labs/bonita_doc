@@ -1,0 +1,34 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/user-task-list.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>User task list</h1>
+<p>The user task list page provides information such as: user's tasks, tasks to do, already done tasks related to different processes.</p>
+<h2>Overview</h2>
+<p>Starting with Bonita 7.3, users benefit from a configurable task list, to manage tasks involving human actors from all processes in a more efficient fashion.
+This page is also made available as a custom page in Bonita Portal &gt; Resources, to be used in any <a href="?page=applications" ng-click="contentCtrl.goTo($event, 'applications')">application</a> or <a href="?page=custom-profiles" ng-click="contentCtrl.goTo($event, 'custom-profiles')">custom profiles</a>, for users types of profiles.</p>
+<p>Here are the values of the user task list:</p>
+<ul>
+<li>Default Master/Detail design pattern, to view list and form in the same screen</li>
+<li><em>Panel expand</em> feature, to display wide forms in a large modal window</li>
+</ul>
+<p><img src="bonita/images/7.9/tasklist-elements.png" alt="" class="img-responsive img-thumbnail" title="">
+<img src="bonita/images/7.9/tasklist-popup.png" alt="" class="img-responsive img-thumbnail" title=""></p>
+<ul>
+<li>List settings: number of tasks in a page, choice of columns, columns ordering</li>
+<li>Easy access to case information, one tab away from the form. This case information is the case overview page, that the development team can customize</li>
+<li>Easy access to case comments, also one tab away from the form or case information</li>
+</ul>
+<p><img src="bonita/images/7.9/tasklist-settings-and-tabs.png" alt="" class="img-responsive img-thumbnail" title=""></p>
+<ul>
+<li>Alternate &quot;full width&quot; list, with task information displayed in a large modal window</li>
+</ul>
+<p><img src="bonita/images/7.9/tasklist-fullpage.png" alt="" class="img-responsive img-thumbnail" title=""></p>
+<p>This list also leverages two legacy features (prior to Bonita 7.3.0):</p>
+<ul>
+<li>Dynamic task display name, for efficient task identification (insert case information in task name)</li>
+<li>Word-based search, for efficient task name search (search for any word in the task name)</li>
+</ul>
+<p>To know more about how to use both features, go to <a href="?page=optimize-user-tasklist" ng-click="contentCtrl.goTo($event, 'optimize-user-tasklist')">How to create unique task names for user task list</a>.</p>
+<p>The task list also contains a <strong>Done tasks</strong> filter, for the user to check if the task has been completed properly.</p>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> Since Bonita 7.3.0, creating subtasks is no longer possible. However, if subtasks have been created in a process instance in an old Bonita version, and if the Bonita Platform has been migrated to a later version while the case was open, then the subtasks will still be visible to the users assigned, and users will still be able to complete them.</p>
+</div>
+<!-- Generated on Wed Dec 04 2019 17:46:52 GMT+0100 (Paris, Madrid) -->

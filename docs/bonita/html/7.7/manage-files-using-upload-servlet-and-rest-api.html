@@ -1,0 +1,43 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.7/md/manage-files-using-upload-servlet-and-rest-api.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Upload servlets for the REST API expecting files</h1>
+<p>For all the REST APIs expecting a file path it is required to upload the file using one of the provided upload servlets first.</p>
+<p>To upload a file you need to perform a multipart post request on any of the available servlets.
+It returns the name of the temporary uploaded file.
+This file name can be used to link those files with any REST resources.</p>
+<h2>Available servlets</h2>
+<ul>
+<li><code>/portal/fileUpload</code>, supports any type of files</li>
+<li><code>/portal/processUpload</code>, supports only <code>.bar</code> files</li>
+<li><code>/portal/organizationUpload</code>, supports only <code>.xml</code> files</li>
+<li><code>/portal/actorsUpload</code>, supports only <code>.xml</code> files</li>
+<li><code>/portal/imageUpload</code>, supports only <code>.png</code>, <code>.jpg</code>, <code>.gif</code>, <code>.jpeg</code>, <code>.bmp</code>, <code>.wbmp</code> or <code>.tga</code> files</li>
+<li><code>/portal/pageUpload</code>, supports only <code>.zip</code> files</li>
+<li><code>/portal/applicationsUpload</code>, supports only <code>.xml</code> files</li>
+<li><code>/portal/connectorImplementation</code>, supports only <code>.zip</code> files (not available in Community edition)</li>
+<li><code>/portal/reportUpload</code>, supports any type of file (not available in Community edition)</li>
+<li><code>/portal/resourceUpload</code>, supports only <code>.jar</code> files (not available in Community edition)</li>
+<li><code>/portal/profilesUpload</code>, supports only <code>.xml</code> files (not available in Community edition)</li>
+<li><code>/API/formFileUpload</code>, supports any type of files, used to upload a file before submitting a process or task form with a document in its contract</li>
+</ul>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For <code>/API/formFileUpload</code>, you indeed need to pass the <a href="bonita/7.7/csrf-security" ng-click="contentCtrl.goTo($event, 'csrf-security')" class="alert-link">CSRF token</a> in the request. It is expected to be present as one of the form data of the request (contrary to the REST API which expects it in the request headers). The name of this form-data needs to be &quot;CSRFToken&quot; and the value, the content of the X-Bonita-API-Token cookie.</p>
+</div>
+<h2>Example</h2>
+<p>You can refer to the <a href="https://github.com/Bonitasoft-Community/example-upload-sevlet">example-upload-servlet</a> project that demonstrate the two use cases explained below.</p>
+<h3>Link an icon to a new organization group</h3>
+<ol>
+<li>Call the login service: <code>/bonita/loginservice</code> for authentication.</li>
+<li>Upload an image by using a multipart post request on the image upload servlet, <code>/bonita/portal/imageUpload</code>.</li>
+<li>The image is stored in a temporary folder.</li>
+<li>The servlet call response includes the name of the temporary file.</li>
+<li>Call the Identity API to create a new group: <code>/bonita/API/identity/group</code>, link this image to the group by specifying this temporary file name in the request body.</li>
+</ol>
+<h3>Deploy programmatically a new REST API extension</h3>
+<ol>
+<li>Call the login service: <code>/bonita/loginservice</code> for authentication.</li>
+<li>Upload a REST API extension by using a multipart post request on the page upload servlet: <code>/bonita/portal/pageUpload</code>. It will send the REST API extension (handle as a &quot;page&quot;) zip file from client side to server side.</li>
+<li>REST API extension zip file is stored in a temporary folder.</li>
+<li>The servlet call response includes the name of the temporary file.</li>
+<li>Call the Portal API to register the newly uploaded REST API extension: <code>/bonita/API/portal/page</code>.</li>
+</ol>
+<!-- Generated on Wed Dec 04 2019 13:25:31 GMT+0100 (Paris, Madrid) -->

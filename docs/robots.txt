@@ -1,0 +1,2 @@
+Sitemap: https://documentation.bonitasoft.com/sitemap_index.xml
+User-agent: *

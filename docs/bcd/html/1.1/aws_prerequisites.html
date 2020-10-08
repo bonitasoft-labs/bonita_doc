@@ -1,0 +1,130 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-continuous-delivery-doc/edit/1.1/md/aws_prerequisites.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"/></a></div>
+<h1>AWS prerequisites</h1>
+<p>In order to use Amazon EC2 instances, some configuration steps need to be performed as a prerequisite.
+The following steps are required to set up AWS credentials for Ansible automation.</p>
+<ol>
+<li><a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_create.html">Create an IAM Policy</a> to grant full access to Amazon EC2 on a specific region (eg. us-west-2)
+<ul>
+<li><strong>Policy name</strong>: EC2FullAccess_us-west-2</li>
+<li><strong>Policy document</strong>:</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: [
+        {
+            &quot;Action&quot;: &quot;ec2:*&quot;,
+            &quot;Effect&quot;: &quot;Allow&quot;,
+            &quot;Resource&quot;: &quot;*&quot;,
+            &quot;Condition&quot;: {
+                &quot;StringEquals&quot;: {
+                    &quot;ec2:Region&quot;: &quot;us-west-2&quot;
+                }
+            }
+        }
+    ]
+}
+</code></pre>
+</li>
+<li>Create an IAM Policy to allow to describe DB instances and list tags (mandatory for dynamic inventory script).
+<ul>
+<li><strong>Policy name</strong>: RDSDescribeDBInstances</li>
+<li><strong>Policy document</strong>:</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: [
+        {
+            &quot;Sid&quot;: &quot;Stmt1498730873000&quot;,
+            &quot;Effect&quot;: &quot;Allow&quot;,
+            &quot;Action&quot;: [
+                &quot;rds:DescribeDBInstances&quot;,
+                &quot;rds:ListTagsForResource&quot;
+            ],
+            &quot;Resource&quot;: [
+                &quot;*&quot;
+            ]
+        }
+    ]
+}
+</code></pre>
+</li>
+<li>Create an IAM Policy to grant full access to Amazon RDS on a specific region (eg. us-west-2). In order to do it you will need your account id (eg. 012345678901)
+<ul>
+<li><strong>Policy name</strong>: RDSFullAccess_us-west-2</li>
+<li><strong>Policy document</strong>:</li>
+</ul>
+<pre><code class="language-json">{
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: [
+        {
+            &quot;Action&quot;: [
+                &quot;rds:*&quot;
+            ],
+            &quot;Effect&quot;: &quot;Allow&quot;,
+            &quot;Resource&quot;: &quot;arn:aws:rds:us-west-2:012345678901:*&quot;
+        }
+    ]
+}
+</code></pre>
+</li>
+<li><a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_create.html">Create an IAM Group</a>
+<ul>
+<li><strong>Group name</strong>: bonita-provisioning</li>
+<li>Select the IAM Policies created previously</li>
+</ul>
+</li>
+<li><a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html">Create an IAM User</a>
+<ul>
+<li><strong>Access type</strong>: Programmatic access</li>
+<li>Add user to the IAM group created previously</li>
+<li>Download as .csv (or copy) Access key information (<strong>Access key ID</strong> and <strong>Secret access key</strong>) for later use</li>
+</ul>
+</li>
+<li>Now let's assume you are using an EC2 region which supports the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html">EC2-VPC platform</a>.
+Therefore a <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html">default VPC and default subnets</a> should already be available.</li>
+<li><a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#creating-security-group">Create an EC2 Security Group</a>
+<ul>
+<li><strong>Security group name</strong>: sg_bonita-provisioning</li>
+<li>Add an Inbound rule to allow communication between Bonita stack components
+<ul>
+<li><strong>Type</strong>: All Traffic, <strong>Source</strong>: &lt;security_group_id_of_sg_bonita-provisioning&gt;</li>
+</ul>
+</li>
+<li>Add an Inbound rule to allow Ansible to connect via SSH
+<ul>
+<li><strong>Type</strong>: SSH, <strong>Source</strong>: My IP</li>
+</ul>
+</li>
+<li>Add an Inbound rule to allow remote connection to Bonita Tomcat via HTTP
+<ul>
+<li><strong>Type</strong>: Custom TCP Rule, <strong>Port Range</strong>: 8081, <strong>Source</strong>: My IP</li>
+</ul>
+</li>
+<li>Add an Inbound rule to allow remote connection to Bonita databases
+<ul>
+<li><strong>Type</strong>: Custom TCP Rule, <strong>Source</strong>: My IP
+<ul>
+<li>with <code>bonita_db_vendor: postgres</code> - <strong>Port Range</strong>: 5432</li>
+<li>with <code>bonita_db_vendor: mysql</code> - <strong>Port Range</strong>: 3306</li>
+<li>with <code>bonita_db_vendor: oracle</code> - <strong>Port Range</strong>: 1521</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html">Create an EC2 Key Pair</a>
+<ul>
+<li><em>Note: A key pair is linked to an AWS region</em></li>
+<li>Download the <code>.pem</code> private key file</li>
+<li>Ensure private key file permissions: <code>$ chmod 400 &lt;keyfile_basename&gt;.pem</code></li>
+</ul>
+</li>
+</ol>
+<p>Bonita Provisioning solution uses official Ubuntu cloud images as EC2 AMI (Amazon Machine Images).
+Use the <a href="https://cloud-images.ubuntu.com/locator/ec2/">Amazon EC2 AMI Locator</a> tools to identify IDs of such images.</p>
+<h2>Configuration related to the location of your BCD Controller</h2>
+<p>The <code>ec2_wrapper.sh</code> inventory script can be further configured in <code>templates/ec2.ini.j2</code>.
+For instance the <code>vpc_destination_variable</code> parameter can be set to <code>public_dns_name</code> (in order to use Ansible from outside EC2) through the Ansible variable named <code>ec2_vpc_destination_variable</code>.
+More information can be found in this <a href="https://aws.amazon.com/blogs/apn/getting-started-with-ansible-and-dynamic-amazon-ec2-inventory-management/">blog post</a>.</p>
+<!-- Generated on Wed Jan 31 2018 10:22:57 GMT+0100 (Paris, Madrid) -->

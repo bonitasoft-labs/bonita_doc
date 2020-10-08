@@ -1,0 +1,56 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/upgrade-from-community-to-a-subscription-edition.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Community to Subscription upgrade</h1>
+<p>Upgrading means moving from a Bonita Community edition environment to any Bonita Subscription
+edition environment.</p>
+<p><strong>Warnings:</strong></p>
+<ul>
+<li>An upgrade can only be performed on a single Bonita  version. You cannot migrate to a new version at the same time as you upgrade to Subscription edition.<br>
+Eg. Migrate from <strong>Bonita 7.3.3 Community</strong> edition to <strong>Bonita 7.3.3 Subscription</strong> edition.</li>
+<li>After it is applied, an upgrade cannot be undone.</li>
+</ul>
+<p>An upgrade is performed in two phases.</p>
+<h2>Bonita Studio upgrade</h2>
+<p>To upgrade a Community edition Bonita Studio and its resources (such as process diagrams, data models), follow these steps:</p>
+<ol>
+<li><a href="?page=bonita-bpm-studio-installation" ng-click="contentCtrl.goTo($event, 'bonita-bpm-studio-installation')">Install a Bonita  Studio</a> Subscription edition.</li>
+<li>Export your resources from the Bonita Studio Community edition to <code>.bos</code> files. We recommend that you keep these resource files as a backup.</li>
+<li>Import your resource files into the Bonita Studio in Subscription edition.</li>
+</ol>
+<p>The upgrade is performed automatically and silently when importing resources into Bonita Studio Subscription edition.</p>
+<p>Remember that an upgrade is a non-reversible operation:
+after your resources are imported in the Subscription edition, you will not be able to export from the Subscription edition Studio and then import them back into the Community edition.</p>
+<h2>Bonita platform upgrade</h2>
+<p>Upgrading a Bonita platform allows you to keep the platform data (process definitions, cases, BDM...)
+while benefiting from the Subscription edition features.</p>
+<p>The upgrade procedure is quite simple and only requires a limited service downtime (less than an hour for basic configurations).</p>
+<div class="alert alert-warning" role="alert">
+<p>A Bonita platform upgrade can only be performed on the same database type.</p>
+</div>
+<p>To upgrade a Bonita platform from Community edition to a Subscription edition, follow these steps:</p>
+<ol>
+<li><a href="?page=bonita-installation-overview" ng-click="contentCtrl.goTo($event, 'bonita-installation-overview')">Install the Subscription Bundle</a> but do not start it. We will call this installation folder <code>bonita-subscription</code>.</li>
+<li>Configure the Subscription installation to use your existing database editing the file <code>&lt;bonita-subscription&gt;/setup/database.properties</code>. Beware of <a href="?hash=backslash_support&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'backslash_support')">backslash characters</a>.</li>
+<li>Shut down the Community server being migrated using the <code>stop-bonita</code> script, we will call this installation folder <code>bonita-community</code>.</li>
+<li>Run <code>&lt;bonita-community&gt;/setup/setup(.sh/.bat) pull</code> to fetch your current Community configuration in <code>&lt;bonita-community&gt;/setup/platform_conf/current</code> and copy this last in a different folder, we will call this new folder <code>bonita-community-configuration</code>.</li>
+<li><a href="?page=back-up-bonita-platform" ng-click="contentCtrl.goTo($event, 'back-up-bonita-platform')">Backup your Bonita platform and databases</a>.</li>
+<li>Update the configuration using the <a href="?hash=configure_tool&amp;page=Bonita_platform_setup" ng-click="contentCtrl.goTo($event, 'Bonita_platform_setup', 'configure_tool')">Platform setup tool</a> in <code>bonita-subscription</code>:
+<ol>
+<li>Create the folder <code>&lt;bonita-subscription&gt;/setup/platform_conf/current</code>, we will call it <code>bonita-subscription-configuration</code>.</li>
+<li>Copy the content of the <code>&lt;bonita-subscription&gt;/setup/platform_conf/initial</code> to <code>bonita-subscription-configuration</code>.</li>
+<li>In the <code>bonita-subscription-configuration</code>, reapply the modifications for all the folders but the one named <code>tenants</code> (use <code>bonita-community-configuration</code> as a reference).</li>
+<li>Create the folder <code>&lt;bonita-subscription-configuration&gt;/tenants</code>.</li>
+<li>For each folder contained in <code>&lt;bonita-community-configuration&gt;/tenants</code>.
+<ol>
+<li>We will call this folder <code>bonita-community-configuration-tenant</code>.</li>
+<li>Create one folder with the same name as <code>bonita-community-configuration-tenant</code> in <code>&lt;bonita-subscription-configuration&gt;/tenants</code>, we will call it <code>bonita-subscription-configuration-tenant</code>.</li>
+<li>Copy all folders with prefix <code>tenant_template_</code> from <code>bonita-subscription-configuration</code> to <code>bonita-subscription-configuration-tenant</code> and remove the prefix in their names.</li>
+<li>In the <code>bonita-subscription-configuration-tenant</code>, reapply the modifications (user <code>bonita-community-configuration-tenant</code> as a reference).</li>
+</ol>
+</li>
+<li>Run <code>&lt;bonita-subscription&gt;/setup/setup(.sh/.bat) push</code> to push the migrated configuration <code>bonita-subscription-configuration</code> in database.</li>
+</ol>
+</li>
+<li>Start the migrated platform using the <code>start-bonita</code> script located in <code>bonita-subscription</code>.</li>
+</ol>
+<p>The Upgrade is now finished, you can verify that you are now running a subscription edition in the portal user interface, the dialog displayed from the top right &quot;Settings / About&quot; menu should indicate the correct Subscription edition.</p>
+<!-- Generated on Fri Jan 19 2018 16:08:27 GMT+0100 (Paris, Madrid) -->

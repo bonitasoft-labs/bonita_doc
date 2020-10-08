@@ -1,0 +1,63 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/list-of-database-connectors.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>List of database connectors</h1>
+<p>This page lists the database connectors provided with Bonita. For some connectors there are special considerations, included in a section below.</p>
+<p>If you are configuring a connector to a database that is the same type of database used by Bonita Engine, you are recommended to use the same driver for both, to limit possible conflicts.</p>
+<p>Here is the list of database connectors. The links take you to sections of this page giving dedicated best practice information.</p>
+<ul>
+<li>Ingres 10.1</li>
+<li><a href="?hash=mysql&amp;page=" ng-click="contentCtrl.goTo($event, '', 'mysql')">MySQL 5.5</a></li>
+<li><a href="?hash=teradata&amp;page=" ng-click="contentCtrl.goTo($event, '', 'teradata')">Teradata 14</a></li>
+<li>Informix 11</li>
+<li>DB2 9.7</li>
+<li><a href="?hash=hsql&amp;page=" ng-click="contentCtrl.goTo($event, '', 'hsql')">HSQL 2.2</a></li>
+<li><a href="?hash=mssql&amp;page=" ng-click="contentCtrl.goTo($event, '', 'mssql')">Microsoft SQL Server</a></li>
+<li>PostgreSQL 8.4 or 9.2</li>
+<li>h2 1.3</li>
+<li>Oracle 10G or 11G</li>
+<li>JDBC 4</li>
+<li>AS 400</li>
+<li><a href="?hash=sysbase&amp;page=" ng-click="contentCtrl.goTo($event, '', 'sysbase')">Sybase ASE 15</a></li>
+<li>Datasource db query</li>
+</ul>
+<p>To <a href="?page=database-connector-configuration" ng-click="contentCtrl.goTo($event, 'database-connector-configuration')">configure a database connector</a>, follow the instructions in the wizard.</p>
+<a id="mysql"/>
+<h4>MySQL 5.5</h4>
+<p>It is not possible to execute more than one SELECT command in a single script.</p>
+<a id="teradata"/>
+<h4>Teradata 14</h4>
+<p>If you are using the <code>terajdbc4.jar</code>, you also need the <code>tdgssconfig.jar</code> file.<br>
+Import both <code>terajdbc4.jar</code> and <code>tdgssconfig.jar</code> into Bonita Studio and add them to the connector configuration.<br>
+Specify <code>terajdbc4.jar</code> as the active driver. To test the connector, you must specify both files. When you configure the process, specify both files in the process dependencies.</p>
+<a id="hsql"/>
+<h4>HSQL 2.2</h4>
+<p>Allows only one connection per destination at a time</p>
+<a id="mssql"/>
+<h4>Microsoft SQL Server</h4>
+<p><strong>Supported versions</strong>: This connector supports SQL Server 2008, 2012, 2014 and 2016.</p>
+<p><strong>Language encoding</strong>: MS SQL Server uses only one encoding at a time. To avoid errors when creating the database, please do the following when using alternative languages:</p>
+<p>Define the encoding:</p>
+<ol>
+<li>Option collation</li>
+<li>Choose the language from the list</li>
+<li>Save the configuration</li>
+</ol>
+<p><strong>Using a named instance</strong>: To use a named instance with your connector, you need to retrieve some information from the SQL Server Configuration Manager.</p>
+<ol>
+<li>Go to MS SQL Server network configuration.</li>
+<li>Go to Protocols for <em>instance</em> (where <em>instance</em> the name of the instance).</li>
+<li>Open TCP/IP.</li>
+<li>In the TCP properties, get the port number.</li>
+</ol>
+<p>When you configure the connector, use this port number in the URL. For example: <code>jdbc:sqlserver://localhost:53165</code>.</p>
+<a id="sysbase"/>
+<h4>Sybase ASE 15</h4>
+<p>Two driver jar files are available, and the Driver and URL values to specify in the configuration wizard depend on which jar you use:</p>
+<ul>
+<li>For <code>jconn4.jar</code>:<br>
+Driver: <code>com.sybase.jdbc4.jdbc.SybDriver</code><br>
+URL: <code>jdbc:sybase:Tds:</code><em><code>host:port/database</code></em></li>
+<li>For <code>jtds-1.3.1.jar</code>:<br>
+Driver: <code>net.sourceforge.jtds.jdbc.Driver</code><br>
+URL: <code>jdbc:jtds:sybase://</code><em><code>host:port/database</code></em></li>
+</ul>
+<!-- Generated on Fri Jan 19 2018 16:08:27 GMT+0100 (Paris, Madrid) -->

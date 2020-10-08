@@ -1,0 +1,204 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/draw-bpmn-diagram.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Start building your application: draw a BPMN process diagram</h1>
+<p>Now that you have your development environment (i.e. Bonita Studio) up and running, you are ready to start building your first Bonita Living Application.</p>
+<p>In this tutorial we will build a claims management solution. Making sure that claims are handled and answered in a timely manner by the appropriate employee(s) can be key to customer satisfaction. It is also a good fit for an process-based application that uses automation. We will of course drastically simplify the application in this tutorial so you can focus on learning about Bonita and not about claims management!</p>
+<p>Here is an overview of process execution:</p>
+<ul>
+<li>The process will be started by a customer who submits a claim, which is a simple text description in our example.</li>
+<li>Next, an employee will review the claim and provide an answer.</li>
+<li>The customer will be able to review the employee's answer and provide a satisfaction rating.</li>
+<li>If the rating is equal to or greater than 3, the process will finish after the customer has read the answer.</li>
+<li>If the rating is lower than 3 an extra task will be assigned to the manager of the employee to work with this customer who is not really satisfied. Once this task is done the process will be completed.</li>
+</ul>
+<div class="alert alert-info" role="alert">
+<p>To design this process we will use the Business Process Model and Notation (BPMN) standard. You don't need to learn everything about BPMN to follow this tutorial but, if you would like to know more, you can read the <a href="https://www.bonitasoft.com/library/ultimate-guide-bpmn" class="alert-link">Ultimate Guide to BPMN 2.0</a>.</p>
+</div>
+<div class="alert alert-warning" role="alert">
+<p>We will use an iterative approach in the process development. This means that in the first iteration, we will have a few limitations:</p>
+<ul>
+<li>a single user will perform all the tasks</li>
+<li>we won't collect data from the user</li>
+<li>the process will follow a single path - the one for an unsatisfied customer</li>
+</ul>
+<p>As we introduce data in our process definition and configure actors, a user will be able to input data in web forms, the process will follow paths that depend on data values, and different users will be involved.</p>
+</div>
+<h2>Create the process diagram</h2>
+<p>Create a new diagram:</p>
+<ol>
+<li>In the Bonita Studio menu, click on <strong>File &gt; New diagram</strong>.</li>
+</ol>
+<p>The new diagram includes:</p>
+<ul>
+<li>One pool: one process definition</li>
+<li>One lane inside the pool: lane default name is <em>Employee lane</em> (more about lanes in another chapter)</li>
+<li>A start event: the starting point of process execution</li>
+<li>A user task: a task (or step) that needs to be performed by a user</li>
+</ul>
+<p>and it should look like this:</p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/new-default-diagram.png" alt="Default diagram content" title="Default diagram content"></p>
+<p>Before we continue, let's rename the diagram and the pool:</p>
+<ol>
+<li>
+<p>In the <strong>Project explorer</strong> on the left hand side of the Bonita Studio window, select the diagram <em>MyDiagram-1.0.proc</em></p>
+</li>
+<li>
+<p>Right click and select <strong>Rename...</strong></p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/rename.png" alt="Rename contextual menu" title="Rename contextual menu"></p>
+</li>
+<li>
+<p>In the pop-up window, enter the new name for the diagram: <em>ClaimsManagementDiagram</em>, and for the pool: <em>ClaimsManagement</em></p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/choose-new-name-version.png" alt="Choose a new name and version pop-up window" title="Choose a new name and version pop-up window"></p>
+</li>
+</ol>
+<p>Now let's rename the start event (i.e. the green disc on the left hand side of the process):</p>
+<ol>
+<li>
+<p>Select the start event in the diagram</p>
+</li>
+<li>
+<p>At the bottom of the Bonita Studio screen, go to the <strong>General &gt; General</strong> tab</p>
+</li>
+<li>
+<p>Edit the <strong>Name</strong> attribute and set the value: <em>Submit claim</em></p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/rename-start-event.png" alt="Rename start event" title="Rename start event"></p>
+</li>
+</ol>
+<p>Also rename the default user task:</p>
+<ol>
+<li>Select the user task <em>Step1</em></li>
+<li>At the bottom of the Bonita Studio screen go to the <strong>General &gt; General</strong> tab</li>
+<li>Edit the <strong>Name</strong> attribute and set the value: <em>Review and answer claim</em></li>
+</ol>
+<p>Now we will add another task to the process:</p>
+<ol>
+<li>
+<p>Select the <em>Review and answer claim</em> task</p>
+</li>
+<li>
+<p>At the border of the selected task, click on the task icon and drag and drop it onto the diagram</p>
+</li>
+<li>
+<p>Make sure that the newly added task is selected</p>
+</li>
+<li>
+<p>Click on the toolbox icon</p>
+</li>
+<li>
+<p>Select the user icon</p>
+</li>
+<li>
+<p>Rename the task to: <em>Read the answer and rate it</em></p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/add-task.gif" alt="Add user task" title="Add user task"></p>
+</li>
+</ol>
+<p>In order to define another path in our process execution, we will add an exclusive gateway. This gateway will direct the process execution to a different path based on certain conditions. Adding an exclusive gateway is done quite the same as adding a task:</p>
+<ol>
+<li>
+<p>Select the user task <em>Read the answer and rate it</em></p>
+</li>
+<li>
+<p>Drag and drop the diamond-shaped gateway icon</p>
+</li>
+<li>
+<p>Click on the toolbox icon</p>
+</li>
+<li>
+<p>Change the gateway type from parallel (the one with the <strong>+</strong> sign) to exclusive (the one with the <strong>x</strong> sign)</p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/switch-from-parallel-to-exclusive-gateway.png" alt="Switch from parallel to exclusive gateway" title="Switch from parallel to exclusive gateway"></p>
+</li>
+<li>
+<p>Rename the gateway to: <em>Satisfaction level</em></p>
+</li>
+</ol>
+<p>From the gateway, there are two possibles paths. The first one completes the process if the customer satisfaction level is good. The end of a process is identified by an end event, a red disc. Adding the end event is similar to how you added a task and a gateway:</p>
+<ol>
+<li>
+<p>Select the gateway</p>
+</li>
+<li>
+<p>Drag and drop the event icon (the disc icon)</p>
+</li>
+<li>
+<p>Select the end event type (red disc icon)</p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/event-type-selection.png" alt="Event type selection: end event" title="Event type selection: end event"></p>
+</li>
+<li>
+<p>Rename the event to: <em>End client satisfied</em></p>
+</li>
+</ol>
+<p>The second path from the gateway will lead to another user task:</p>
+<ol>
+<li>Select the <em>Satisfaction level</em> gateway</li>
+<li>Drag and drop the task icon</li>
+<li>Click on the toolbox icon</li>
+<li>Select the user icon</li>
+<li>Rename the task <em>Deal with unsatisfied customer</em></li>
+</ol>
+<p>And from this <em>Deal with unsatisfied customer</em> task we need to go to a second end event:</p>
+<ol>
+<li>Select the <em>Deal with unsatisfied customer</em> user task</li>
+<li>Drag and drop the event icon (the disc icon)</li>
+<li>Select the end event type (red disc icon)</li>
+<li>Rename the event to: <em>End client unsatisfied</em></li>
+</ol>
+<p>Your process diagram should look like this:
+<img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/process-diagram-before-transitions-configuration.png" alt="Process diagram" title="Process diagram"></p>
+<div class="alert alert-info" role="alert">
+<p>Now you can see a validation error on the gateway. The error is displayed because we didn't define the conditions for process execution when it reaches the gateway. Trying to execute the process will fail because the process execution engine cannot determine which path to follow.</p>
+</div>
+<p>We need to configure the conditions required to define the path to follow when executing the process. Conditions are defined on the gateway outgoing transitions (i.e. the arrows going out of the gateway):</p>
+<ol>
+<li>
+<p>Select the transition going to the end event</p>
+</li>
+<li>
+<p>Name it to <em>Good</em></p>
+</li>
+<li>
+<p>Go to the <strong>General &gt; General</strong> tab</p>
+</li>
+<li>
+<p>Check the checkbox <strong>Default flow</strong></p>
+<p><img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/transitions-name-and-condition.gif" alt="Transitions names and conditions configuration" title="Transitions names and conditions configuration"></p>
+</li>
+</ol>
+<div class="alert alert-info" role="alert">
+<p><strong>Default flow</strong> means that the transition will be activated only if all other conditions configured on the gateway outgoing transitions are <em>false</em> (boolean value).</p>
+</div>
+<p>We need to configure the condition on the transition from the gateway to the <em>Deal with unsatisfied customer</em> task:</p>
+<ol>
+<li>Select the transition going into the task <em>Deal with unsatisfied customer</em></li>
+<li>Name the transition <em>Bad</em></li>
+<li>Go in <strong>General &gt; General</strong> tab</li>
+<li>In <strong>Condition</strong> type the value <em>true</em></li>
+</ol>
+<div class="alert alert-warning" role="alert">
+<p>Due to the static value <em>true</em>, this version of the process will always go through the <em>Deal with unsatisfied customer</em> task.</p>
+</div>
+<div class="alert alert-info" role="alert">
+<p>In order to make the error go away, refresh the diagram validation: at the bottom of the screen, select the <strong>Validation status</strong> tab and click on the <strong>Refresh</strong> button. You should have only five warnings left.</p>
+</div>
+<p>Congratulations! You have now your first valid BPMN process diagram!</p>
+<h2>Run your process</h2>
+<p>You can now easily build, package, deploy and execute this process definition in the Bonita Studio embedded test environment:</p>
+<ol>
+<li>Click on the <strong>Run</strong> button <img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/run.png" alt="Run button" title="Run button"> in the toolbar at the top of the Bonita Studio window</li>
+<li>On the instantiation form, click on the <strong>Start</strong> button. The process instance is started and you are redirected to the Bonita Portal task list</li>
+<li>Move your mouse over the <em>Review and answer claim</em> form on the right hand side of the Bonita Portal and click on the <strong>Take</strong> button to &quot;claim&quot; the task</li>
+<li>Click on the <strong>Execute</strong> button to actually perform the task and move the process execution forward</li>
+<li>Click on the <strong>Refresh</strong> button <img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/refresh.png" alt="Refresh button" title="Refresh button"> at the top of the task list to update it</li>
+<li>Click on the <strong>Overview</strong> tab on the right side to see the process execution overview form with information about process execution</li>
+<li>Click on the <strong>Form</strong> tab to get back to the <em>Read the answer and rate it</em> user task form</li>
+<li>You can click on <strong>Take</strong> and execute for both tasks, <em>Read the answer and rate it</em> and <em>Deal with unsatisfied customer</em>, to finish the process execution</li>
+<li>In the Bonita Portal top menu, click on <strong>Cases</strong> <img src="bonita/images/7.10/getting-started-tutorial/draw-bpmn-diagram/cases.png" alt="Cases button" title="Cases button"></li>
+<li>Click on the <strong>Archived cases</strong> tab</li>
+<li>Click on the <strong>View case overview</strong> action (i.e. the &quot;eye&quot; icon) to display the overview form with information about process execution</li>
+</ol>
+<div class="alert alert-info" role="alert">
+<p>When you click on the <strong>Run</strong> button, the process definition and its dependencies are built, packaged and deployed in the Bonita Studio test environment. A user is logged in by default (username: <em>walter.bates</em>, password: <em>bpm</em>) and the auto-generated start form for the process is opened in your web browser. If you submit the instantiation form, it will start a new process instance (or case) and load the user task list in the Bonita Portal. In the task list, you can't immediately submit a user task because, by default, all users (of the test organization) are candidates to perform the tasks of the process. In order to act on the task you need first to &quot;claim&quot; it, which then makes you the only one - among all the possible candidates - who can do perform an action on it.</p>
+</div>
+<div class="alert alert-info" role="alert">
+<p>You can view process instance information in the <a href="bonita/7.10/cases" ng-click="contentCtrl.goTo($event, 'cases')" class="alert-link"><strong>Cases</strong></a> section of the Bonita Portal. You can switch between <strong>Open cases</strong> and <strong>Archived cases</strong> to either view the ongoing process instances or see completed ones. Note that if you want to start a second case (i.e. a process instance), you must go into the Bonita Portal <strong>Processes</strong> menu and click on the <strong>Start a new case</strong> button (i.e. the &quot;play&quot; icon in the <strong>Action</strong> column) next to the process definition name. If you click on the <strong>Run</strong> button from Bonita Studio, it will clean / overwrite any information related to any process with same name and version, including previous cases. Note that if you did any modifications to your project, you probably want to click on the <strong>Run</strong> button to be sure that the latest version is deployed.</p>
+</div>
+<p>You successfully built and executed your first process. So far it is not very useful as it does not deal with any data and web forms, and  only includes a single submit button. In following chapters we will <a href="bonita/7.10/define-business-data-model" ng-click="contentCtrl.goTo($event, 'define-business-data-model')">define a business data model</a> and bind it to the process to save information related to the claim submitted by the user.</p>
+<!-- Generated on Tue Dec 10 2019 12:49:51 GMT+0100 (Paris, Madrid) -->

@@ -1,0 +1,85 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/variables.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Variables in the UI Designer</h1>
+<p>Discover how to use variables in the UI Designer to manage information in artifacts.</p>
+<p><strong>Variables</strong> are a key concept in the UI Designer. They define how pages, layouts, forms and fragments behave. They are used to fetch external resources, to manipulate and process information, and much more. It is important to understand how to define and use variables in artifacts, and how the data contained in the variables works when combined with widget properties. Unless otherwise stated, we will use &quot;page&quot; as the generic term for page, layout, form, and fragment.</p>
+<p>There are several types of variables:</p>
+<ul>
+<li>Static
+<ul>
+<li>String</li>
+<li>JSON</li>
+</ul>
+</li>
+<li>Dynamic
+<ul>
+<li>JavaScript Expression</li>
+<li>External API</li>
+<li>URL parameter</li>
+</ul>
+</li>
+</ul>
+<h2>Evaluation cycle</h2>
+<p>String and JSON variables are initialized at page data model instantiation and their values do not change subsequently.</p>
+<p>Expression, external API and URL parameter variables are evaluated every time something happens on the page, such as when receiving data or on a user interaction. The call of an External API variable is triggered every time the URL of the resource it points at changes.</p>
+<h3>External API</h3>
+<p>External API variables are used to fetch data from outside the page. These are typically used for REST API calls using HTTP GET requests. The response is stored in the page data model. You can parameterize the URL construction with other data using <code>{{variableName}}</code> syntax. You can retrieve information using the <a href="?page=rest-api" ng-click="contentCtrl.goTo($event, 'rest-api')">Bonita REST APIs</a>.</p>
+<p>Here are some examples:</p>
+<ul>
+<li>Get the session information of the current user - API URL:<br>
+<code>../API/system/session/{{userId}}</code></li>
+</ul>
+<p>This variable is evaluated every time the value of <code>userId</code> changes. Also, if <code>userId</code> is not defined then the call is not triggered.</p>
+<ul>
+<li>
+<p>Retrieve the task with the id <code>taskId</code>:<br>
+API URL: <code>../API/bpm/humanTask/{{taskId}}</code></p>
+</li>
+<li>
+<p>Retrieve a <a href="?page=bdm-api" ng-click="contentCtrl.goTo($event, 'bdm-api')">business object</a> with name <code>businessDataName</code> associated with the case with id <code>caseId</code>:<br>
+API URL: <code>../API/bdm/businessDataReference/{{caseId}}/{{businessDataName}}</code></p>
+</li>
+<li>
+<p>Retrieve business data using the reference link in the <a href="?page=contracts-and-contexts" ng-click="contentCtrl.goTo($event, 'contracts-and-contexts')">context</a> when building a form:<br>
+API URL: <code>../{{context.myBusinessData_ref.link}}</code></p>
+</li>
+<li>
+<p>Retrieve lazy references of a business data field using <code>lazyRef</code> filter in an External API variable:<br>
+API URL: <code>{{myBusinessData | lazyRef : 'relationName'}}</code> where <code>myBusinessData</code> is an External API variable retrieving a business data from the context like in the above example and <code>relationName</code> the name of the lazy relation field to retrieve.</p>
+</li>
+</ul>
+<h3>JavaScript expression</h3>
+<p>An JavaScript expression variable is a JavaScript function. During the evaluation, the function can use the <strong>$data</strong> variable, which provides access to the page data model. For example:</p>
+<pre><code class="language-javascript">var result = $data.expenses * 2;
+    return result;
+</code></pre>
+<p>An expression often relies on other variables as dependencies.</p>
+<div class="alert alert-warning" role="alert">
+<p><strong>Warning:</strong> Every time one of these variables changes, the whole JavaScript expression is re-evaluated and the previous value is overwritten.</p>
+</div>
+<p>For example, create a <code>login</code> expression variable: <code>return $data.firstname.toLowercase() + '-' + $data.lastname.toLowercase()</code>. Its dependencies are the two variables <code>firstname</code> and <code>lastname</code>.<br>
+Create two input widgets &quot;First name&quot; and &quot;Last name&quot; and bind the values to two variables <code>firstname</code> and <code>lastname</code>. Add a text widget &quot;Login&quot; to display the result of the <code>login</code> expression. When the user fills out the two input fields, the expression is updated. If the login value is manually edited before the user fills out the fields, then its value is overwritten.</p>
+<h2>Using a variable</h2>
+<p>A variable is used by another variable or inside a <a href="?page=widgets" ng-click="contentCtrl.goTo($event, 'widgets')">widget</a> properties. There are many ways to use a variable in widget properties:</p>
+<ul>
+<li>In a property containing text or HTML to be displayed in a widget, you can use the syntax <em>{{variableName}}</em> in the content to make it dynamic content. For example, you could display the user's name in a welcome message.</li>
+<li>In the case of user input (for example the <em>Value</em> property of a text input) the variable value is used both to set the initial value and retrieve the user input.</li>
+</ul>
+<p>A binding is dynamic, so every time the value of a variable changes, the whole data model is re-evaluated and the UI is updated.</p>
+<h2>In Bonita forms</h2>
+<p>One of the goals of the UI Designer is to enable you to build forms for process instantiation and human tasks execution. The <a href="?page=contracts-and-contexts" ng-click="contentCtrl.goTo($event, 'contracts-and-contexts')">contract</a> eases the decoupling between the user views and the process. When a form is submitted for process instantiation or for human task execution, the UI Designer sends data to fulfill the contract.</p>
+<p>To ease the definition of the form data to send back to the process, when you create a form from the Bonita Studio, the UI Designer generates the following variables:</p>
+<ul>
+<li><em>formInput</em>. It is a JSON object. Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. You can set the values in formInput either by editing the default values with constants (for testing and debugging purposes) or with values from an object in an external source that has the same model (such as a BDM external API). You can also set the initial values of a form from some other source without using formInput. However, you will then have to edit formOutput manually.</li>
+<li><em>formOutput</em>. It is a JavaScript expression returning an object. The object structure matches the contract requirements and it is filled with formInput by default. On Submit, values entered or modified by the user and aggregated in the formOutput object (as defined by the <em>Data sent on click</em> property of the Submit button) are submitted to the process or task to fulfill the contract.</li>
+<li><em>taskId</em>. It is the id of the current BPM task. You can use it as a BPM API parameter.</li>
+<li><em>context</em>. It is an External API that provides references to all business variables and documents in the process instance.</li>
+<li><em>submit_errors_list</em>. It is a JavaScript expression formatting the response payload to html when a submit fails.
+In some cases, other types of variables are created:</li>
+<li>When the business variable is edited in the form (as specified in the contract creation wizard), a UI Designer variable is created for each variable (External API).
+For example, if the contract input has been created from a business variable <code>invoice</code> in the process, a variable <code>invoice</code> is created in the form and its URL is set to <code>../{{context.invoice_ref.link}}</code>.
+If <code>invoice</code> contains lazy relations, additional variables are generated for each lazy relation to resolve (using <em>lazyRef</em> filter).
+For example, if <code>invoice</code> has a <code>customer</code> relation in lazy, an External API variable <code>invoice_customer</code> is added. Its URL is set to <code>{{invoice|lazyRef:'customer'}}</code>.</li>
+<li>To display an aggregated object, a Select widget is generated to display the <em>available values</em> of the object.
+The variable (External API) bound to the widget is created. It queries the BDM. For example, when the object Invoice has an aggregated object Customer, the query is: <code>../API/bdm/businessData/com.company.model.Customer?q=find&amp;p=0&amp;c=99</code>. By default it uses the <code>find</code> query with a default pagination (only first 100 objects are returned).</li>
+</ul>
+<!-- Generated on Wed Dec 04 2019 17:46:52 GMT+0100 (Paris, Madrid) -->

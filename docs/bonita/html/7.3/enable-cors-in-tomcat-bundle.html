@@ -1,0 +1,127 @@
+<div style="position: relative;"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="bonita/images/7.3/outOfSupport.png" alt="Out of support"></div>
+<h1>Enable CORS in Tomcat bundle</h1>
+<p>If you try to call the REST API from a page hosted on another domain than the one of the tomcat bundle,
+you will face some issues due to the 'same-origin policy' enforced by web browsers.
+For instance you may see in your browser a message such as:</p>
+<blockquote>
+<p>Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at XXX.
+This can be fixed by moving the resource to the same domain or enabling CORS.</p>
+</blockquote>
+<p>By configuring the CORS filter on the tomcat bundle, you will be able to access the Bonita REST API from a page
+hosted on a different domain from the one of the tomcat bundle.</p>
+<h2>Tomcat configuration</h2>
+<p>Edit the web.xml of the bonita.war to add the CORS filter:</p>
+<pre><code class="language-code">&lt;filter&gt;
+  &lt;filter-name&gt;CorsFilter&lt;/filter-name&gt;
+  &lt;filter-class&gt;org.apache.catalina.filters.CorsFilter&lt;/filter-class&gt;
+  &lt;init-param&gt;
+    &lt;param-name&gt;cors.allowed.origins&lt;/param-name&gt;
+    &lt;param-value&gt;*&lt;/param-value&gt;
+  &lt;/init-param&gt;
+
+  &lt;init-param&gt;
+    &lt;param-name&gt;cors.allowed.methods&lt;/param-name&gt;
+   &lt;param-value&gt;GET, HEAD, POST, PUT, DELETE, OPTIONS&lt;/param-value&gt;
+  &lt;/init-param&gt;
+
+  &lt;!-- List of the response headers other than simple response headers that the browser should expose to
+    the author of the cross-domain request through the XMLHttpRequest.getResponseHeader() method.
+    The CORS filter supplies this information through the Access-Control-Expose-Headers header. --&gt;
+  &lt;init-param&gt;
+      &lt;param-name&gt;cors.exposed.headers&lt;/param-name&gt;
+      &lt;param-value&gt;Access-Control-Allow-Origin,Access-Control-Allow-Credentials,X-Bonita-API-Token&lt;/param-value&gt;
+  &lt;/init-param&gt;
+
+  &lt;!-- The names of the supported author request headers. These are advertised through the Access-Control-Allow-Headers header.
+    The CORS Filter implements this by simply echoing the requested value back to the browser.
+  --&gt;
+  &lt;init-param&gt;
+      &lt;param-name&gt;cors.allowed.headers&lt;/param-name&gt;
+      &lt;param-value&gt;Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,X-Bonita-API-Token&lt;/param-value&gt;
+  &lt;/init-param&gt;
+
+&lt;/filter&gt;
+...
+&lt;filter-mapping&gt;
+  &lt;filter-name&gt;CorsFilter&lt;/filter-name&gt;
+  &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre>
+<p><em><strong>Important Note 1:</strong> The filter must be inserted in the file webapps/bonita/WEB-INF/web.xml (not in the Tomcat conf/web.xml)</em></p>
+<p><em><strong>Important Note 2:</strong> It must be the first filter, inserted right after the </error-page> tag</em></p>
+<p>for more information:
+<a href="https://tomcat.apache.org/tomcat-7.0-doc/config/filter.html#CORS_Filter">https://tomcat.apache.org/tomcat-7.0-doc/config/filter.html#CORS_Filter</a></p>
+<h2>HTML Example test page</h2>
+<p>Here is an example of html page that:</p>
+<ul>
+<li>logs in using the loginservice,</li>
+<li>get the current session, via the REST api resource system/session</li>
+<li>edit a user using the REST api resource identity/user</li>
+</ul>
+<p>This page can be hosted on a different domain, and thanks to the CORS filter, the requests will be successfully processed.</p>
+<p><em><strong>Important Note 1:</strong> this example works on a bundle where the <a href="?page=csrf-security" ng-click="contentCtrl.goTo($event, 'csrf-security')">CSRF security filter is activated</a>. As the header &quot;X-Bonita-API-Token&quot; is set with the &quot;session apiToken&quot;.</em></p>
+<p><em><strong>Important Note 2:</strong> to use this page you will need to replace the BONITA_ACCESS_URL by your own tomcat bundle URL.</em></p>
+<pre><code class="language-html">
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+ &lt;meta charset=&quot;utf-8&quot;&gt;
+ &lt;title&gt;Demo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;CORS INDEX&lt;/h1&gt;
+ &lt;script src=&quot;http://code.jquery.com/jquery-2.1.4.js&quot;&gt;&lt;/script&gt;
+ &lt;script&gt;
+   var formData = {
+     username: &quot;walter.bates&quot;,
+     password: &quot;bpm&quot;,
+     redirect: false
+   };
+   $.ajax({
+     url: &quot;http://192.168.1.55:16936/bonita/loginservice&quot;,
+     type: &quot;POST&quot;,
+     data: formData,
+     xhrFields: {withCredentials: true},
+     success: function(data, textStatus, jqXHR) {
+           $.ajax({
+             url: &quot;http://192.168.1.55:16936/bonita/API/system/session/1&quot;,
+             type: &quot;GET&quot;,
+             xhrFields: {withCredentials: true},
+             success: function(data, textStatus, jqXHR) {
+                   console.log('success getting session');
+                   var apiToken = jqXHR.getResponseHeader('X-Bonita-API-Token');
+                   console.log('X-Bonita-API-Token: ' + apiToken);
+                   var formData = {&quot;title&quot;:&quot;Mr&quot;,&quot;manager_id&quot;:&quot;0&quot;,&quot;job_title&quot;:&quot;Chief Executive Officer&quot;,&quot;lastname&quot;:&quot;Jobs&quot;,&quot;firstname&quot;:&quot;Will&quot;};
+                   $.ajax({
+                         url: &quot;http://192.168.1.55:16936/bonita/API/identity/user/1&quot;,
+                         type: &quot;PUT&quot;,
+                         contentType: &quot;application/json&quot;,
+                         /*passing the X-Bonita-API-Token for the CSRF security filter*/
+                         headers: {'X-Bonita-API-Token': apiToken},
+                         data: JSON.stringify(formData),
+                         xhrFields: {withCredentials: true},
+                         success: function(data, textStatus, jqXHR) {
+                           console.log('success updating user info');
+                           console.log(data);
+                         },
+                         error: function(jqXHR, textStatus, errorThrown) {
+                           console.log('error updating user info');
+                         }
+                   });
+             },
+             error: function(jqXHR, textStatus, errorThrown) {
+               console.log('error getting session');
+             }
+           });
+     },
+     error: function(jqXHR, textStatus, errorThrown) {
+       console.log('error login');
+     }
+   });
+ &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+</code></pre>
+<!-- Generated on Tue Jun 19 2018 09:27:07 GMT+0200 (Paris, Madrid (heure d’été)) -->

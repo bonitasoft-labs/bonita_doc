@@ -1,0 +1,15 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/back-up-bonita-bpm-platform.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Back up Bonita Platform</h1>
+<p>Any basic one node (non-clustered) installation can be backed up to be restored later.
+In a <a href="?page=overview-of-bonita-bpm-in-a-cluster" ng-click="contentCtrl.goTo($event, 'overview-of-bonita-bpm-in-a-cluster')">Bonita cluster</a>, you need to back up the nodes, the shared database.</p>
+<p>A cold backup (total shutdown) is recommended, to avoid losing data being processed during the backup process. Note: make sure your database server is backed up.
+(Please refer to the specific documentation for your database concerning the backup procedure).</p>
+<ol>
+<li>Stop the application server</li>
+<li>Save the Application Server configuration files modified during Bonita setup.</li>
+<li>Save the deployed web application (i.e. <code>bonita.war</code>) (for Tomcat <code>[TOMCAT_HOME]/webapps/bonita.war</code>), or you can redeploy all applications at startup.
+If you decide not to save the <code>webapps</code> directory, make sure that you have a copy of your Bonita application available.</li>
+<li>Back up your database (Please refer to the specific documentation for your database concerning the backup procedure).</li>
+<li>Start the application server.</li>
+</ol>
+<!-- Generated on Fri Jan 19 2018 16:08:26 GMT+0100 (Paris, Madrid) -->

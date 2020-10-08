@@ -1,0 +1,106 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/contracts-and-contexts.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Contracts and contexts</h1>
+<h2>Overview</h2>
+<p>The notion of contract is available at two levels: process instantiation and human task execution. A contract is composed of inputs and constraints. Inputs are pieces of information that must be provided to the process or the human task. The constraints are applied to the input to check that the values of the inputs are valid.</p>
+<p>As an example, a Leave Request Process could declare the following contract:</p>
+<ul>
+<li>Inputs:
+<ul>
+<li>Start Date</li>
+<li>End Date</li>
+<li>Leave type</li>
+</ul>
+</li>
+<li>Constraints:
+<ul>
+<li>End Date after Start Date</li>
+<li>Start Date in the future</li>
+<li>Leave type in (&quot;Annual Leave&quot;, &quot;Unpaid Leave&quot;)</li>
+</ul>
+</li>
+</ul>
+<h2>Contract purpose and value</h2>
+<p>A contract specifies the pieces of information the process requires to be started. Without this information the process cannot execute its business logic, and it is not useful to try to start an instance of the process. That is to say, if you try to start an instance of the process without providing the expected input, the system will refuse to start the process. The same is true for a human task: if you try to perform the task without providing the expected input, the system will refuse to execute the task. A contract protects the process from malformed external interaction. After validation, the inputs are used to initialize business data, or process data, or are passed through connectors.</p>
+<h2>Contract definition</h2>
+<p>In Bonita Studio select the pool to create the process instantiation contract, or select a human task to create a task contract.
+Go to the <strong>Details</strong> panel, <strong>Execution</strong> tab, <strong>Contract</strong> pane. In the Inputs tab, declare each expected input and its type. You have two options: declare the input manually or from a business variable using the <strong>Add from data</strong> option.</p>
+<p>Defining an input based on a variable saves you time, and is the preferred option if the aim of the input is to initialize (or update) the business variable. In addition, using <strong>Add from data</strong> on a contract automatically generates <a href="?page=operations" ng-click="contentCtrl.goTo($event, 'operations')">operations</a> or expressions to instantiate or edit the selected business variables with the task contract inputs. It also generates <strong>constraints</strong> for each mandatory field and all aggregation relations to validate their integrity.</p>
+<p>In the <strong>Constraints</strong> tab, declare expressions that check the validity of the value of each input. A constraint has a name, a content, and an error message. The message is logged if the constraint is not met. Make sure to provide a meaningful name and message to help process users understand why the system rejected the command to instantiate the process or execute a task.</p>
+<p>In the Leave Request Process example, the contract inputs and the constraints would be similar to the following:</p>
+<p><img src="bonita/images/7.9/images-6_0/contractDoc.PNG" alt="" title=""></p>
+<p><img src="bonita/images/7.9/images-6_0/ConstraintsDoc.PNG" alt="" title=""></p>
+<p>Stacktrace example in case of contract violation:
+<img src="bonita/images/7.9/images-6_0/constraintError.PNG" alt="" title=""></p>
+<p>Supported input types:</p>
+<ol>
+<li><strong>Boolean:</strong> accepts true or false values</li>
+<li><strong>complex:</strong> a tree structure that is equivalent to a key-value map where keys are fixed (e.g. if an input named user with children attributes firstname and lastname)</li>
+<li><strong>date:</strong> a date respecting the following pattern : yyyy-MM-dd or yyyy-MM-ddTHH:mm:ss or yyyy-MM-ddTHH:mm:ssZ or yyyy-MM-ddTHH:mm:ss.SSSz (ISO_8601)</li>
+<li><strong>decimal:</strong> a decimal value (e.g. 5.128)</li>
+<li><strong>file:</strong> a document</li>
+<li><strong>integer:</strong> a numeric value (e.g. 4)</li>
+<li><strong>long:</strong> a long value (e.g. 3 000 000 000). Can be used at pool-level only (not at task-level). In called processes, this is helpful to receive IDs from call activities.</li>
+<li><strong>text:</strong> a string</li>
+</ol>
+<p>Check <strong><em>multiple</em></strong> to specify that the input is a list of its primary type (for example, a list of integers).</p>
+<div class="alert alert-info" role="alert">
+<p><strong><i class="fa fa-info-circle"></i></strong>  The type <code>long</code> can be used in a POST with JSON without precision lost. However, it is important to keep in mind that while manipulating numbers in javascript the max <code>integer</code> is 2^53-1 which is a smaller subset of Java max <code>long</code> type (2^63-1). Example:</p>
+<ul>
+<li>If your value is in JavaScript safe integer range: Text widget (number) &gt; JavaScript number &gt; JSON number &gt; Contract java.lang.Long</li>
+<li>If value is out of JavaScript safe integer range: Text widget (text) &gt; JavaScript String &gt; JSON String &gt; Contract java.lang.Long</li>
+</ul>
+</div>
+<p><strong>Constraints</strong></p>
+<p>A constraint is a Groovy expression that returns a Boolean. If the value is false, the constraint is not met, so the contract not fulfilled and the system will not execute the instantiation or task.</p>
+<p><strong>Note:</strong> the constraint scope is limited to contract input and cannot reference external systems (such as connectors, databases or bonita APIs).</p>
+<p>When is the contract validated ?</p>
+<p>Whatever means is used to submit information to process or human task, the system will validate the contract. If the contract is not satisfied, an exception is thrown and the process or human task is untouched. Information can be submitted by Java API call, REST API call, Bonita form, or an external system including a third-party form.</p>
+<p>Example of a stacktrace when a constraint fails:</p>
+<pre><code>2019-03-19 11:28:09.088 +0100 AVERTISSEMENT: org.bonitasoft.engine.bpm.contract.validation.ContractConstraintsValidator THREAD_ID=64 | HOSTNAME=*** | TENANT_ID=1 | Constraint [mandatory_invoiceInput_customer] on input(s) [invoiceInput] is not valid
+2019-03-19 11:28:09.200 +0100 INFOS: org.restlet.Component.BonitaSPRestletApplication Error while validating constraints
+Explanations:
+Customer is mandatory for Invoice
+</code></pre>
+<p>Example of HTTP response when a constraint fails:</p>
+<pre><code>status: 400
+{
+	&quot;exception&quot;:&quot;class org.bonitasoft.engine.bpm.contract.ContractViolationException&quot;,
+	&quot;message&quot;:&quot;Error while validating constraints&quot;,
+	&quot;explanations&quot;:[&quot;Customer is mandatory for Invoice&quot;]
+}
+</code></pre>
+<p>When generating a Form from a contract, a Text widget is created to display errors on submit.</p>
+<p><strong>Best practice:</strong> Define the contract prior to creating your forms. This will save you time during development phase as auto-generated forms enable you to submit information and validate that your contract definition is stable. After the contract is defined, you can go to UI Designer using top-right pencil icon of the Details panel. It will generate a form with the appropriate widget for each contract input to enable the user to provide the expected value.</p>
+<h2>Context</h2>
+<p>To display contextual information of the task or the process instance in a form, you can leverage the business data and document references made publicly available through the context. The notion of context is available at two levels : process instance and human task. The context is a list of references to the business data and documents manipulated by the process instance during its execution.
+Currently, context is the same for a human task and its process instance. All the business data and documents defined are public.</p>
+<p>Limitation : there is currently no way to customize which business data or document are public in Community edition. When using an Enterprise edition, you may want to use the <a href="?page=bdm-access-control" ng-click="contentCtrl.goTo($event, 'bdm-access-control')">BDM Access Control</a> to protect data access.</p>
+<h2><a name="form-generation"/> Form generation</h2>
+<p>When creating a contract input from a Data (Add from Data...) you can select the edition mode.<br>
+In <code>Create</code> mode, the generated contract input is meant to instantiate new Data instance.<br>
+In <code>Edit</code> mode, additional <code>persistenceId_string</code> input are generated to ensure edition of existing data instances. When generating a Form, additional variables are created in the UID page to retrieve existing data from the Task context and bind create a proper databinding. There is some known limitations if the data has <em>lazy</em> relations:</p>
+<ul>
+<li>If the <em>lazy</em> field is not contained in a repeatable container (no multiple parent in the object hierarchy): Another UID variable (External API) is generated to retrieve the <em>lazy</em> relation.</li>
+<li>If the <em>lazy</em> field is contained in a repeatable container (there is a multiple parent in the object hierarchy or the data is multiple): This kind of fields are unselected by default when generating the contract. We cannot retrieve the values from the context for those relations and a consistent <em>edition</em> form generation is not possible. The current workarounds to handle this use case are:
+<ul>
+<li>Change the relation loading mode to <em>eager</em> (Always load related objects option) instead of <em>lazy</em> (Only load related objects when needed)</li>
+<li>Use UID <a href="?page=fragments" ng-click="contentCtrl.goTo($event, 'fragments')">fragments</a> (Enterprise edition only). Keep in mind that it may lead to performance issues as each lazy instance will generate an HTTP request.</li>
+<li>Use a <a href="?page=api-extensions" ng-click="contentCtrl.goTo($event, 'api-extensions')">Rest API Extension</a>. Instead of reusing the Task context, create your own endpoint that will serve all the needed data in one HTTP request.</li>
+</ul>
+</li>
+</ul>
+<p>In <code>Edit</code> mode, you have the possibility to generate read only widgets for attributes related to the contract but not in the contract.<br>
+The following example describes the logic:</p>
+<p><img src="bonita/images/7.9/formGenerationReadOnly.svg" alt="Read only example" title="Read only example"></p>
+<p>Elements in blue are the contract inputs, i.e a sub-part of the business model that will be edited.<br>
+Elements in red are the attributes considered as <em>related to a contract input</em>. We will propose you to generate read only widgets to display the values of those attributes.</p>
+<p>The rules are the following:<br>
+An attribute is considered as <em>related to a contract input</em> if:</p>
+<ul>
+<li>This attribute is not used as a contract input</li>
+<li>The parent of this attribute has at least one child used as a contract input</li>
+</ul>
+<p>If a simple attribute is considered as <em>related to a contract input</em>, then a read only widget can be generated for this attribute.<br>
+If a complex attribute is considered as <em>related to a contract input</em>, then a read only widget can be generated for all the simple children of this attribute.</p>
+<p>⚠️ We do not generate read only widgets for lazy fields contained in a repeatable container (the limitation is explained above)</p>
+<!-- Generated on Wed Dec 04 2019 17:46:51 GMT+0100 (Paris, Madrid) -->

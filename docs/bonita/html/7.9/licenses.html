@@ -1,0 +1,56 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/licenses.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Licenses</h1>
+<p>This page explains how to manage your license for the Bonita Platform: generate a request key, get the license file and install it.</p>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For Enterprise, Performance, Efficiency, and Teamwork editions only.</p>
+</div>
+<p>Bonita 7.7 supports the <strong>Enterprise</strong> licensing model in addition to the Case-based and CPU-based licensing.</p>
+<p>The <strong><em>License</em></strong> menu in Bonita Portal displays information about the current license. This information is available to the platform administrator only.</p>
+<p>The <a href="?page=bonita-bpm-studio-installation" ng-click="contentCtrl.goTo($event, 'bonita-bpm-studio-installation')">license for Bonita Studio</a> is managed through a wizard when you start the studio for the first time after installation (or after the previous license expires).</p>
+<h2>Case-counter licensing</h2>
+<p>A case-counter license defines the maximum number of cases (process instances) that the platform is permitted to start in the counter period.<br>
+The counter period is typically one year and starts when your Subscription starts or on the anniversary.<br>
+Each time a case starts, the case counter is increased by one.<br>
+Case-counter licenses are available for development and for production. A development license must not be used for production, and typically has a lower case limit than a production license.<br>
+The maximum number of cases is defined in your commercial contract, in discussion with your sales person.</p>
+<p>For <strong>Case-based licensing</strong>, you can monitor the case counter using Bonita Portal <em>License</em> page in the Administrator profile, or using the <a href="?hash=license&amp;page=platform-api" ng-click="contentCtrl.goTo($event, 'platform-api', 'license')">REST API</a> to create a custom monitoring / alerting tool.<br>
+Those two means also allow you to check the expiration date of the license.</p>
+<p>When the case counter reaches the limit set in the license, no more cases can be started. Active cases continue until completion.
+If a user tries to submit an instantiation form after the case counter maximum limit is reached, the form is not submitted and an error message is displayed.</p>
+<h2>Get a new license</h2>
+<p>Your contract with Bonitasoft specifies the details of the subscription you have purchased, including the edition, and case limit for case-counter licensing. A license matching the subscription details is generated on request.</p>
+<p>If this is a license renewal, you can find your request key in the Bonita Portal <em>License</em> menu of the Administrator profile or using the <a href="?hash=license&amp;page=platform-api" ng-click="contentCtrl.goTo($event, 'platform-api', 'license')">platform REST API</a>.<br>
+A request key looks like this: <code>(CIVpYDRB8bhouXdWadLY1M9TVctwYUYuv7ou7sqeIrSUSuCqUIkjQAs0ZGgzbtqv3gguFOHlyMZkyvwdr4HLgg==)</code>.</p>
+<p>If this is the first time you generate a license, you need to generate a request key.</p>
+<h3>Generate the request key</h3>
+<p>On the server where you installed Bonita Platform:</p>
+<ol>
+<li>Go to the <code>tools/request_key_utils</code> folder</li>
+<li>Run the <code>generateRequestKey.bat</code> script (for Windows) or the <code>generateRequestKey.sh</code> script (for other operating systems)</li>
+</ol>
+<h3>Generate the new license</h3>
+<p>Copy your request key and go to the <a href="https://customer.bonitasoft.com/license/request">Customer Portal license request</a> page.<br>
+Then fill in the details in the form, copy the request key in the <em>Request Key</em> field, and submit.<br>
+<strong>Note</strong>: keep the brackets <code>()</code> in the key; if the key is separated by a line break, remove it and put the key on a single line.</p>
+<p>The license file will be sent to you by email.</p>
+<h2>Install the license</h2>
+<p>When you receive the license file (<code>.lic</code> file extension):</p>
+<ul>
+<li>If this is the first time you start the bundle, copy the file to the<code>&lt;TOMCAT_HOME&gt;/setup/platform_conf/licenses</code> folder or <code>&lt;WILDFLY_HOME&gt;/setup/platform_conf/licenses/</code> folder before starting the bundle.</li>
+<li>If the bundle has already been started, <a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">you need to use the Platform setup tool</a> to push your license file to database.
+Don't forget to restart your application server after pushing the license to the database.</li>
+</ul>
+<h2>License renewal scheduling</h2>
+<p>If you are still within the Subscription period when you approach the license expiration date, request a new license that starts on the last day of your current license.<br>
+<a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">Use the Platform setup tool</a> to pull the existing configuration from the database.
+Put the license you receive in the license folder alongside the existing license.
+<a href="?hash=update_platform_conf&amp;page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup', 'update_platform_conf')">Use the Platform setup tool</a> to push your license file to database.
+Don't forget to restart your application server after pushing the license to the database.</p>
+<p>When you reach the &quot;changeover&quot; date for the licenses, Bonita Engine switches automatically from the expired license to the valid one.
+<strong>Note:</strong> We recommend to regularly remove license files of expired licenses from the server.</p>
+<p>If you approach both the license expiration date and the end of the Subscription period, contact your sales person.</p>
+<p>For <strong>Case-based licensing</strong>, the case counter will be reset at the end of the counter period.<br>
+If your license expiration date comes before the end of the counter period, get and install a new license as usual.
+The case counter will continue from its current value under the new license.
+If you approach or reach the case counter limit before the end of the license period, contact your sales person to get a new license with additional cases.</p>
+<!-- Generated on Wed Dec 04 2019 17:46:51 GMT+0100 (Paris, Madrid) -->

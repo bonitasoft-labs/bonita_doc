@@ -1,0 +1,17 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.5/md/migrate-a-form-from-6-x.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Migrate a form from 6.x</h1>
+<p>Although a form created with Bonita BPM 6.x will work with Bonita BPM 7.x, you are recommended to migrate your 6.x forms and process definitions to take advantage of the new features, namely live update of a form.<br>
+There is no specific tooling to assist with migration, and you do not have to migrate all apsects of a process definition at the same time.<br>
+You can take a staged approach, testing that your process continues to behave as expected after each change.</p>
+<p>The most efficient sequence for migrating a process and its forms to benefit from Bonita BPM 7.x features is as follows:</p>
+<ol>
+<li>BDM: create your <a href="?page=define-and-deploy-the-bdm" ng-click="contentCtrl.goTo($event, 'define-and-deploy-the-bdm')">business data model</a>. If you already have a BDM from 6.x, no change is needed.</li>
+<li>Business data: if you have created a new BDM, populate your business data database by importing it from where it was previously stored (process data or external data).<br>
+You can do so with a process that uses a connector to retrieve external data and an operation using the REST API to store the business objects.</li>
+<li>Process: check that the process runs with the business data, and update it if necessary.</li>
+<li>Contracts: define <a href="?page=contracts-and-contexts" ng-click="contentCtrl.goTo($event, 'contracts-and-contexts')">contracts</a> based on your business data, for process instantiation and for each human task.</li>
+<li>Forms: generate the forms from the contracts into the UI Designer, then update them as needed.</li>
+<li>In the Studio, at pool level and for each human task, go to the <strong><em>Details</em></strong> panel, <strong><em>Execution</em></strong> tab, <strong><em>Form</em></strong> section, and change the option from <strong>Legacy (6.x)</strong> to <strong><em>UI Designer</em></strong>. You can also generate them in another development environment. In this case, choose <strong><em>External URL</em></strong> option.</li>
+</ol>
+<p>When you export a diagram, forms created in the UI Designer are embedded by default in the .bos and .bar files, to share between Bonita BPM Studios (.bos) or install in a Bonita BPM Portal (.bar), so you don't need to manually export them and import them one by one.</p>
+<!-- Generated on Wed Jan 31 2018 10:20:49 GMT+0100 (Paris, Madrid) -->

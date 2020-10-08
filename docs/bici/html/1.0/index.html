@@ -1,0 +1,56 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-ici-doc/edit/1.0/md/index.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"/></a></div>
+<h1>Bonita Intelligent Continuous Improvement Add-on</h1>
+<p>This page explains the values and content of Bonita ICI Add-on,which is composed of a standalone application connected to Bonita Engine database, and two Living Applications: one for configuration, and one to monitor open cases and SLA compliance.</p>
+<p><img src="bici/images/1.0/ici.png" alt="Bonita ICI Add-on architecture" title="Bonita ICI Add-on architecture"></p>
+<h2>Business values</h2>
+<h3>Decision support: short term improvement</h3>
+<p><img src="bici/images/1.0/omar.png" alt="Bonita ICI Add-on Omar" title="Bonita ICI Add-on Omar"></p>
+<p>This add-on provides a solution to support decision-making in the context of process execution that involves a compliance to &quot;Service Level of Agreements&quot;.</p>
+<p>It is designed to help Operations Managers to insure that the execution of processes they supervise reaches efficiency standards, and as much as possible, avoid penalties that may occur when SLAs are not met.</p>
+<p>By analyzing data from the BPM archives, the ICI add-on predicts whether an open case has good chances to finish within the contractual SLA or not.<br>
+Cases that are predicted late on the supervised processes are highlighted, so the operations manager can take corrective actions while there is still time, so as to improve the overall operational efficiency of the team.</p>
+<p>This is made possible by implementing a process mining algorithm, that uses both timestamps of all BPM events and the id of each process instance in Bonita archives to build the path that each case has taken and its history.</p>
+<h3>Descriptive analytics: long term improvement</h3>
+<p>The ICI Add-on also provides a solution to detect areas of improvements like fixing the process design or adapting the resources to workload peaks.
+The data extracted from Bonita database can be used to build charts that give meaning to process execution.<br>
+Process managers get to detect patterns, performance indicators and maybe pinpoint execution flaws.</p>
+<div class="col-md-4">
+<div class="panel panel-default">
+<div class="panel-heading">Highlights</div>
+<div class="panel-body">
+<div style="padding: 15px; padding-bottom: 0px;">Find out what’s in Bonita ICI Add-on! Read the release notes.</div>
+<div class="menu-block-wrapper">
+<ul class="menu nav">
+<li><a href="?page=release_notes" ng-click="contentCtrl.goTo($event, 'release_notes')"><i class="fa fa-angle-double-right"></i> Release Notes</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="panel panel-default">
+<div class="panel-heading">Getting started</div>
+<div class="panel-body">
+<div style="padding: 15px; padding-bottom: 0px;">Follow this guide with step-by-step instructions to start using Bonita ICI Add-on.</div>
+<div class="menu-block-wrapper">
+<ul class="menu nav">
+<li><a href="?page=getting_started" ng-click="contentCtrl.goTo($event, 'getting_started')"><i class="fa fa-angle-double-right"></i> Getting started with ICI</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="panel panel-default">
+<div class="panel-heading">Process mining</div>
+<div class="panel-body">
+<div style="padding: 15px; padding-bottom: 0px;">Learn more about what runs in the background.</div>
+<div class="menu-block-wrapper">
+<ul class="menu nav">
+<li><a href="?page=process_mining" ng-click="contentCtrl.goTo($event, 'process_mining')"><i class="fa fa-angle-double-right"></i>Process mining</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Generated on Thu Oct 04 2018 10:45:17 GMT+0200 (Paris, Madrid (heure d’été)) -->

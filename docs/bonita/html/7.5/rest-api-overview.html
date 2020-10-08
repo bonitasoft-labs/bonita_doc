@@ -1,0 +1,375 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.5/md/rest-api-overview.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>REST API overview</h1>
+<p>This page contains an overview of how to integrate an application with Bonita BPM using REST.</p>
+<h2>Overview</h2>
+<p>If your application is using a technology other than Java, you can integrate it with the Bonita BPM solution using the Web REST API. This API provides access to all Bonita BPM objects (like processes, tasks, users, connectors etc.), to execute operations on them (create, retrieve, update, delete). You can use these operations to create a workflow with Bonita BPM and integrate it into your application. The Bonita BPM Engine remains responsible for executing the workflow logic (connectors, gateways with conditions, messages, timers etc.) while your application gives access to the workflow. Users can manage processes and tasks, and perform administrative activities.</p>
+<p>Access to the Web REST API depends on <a href="?page=rest-api-authorization" ng-click="contentCtrl.goTo($event, 'rest-api-authorization')">REST API authorization</a> settings.</p>
+<p><img src="bonita/images/7.5/images-6_0/rest_overview.png" alt="diagram of architecture of a REST client integrated with Bonita BPM" title="diagram of architecture of a REST client integrated with Bonita BPM"></p>
+<h2>Phases of operation</h2>
+<p>There are three phases of operation for an application that is integrated with Bonita BPM through the Web REST API: authentication, execution, and logout.</p>
+<a id="bonita-authentication"/>
+<h3>Authenticate to Bonita BPM</h3>
+<p>Calls to the Web REST API require you to first log in as a user registered in the Engine database.</p>
+<p>To log in, use the following request:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://host:port/bonita/loginservice</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">POST</td>
+</tr>
+<tr>
+<td style="text-align:left">Form Data</td>
+<td style="text-align:left">username: a username<br/>password: a password <br/>redirect: true or false<br/>redirectURL: the URL of the page to be displayed after login <br/>tenant: the tenant to log in to (optional for Teamwork, Efficiency, and Performance editions, not supported for the Community edition)</td>
+</tr>
+</tbody>
+</table>
+<p>The response to this call generates cookies, which must be transfered with each subsequent calls. If the REST API is used in an application running in a web browser, this is handled automatically by the browser.</p>
+<h4>X-Bonita-API-Token cookie</h4>
+<p>The security against CSRF attacks is enabled by default for all fresh installations. the subsequence REST API calls using DELETE, POST, or PUT HTTP methods must contain the header below:</p>
+<pre><code>X-Bonita-API-Token: example-dummy-not-be-used-value
+</code></pre>
+<p>Setting the redirect parameter to false indicates that the service should not redirect to Bonita BPM Portal (after a successful login) or to the login page (after a login failure).</p>
+<h3>Execute REST calls and integrate the results in your application</h3>
+<p>After the application is connected to the Bonita BPM Engine, you can start calling API methods. The following is a typical scenario for an end user.</p>
+<ol>
+<li><a href="?hash=case&amp;page=bpm-api" ng-click="contentCtrl.goTo($event, 'bpm-api', 'case')">Start a new case with variables</a>: Provide a form for the user to enter initial data. Then call the method to start a new case using the values entered by the user to initialize some variables. The engine will start the execution of the process. Depending on the design of your process, there might then be some human tasks available for the end user.</li>
+<li><a href="?hash=human-task&amp;page=bpm-api" ng-click="contentCtrl.goTo($event, 'bpm-api', 'human-task')">List the pending tasks for a user</a>: Retrieve a list of available human tasks for the logged in user. When the user selects a task to do, you can display the corresponding form. It can be an external form or a Bonita BPM form that can be accessed by url.</li>
+<li><a href="?hash=activity&amp;page=bpm-api" ng-click="contentCtrl.goTo($event, 'bpm-api', 'activity')">Update variables and execute a task</a>: If your application is using an external form, update the values of the variables in your process.
+You can use a method to update process or activity variables with values coming from your application. When the user submits the external form, you can call a method to execute a task.
+The engine will then continue the execution of the workflow as designed.</li>
+<li><a href="?hash=connector-instance&amp;page=bpm-api" ng-click="contentCtrl.goTo($event, 'bpm-api', 'connector-instance')">Handle tasks in error</a>: Get a list of tasks that are in the failed state, and then replay each task by doing three steps: get the list of failed connectors, reset the state of failed connectors and replay the failed task.</li>
+</ol>
+<h3>Logout from Bonita BPM</h3>
+<p>When processing is complete, you must log out.</p>
+<p>To log out, use the following request:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://host:port/bonita/logoutservice</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">GET</td>
+</tr>
+<tr>
+<td style="text-align:left">Form Data</td>
+<td style="text-align:left">redirect: true or false</td>
+</tr>
+</tbody>
+</table>
+<p>Setting the redirect parameter to false indicates that the service should not redirect to the login page after logging out.</p>
+<h2>API Extensions</h2>
+<p>You can create <a href="?page=rest-api-extensions" ng-click="contentCtrl.goTo($event, 'rest-api-extensions')">Rest API Extensions</a> to extend the Rest API by adding missing ressources (not provided by the Rest API).
+It is possible for an extension to interact with the engine (via the API) or with any other external service (for example a database, a directory, or a web service).</p>
+<h2>Create a resource</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://.../API/{API_name}/{resource_name}/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">POST</td>
+</tr>
+<tr>
+<td style="text-align:left">Request Payload</td>
+<td style="text-align:left">an item in JSON</td>
+</tr>
+<tr>
+<td style="text-align:left">Response</td>
+<td style="text-align:left">the same item in JSON, containing the values provided in the posted item, completed with default values and identifiers provided by Bonita BPM Engine.</td>
+</tr>
+</tbody>
+</table>
+<h2>Read a resource</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://.../API/{API_name}/{resource_name}/{id}</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">GET</td>
+</tr>
+<tr>
+<td style="text-align:left">Response</td>
+<td style="text-align:left">an item in JSON</td>
+</tr>
+</tbody>
+</table>
+<p>Example <code>http://.../API/identity/user/5</code></p>
+<a id="extend-resource"/>
+<h3>Extend resource response</h3>
+<p>On some resources, in GET methods the <code>d</code> (deploy) URL query parameter can be used to extend the response objects. The value of this parameter consists of an attribute for which you want to make an extended request (called a deploy) and retrieve attributes of a linked resource.<br>
+This means that instead of retrieving the ID or a parent or referenced resource, you can retrieve the full object.</p>
+<p>For example, when you retrieve a task, you can also retrieve the process definition attributes in addition to the process definition ID that is already part of the task resource.
+The supported deploy values for a task include its process (d=processId).</p>
+<p>Specifiy multiple <code>d</code> parameter to extend several resources. For instance, to retrieve the flow node of id 143 and the associated process, case and assigned user, call <code>/API/bpm/flowNode/143?d=processId&amp;d=caseId&amp;d=assigned_id</code></p>
+<h3>With compound identifier</h3>
+<p>The order of the identifier parts for each resource type is given in the table above.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://.../API/{API_name}/{resource_name}/{id_part1}/{id_part2}</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">GET</td>
+</tr>
+<tr>
+<td style="text-align:left">Response</td>
+<td style="text-align:left">an item in JSON</td>
+</tr>
+</tbody>
+</table>
+<p>Example <code>http://.../API/identity/membership/5/12/24</code></p>
+<h2>Update a resource</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://.../API/{API_name}/{resource_name}/{id}</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">PUT</td>
+</tr>
+<tr>
+<td style="text-align:left">Request Payload</td>
+<td style="text-align:left">a map in JSON containing the new values for the attributes you want to change.</td>
+</tr>
+<tr>
+<td style="text-align:left">Response</td>
+<td style="text-align:left">the corresponding item in JSON with new values where you requested a modification</td>
+</tr>
+</tbody>
+</table>
+<p>Example <code>http://.../API/identity/user/5</code></p>
+<h3>With compound identifier:</h3>
+<p>Response: the corresponding item in JSON with new values where you requested a modification.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://.../API/{API_name}/{resource_name}/{id_part1}/{id_part2}</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">PUT</td>
+</tr>
+<tr>
+<td style="text-align:left">Request Payload</td>
+<td style="text-align:left"><code>a map in JSON containing the new values for the attributes you want to change</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Response</td>
+<td style="text-align:left"><code>the corresponding item in JSON with new values where you requested a modification</code></td>
+</tr>
+</tbody>
+</table>
+<p>Example
+<code>http://.../API/identity/membership/5/12/24</code></p>
+<h2>Delete resources</h2>
+<p>Use the DELETE request to remove multiple resources.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://.../API/{API_name}/{resource_name}/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">DELETE</td>
+</tr>
+<tr>
+<td style="text-align:left">Request Payload</td>
+<td style="text-align:left">A list of identifiers in JSON, for example <code>[&quot;id1&quot;,&quot;id2&quot;,&quot;id3&quot;]</code>. Compound identifiers are separated by '/' characters.</td>
+</tr>
+<tr>
+<td style="text-align:left">Response</td>
+<td style="text-align:left"><code>empty</code></td>
+</tr>
+</tbody>
+</table>
+<p>Example
+<code>http://.../API/identity/membership/</code></p>
+<a id="resource_search"/>
+<h2>Search for a resource</h2>
+<p>The required object is specified with a set of filters in the request URL. The URL parameters must be URL-encoded.</p>
+<p>Results are returned in a paged list, and you can specify the page (counting from zero), the number of results per page (count), and the sort key (order). You can see the total number of matching results in the HTTP response header Content-Range.
+If you are searching for business data using a custom query, there must be a <a href="?page=define-and-deploy-the-bdm" ng-click="contentCtrl.goTo($event, 'define-and-deploy-the-bdm')">count query in the BDM</a>. If there is no count query, results from a custom query on business data cannot be paged properly (the header Content-Range will be absent).
+For business data default queries, the count query is defined automatically.</p>
+<p>The available filters are the attributes of the item plus some specific filters defined by each item.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Request URL</td>
+<td style="text-align:left"><code>http://.../API/{API_name}/{resource_name}?p={page}&amp;c={count}&amp;o={order}&amp;s={query}&amp;f={filter_name}={filter_value}&amp;f=...</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Request Method</td>
+<td style="text-align:left">GET</td>
+</tr>
+<tr>
+<td style="text-align:left">Response</td>
+<td style="text-align:left">an array of items in JSON</td>
+</tr>
+</tbody>
+</table>
+<p>Example
+<code>/API/identity/user?p=0&amp;c=10&amp;o=firstname&amp;s=test&amp;f=manager_id=3</code></p>
+<p>For a GET method that retrieves more than one instance of a resource, you can specify the following request parameters:</p>
+<ul>
+<li>p: index of the page to display</li>
+<li>c: maximum number of elements to retrieve</li>
+<li>o: order of presentation of values in response: must be either <code>attributeName ASC</code> or <code>attributeName DESC</code>. The final order parameter value must be URL encoded.</li>
+<li>f: list of filters, specified as <code>attributeName=attributeValue</code>. To filter on more than one attribute, specify an f parameters for each attribute. The final filter parameter value must be URL encoded.
+The attributes you can filter on are specific to the resource.</li>
+<li>s: search on name or search indexes. The matching policy depends on the configuration of <a href="?page=using-list-and-search-methods" ng-click="contentCtrl.goTo($event, 'using-list-and-search-methods')">word-based search</a>.
+For example, if word-based search is enabled, <code>s=Valid</code> returns matches containing the string &quot;valid&quot; at the start of any word in the attribute value word,
+such as &quot;Valid address&quot;, &quot;Not a valid address&quot;, and &quot;Validated request&quot; but not &quot;Invalid request&quot;.
+If word-based search is disabled, <code>s=Valid</code> returns matches containing the string &quot;valid&quot; at the start of the attribute value, such as &quot;Valid address&quot; or &quot;Validated request&quot; but not &quot;Not a valid address&quot; or &quot;Invalid request&quot;.</li>
+</ul>
+<h3>Walk-through: how to start a case using the REST API</h3>
+<h4>Install <code>curl</code> command line tool</h4>
+<p><code>curl</code> is available on Linux OS and it transfers data from or to a server with various protocols such as HTTP and HTTPS.</p>
+<pre><code>$ sudo apt install curl
+</code></pre>
+<p>NOTE: this is to be done only once.</p>
+<h4>Deploy a process</h4>
+<ul>
+<li>Start a studio</li>
+<li>Make sure the current organization contains a User with username <code>walter.bates</code> and password <code>bpm</code></li>
+<li>Create a new <code>Registration</code> process</li>
+<li>Configure the process so that <code>walter.bates</code> will be able to start it</li>
+<li>Click on the Run button</li>
+</ul>
+<h4>Login</h4>
+<pre><code>$ curl -v -c saved_cookies.txt -X POST --url 'http://localhost:8080/bonita/loginservice' \
+--header 'Content-Type: application/x-www-form-urlencoded; charset=utf-8' -O /dev/null \
+-d 'username=walter.bates&amp;password=bpm&amp;redirect=false&amp;redirectURL='
+</code></pre>
+<p>The above <code>curl</code> command saved the cookies on the disk, in the <code>saved_cookies.txt</code> file.
+The cookies file must be reused with the REST API calls (HTTP requests) in order to provide session information.
+The value of X-Bonita-API-Token cookie must be passed also in the header of the subsequent REST API calls, when any of the POST, PUT or DELETE HTTP method is used.</p>
+<p>The content of the cookies file is below:</p>
+<pre><code>$ cat saved_cookies.txt 
+
+localhost	FALSE	/bonita/	FALSE	0	bonita.tenant	1
+#HttpOnly_localhost	FALSE	/bonita/	FALSE	0	JSESSIONID	9F9665280B367259AC421378B69C3244
+localhost	FALSE	/	FALSE	0	X-Bonita-API-Token	2f86dcab-9b54-45e6-8eb1-f82c2a2f8e25
+</code></pre>
+<h4>List installed process definitions</h4>
+<pre><code>$ curl -b saved_cookies.txt -X GET --url 'http://localhost:8080/bonita/API/bpm/process?c=10&amp;p=0'
+[
+  {
+    &quot;id&quot;: &quot;6090246829515228480&quot;,
+    &quot;displayDescription&quot;: &quot;Enable the user to request to be registered and the validator to review the request.&quot;,
+    &quot;deploymentDate&quot;: &quot;2017-06-08 14:36:27.520&quot;,
+    &quot;description&quot;: &quot;Enable the user to request to be registered and the validator to review the request.&quot;,
+    &quot;activationState&quot;: &quot;ENABLED&quot;,
+    &quot;name&quot;: &quot;Registration&quot;,
+    &quot;deployedBy&quot;: &quot;4&quot;,
+    &quot;displayName&quot;: &quot;Registration&quot;,
+    &quot;actorinitiatorid&quot;: &quot;102&quot;,
+    &quot;last_update_date&quot;: &quot;2017-06-08 14:36:27.673&quot;,
+    &quot;configurationState&quot;: &quot;RESOLVED&quot;,
+    &quot;version&quot;: &quot;743.01&quot;
+  }
+]
+</code></pre>
+<p>The response shows that there is 1 process definition installed.
+The <code>Registration</code> process has a process definition id equal to <code>6090246829515228480</code></p>
+<h4>Instantiate one case of the <code>Registration</code> process</h4>
+<pre><code>$  curl -b saved_cookies.txt -X POST --url 'http://localhost:8080/bonita/API/bpm/case' \
+--header 'Content-Type: application/json' \
+--header 'X-Bonita-API-Token: 2f86dcab-9b54-45e6-8eb1-f82c2a2f8e25' \
+-d '{&quot;processDefinitionId&quot;:&quot;6090246829515228480&quot;}'    
+{
+  &quot;id&quot;: &quot;1003&quot;,
+  &quot;end_date&quot;: &quot;&quot;,
+  &quot;startedBySubstitute&quot;: &quot;4&quot;,
+  &quot;start&quot;: &quot;2017-06-08 14:40:35.272&quot;,
+  &quot;state&quot;: &quot;started&quot;,
+  &quot;rootCaseId&quot;: &quot;1003&quot;,
+  &quot;started_by&quot;: &quot;4&quot;,
+  &quot;processDefinitionId&quot;: &quot;6090246829515228480&quot;,
+  &quot;last_update_date&quot;: &quot;2017-06-08 14:40:35.272&quot;
+}
+</code></pre>
+<h4>Logout</h4>
+<pre><code>$ curl -b saved_cookies.txt -X GET --url 'http://localhost:8080/bonita/logoutservice?redirect=false'
+</code></pre>
+<h4>Troubleshooting</h4>
+<h5>HTTP/1.1 401 Unauthorized</h5>
+<p>If the HTTP response's status is <code>401 Unauthorized</code>:</p>
+<ul>
+<li>make sure that the cookies have been transfered with the call</li>
+<li>make sure that the cookies transfered are the ones generated during the last sucessfull login call</li>
+<li>if one of the PUT, DELETE or POST method is used, make sure that the <code>X-Bonita-API-Token</code> header is included</li>
+<li>if the X-Bonita-API-Token header is included, make sure that the value is the same as the one of the cookie generated during the last login</li>
+<li>Maybe a logout was issued or the session has expired; try to log in again, and re run the request with the new cookies and the new value for the <code>X-Bonita-API-Token</code> header.</li>
+</ul>
+<!-- Generated on Wed Jan 31 2018 10:20:49 GMT+0100 (Paris, Madrid) -->

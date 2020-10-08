@@ -1,0 +1,168 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-continuous-delivery-doc/edit/1.0/md/custom_init.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"/></a></div>
+<h1>Bonita Container Custom Initialization</h1>
+<p>The Bonita Docker container deployed by BCD can be further customized thanks to a custom initialization mechanism.</p>
+<p>This feature relies on the ability to extend the <a href="https://hub.docker.com/_/bonita/">Bonita Docker image</a> through custom <code>*.sh</code> shell scripts.</p>
+<h2>Where should I put custom initialization scripts?</h2>
+<p>Custom initialization files can be <strong>static</strong> or they can be <strong>dynamic</strong> while relying on runtime variables. Dynamic initialization files then leverage the <a href="http://docs.ansible.com/ansible/latest/playbooks_templating.html">Jinja2 templating framework used by Ansible</a>.</p>
+<h3>Static initialization files</h3>
+<p>Static custom initialization files must be placed in BCD's <code>roles/bonita/files/custom-init.d</code> folder. All files from this folder will be uploaded to the target host regardless their extension. However only the files with a <code>.sh</code> extension will be executed.</p>
+<p>Here's the directory layout for a <code>register-event-handler.sh</code> custom script:</p>
+<pre><code>roles
+├── bonita
+│   ├── files
+│   │   ├── custom-init.d
+│   │   │   ├── bonita-tenant-sp-custom.xml
+│   │   │   ├── config-workers.sh
+│   │   │   ├── event-handler-example-1.0.0-SNAPSHOT.jar
+│   │   │   └── register-event-handler.sh
+</code></pre>
+<h3>Dynamic initialization files</h3>
+<p>Dynamic custom initialization files must be placed in BCD's <code>roles/bonita/templates/custom-init.d</code> folder. All files with a <code>.j2</code> extension will be uploaded to the target host and stripped from the <code>.j2</code> suffix. However only the files with a <code>.sh.j2</code> extension will be executed.</p>
+<p>Here's the directory layout for the provided <code>config-cluster.sh.j2</code> initialization script:</p>
+<pre><code>roles
+├── bonita
+│   └── templates
+│       └── custom-init.d
+│           ├── bonita-platform-sp-cluster-custom.properties.j2
+│           ├── config-cluster.sh.j2
+</code></pre>
+<h2>When are custom initialization scripts invoked?</h2>
+<p>Custom initialization scripts are invoked once the database has been initialized and the Tomcat server has been configured with <a href="https://documentation.bonitasoft.com/bonita/7.6/BonitaBPM_platform_setup">Bonita Platform setup tool</a>.</p>
+<p>Hence the Bonita Docker image startup sequence can be described as follows:</p>
+<ol>
+<li>Initialize database: <code>setup.sh init</code></li>
+<li>Configure Tomcat server: <code>setup.sh configure</code></li>
+<li>Execute custom initialization <code>*.sh</code> scripts found in the container's <code>/opt/custom-init.d</code> folder</li>
+<li>Start Tomcat server</li>
+</ol>
+<div class="alert alert-info" role="alert">
+<p><strong>Warning</strong>: all custom scripts are re-executed each time the Bonita Docker container is restarted.</p>
+<p>If you want your script to be executed only once, you need to handle the conditional execution in your custom script itself.
+For example:</p>
+<pre><code class="language-bash">#!/bin/bash
+
+indicator_path=/opt/$(basename $BASH_ARGV)-executed
+if [ -f ${indicator_path} ]; then
+  echo &quot;Custom script already executed&quot; &amp;&amp; return 0
+fi
+
+#
+# Do some interesting stuff
+# [...]
+
+# Create indicator file
+touch ${indicator_path}
+</code></pre>
+</div>
+<h2>In which order are custom initialization scripts invoked?</h2>
+<p>Custom scripts are executed in natural sort order as implemented by the <code>ls</code> shell command. It is also referred as <em>natural sort of (version) numbers within text</em>.</p>
+<p>More precisely scripts are executed in the order returned by this command: <code>ls -v /opt/custom-init.d/*.sh</code>.</p>
+<h2>Examples</h2>
+<h3>1. config-workers.sh</h3>
+<p>The <code>config-workers.sh</code> script is provided as part of BCD's core scripts.
+In particular it shows how to further configure the server using <a href="https://documentation.bonitasoft.com/bonita/7.6/BonitaBPM_platform_setup">Bonita Platform setup tool</a>.</p>
+<h3>2. config-cluster.sh.j2</h3>
+<p>The <code>config-cluster.sh.j2</code> script template is provided as part of BCD's core scripts.
+In particular it shows how to conditionally configure a cluster deployment on AWS using BCD variables and <a href="http://docs.ansible.com/ansible/latest/playbooks_templating.html">Jinja2 templating engine</a>.</p>
+<h3>3. register-event-handler.sh</h3>
+<p>This sample script deploys and registers a Bonita engine Event handler as described in <a href="https://documentation.bonitasoft.com/bonita/7.6/event-handlers">Event handlers Documentation</a>.</p>
+<p>Assuming the following files:</p>
+<ul>
+<li><code>roles/bonita/files/custom-init.d/event-handler-example-1.0.0-SNAPSHOT.jar</code> (event handler JAR file)</li>
+<li><code>roles/bonita/files/custom-init.d/bonita-tenant-sp-custom.xml</code> (tenant configuration file where the event handler is registered)</li>
+</ul>
+<p>Here's a sample <code>register-event-handler.sh</code> script:</p>
+<pre><code class="language-bash">#!/bin/bash
+
+set -euxo pipefail
+
+indicator_path=/opt/$(basename $BASH_ARGV)-executed
+if [ -f ${indicator_path} ]; then
+  echo &quot;Custom script already executed&quot; &amp;&amp; return 0
+fi
+
+BONITA_PATH=${BONITA_PATH:-/opt/bonita}
+BONITA_FILES=${BONITA_FILES:-/opt/files}
+BONITA_SETUP_SH=&quot;${BONITA_PATH}/Bonita*Subscription-${BONITA_VERSION}-Tomcat-${TOMCAT_VERSION}/setup/setup.sh&quot;
+
+EVENT_HANDLER_FILENAME=event-handler-example-1.0.0-SNAPSHOT.jar
+
+
+war_path=$(find &quot;${BONITA_PATH}/Bonita&quot;*&quot;Subscription-${BONITA_VERSION}-Tomcat-${TOMCAT_VERSION}/server/webapps&quot; -name bonita.war)
+script_dir=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)&quot; &amp;&amp; pwd)&quot;
+workdir=&quot;${BONITA_FILES}/register-event-handler&quot;
+rm -rf ${workdir} &amp;&amp; mkdir -p ${workdir}
+
+pushd ${workdir}
+
+# copy event handler jar
+mkdir -p WEB-INF/lib
+cp ${script_dir}/${EVENT_HANDLER_FILENAME} WEB-INF/lib/
+
+# repackage war
+zip -r &quot;${war_path}&quot; &quot;WEB-INF/lib/${EVENT_HANDLER_FILENAME}&quot;
+
+
+# register event handler
+${BONITA_SETUP_SH} pull
+cp /opt/custom-init.d/bonita-tenant-sp-custom.xml ${BONITA_PATH}/Bonita*Subscription-${BONITA_VERSION}-Tomcat-${TOMCAT_VERSION}/setup/platform_conf/current/tenant_template_engine/
+${BONITA_SETUP_SH} push
+
+# Create indicator file
+touch ${indicator_path}
+</code></pre>
+<h3>4. deploy-probe.sh</h3>
+<p>This sample script deploys <a href="https://github.com/psi-probe/psi-probe/wiki">PSI Probe</a> (an <em>Advanced manager and monitor for Apache Tomcat</em>) along with Bonita in the Tomcat bundle.</p>
+<p>In particular, it shows how to reference BCD variables in custom initialization files. All custom referenced variables can be defined at <a href="?page=scenarios" ng-click="contentCtrl.goTo($event, 'scenarios')">BCD scenario</a> level.</p>
+<p>With this example, PSI Probe will be available at this URL: <code>http://&lt;bonita_host&gt;:8081/probe</code>. To connect to PSI Probe, use the credentials defined with the <code>custom_manager_username</code> and <code>custom_manager_password</code> variables. By default: <code>custom_manager_username=admin</code> and <code>custom_manager_password=t0psecret</code>.</p>
+<h4>deploy-probe.sh.j2</h4>
+<pre><code class="language-bash">#!/bin/bash
+
+set -euxo pipefail
+
+indicator_path=/opt/$(basename $BASH_ARGV)-executed
+if [ -f ${indicator_path} ]; then
+  echo &quot;Custom script already executed&quot; &amp;&amp; return 0
+fi
+
+
+BONITA_PATH=${BONITA_PATH:-/opt/bonita}
+script_dir=&quot;$(cd &quot;$(dirname &quot;${BASH_SOURCE[0]}&quot;)&quot; &amp;&amp; pwd)&quot;
+
+pushd ${BONITA_PATH}/Bonita*Subscription-${BONITA_VERSION}-Tomcat-${TOMCAT_VERSION}
+
+# Allow Tomcat Manager from different host
+cp ${script_dir}/manager-context.xml server/conf/Catalina/localhost/manager.xml
+
+# PSI Probe
+curl -sSL -o server/webapps/probe.war https://github.com/psi-probe/psi-probe/releases/download/{{ custom_psi_probe_version | default('3.0.0.RC2') }}/probe.war
+cp ${script_dir}/tomcat-users.xml server/conf/tomcat-users.xml
+
+# Create indicator file
+touch ${indicator_path}
+</code></pre>
+<h4>manager-context.xml.j2</h4>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Context antiResourceLocking=&quot;false&quot; privileged=&quot;true&quot; &gt;
+  &lt;Valve className=&quot;org.apache.catalina.valves.RemoteAddrValve&quot; allow=&quot;{{ custom_manager_allow_pattern | default('^.*$') }}&quot; /&gt;
+  &lt;Manager sessionAttributeValueClassNameFilter=&quot;java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap&quot;/&gt;
+&lt;/Context&gt;
+</code></pre>
+<h4>tomcat-users.xml.j2</h4>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;tomcat-users xmlns=&quot;http://tomcat.apache.org/xml&quot;
+              xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+              xsi:schemaLocation=&quot;http://tomcat.apache.org/xml tomcat-users.xsd&quot;
+              version=&quot;1.0&quot;&gt;
+
+  &lt;role rolename=&quot;probeuser&quot; /&gt;
+  &lt;role rolename=&quot;poweruser&quot; /&gt;
+  &lt;role rolename=&quot;poweruserplus&quot; /&gt;
+  
+  &lt;role rolename=&quot;manager-gui&quot; /&gt;
+
+  &lt;user username=&quot;{{ custom_manager_username | default('admin') }}&quot; password=&quot;{{ custom_manager_password | default('t0psecret') }}&quot; roles=&quot;manager-gui&quot; /&gt;
+
+&lt;/tomcat-users&gt;
+</code></pre>
+<!-- Generated on Tue Jan 30 2018 16:02:14 GMT+0100 (Paris, Madrid) -->

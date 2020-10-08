@@ -1,0 +1,51 @@
+<div style="position: relative;"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="bonita/images/7.3/outOfSupport.png" alt="Out of support"></div>
+<h1>Data handling overview</h1>
+<p>In a BPM-based application, use:</p>
+<ul>
+<li>
+<p><a href="?page=define-and-deploy-the-bdm" ng-click="contentCtrl.goTo($event, 'define-and-deploy-the-bdm')">Business variables</a> for information that:</p>
+<ul>
+<li>is mostly used by Bonita BPM</li>
+<li>has meaning after a process instance is archived</li>
+<li>is used at several places in the process</li>
+<li>is read by a process to orientate its flow</li>
+<li>is shared across several process instances</li>
+<li>is displayed in an application page</li>
+</ul>
+</li>
+<li>
+<p>Task-level <a href="?page=specify-data-in-a-process-definition" ng-click="contentCtrl.goTo($event, 'specify-data-in-a-process-definition')">process variables</a> for:</p>
+<ul>
+<li>intermediate computation results (for example a connector result to be used as input of the next connector)</li>
+<li>information that is private to the process, not used elsewhere in the application</li>
+</ul>
+</li>
+<li>
+<p>Pool-level <a href="?page=specify-data-in-a-process-definition" ng-click="contentCtrl.goTo($event, 'specify-data-in-a-process-definition')">process variables</a> for information that:</p>
+<ul>
+<li>can be read by the process to orientate its flow</li>
+<li>can be used at several places in the process</li>
+<li>is private to the process, not used elsewhere in the application</li>
+</ul>
+</li>
+<li>
+<p>External databases, with <a href="?page=connectivity-overview" ng-click="contentCtrl.goTo($event, 'connectivity-overview')">connectors</a> and <a href="?page=create-a-complex-data-type" ng-click="contentCtrl.goTo($event, 'create-a-complex-data-type')">custom data types</a>, for information that:</p>
+<ul>
+<li>is used by multiple applications besides Bonita BPM</li>
+</ul>
+</li>
+</ul>
+<p>Key benefits of using business data:</p>
+<ul>
+<li>Control of indexing strategy</li>
+<li>Definition of custom queries to efficiently read the data</li>
+<li>Full control of lifecycle of the data through the set of processes that handle it (add, update and delete)</li>
+<li>Improved performance compared with process variables or external databases</li>
+<li>Easier application maintenance</li>
+</ul>
+<p>An application page accesses business data using the <a href="?page=bdm-api" ng-click="contentCtrl.goTo($event, 'bdm-api')">bdm REST API</a>. A page also contains page <a href="?page=variables" ng-click="contentCtrl.goTo($event, 'variables')">variables</a>, which have no meaning outside the page.</p>
+<p>The data that is passed from a form to a process is defined using a <a href="?page=contracts-and-contexts" ng-click="contentCtrl.goTo($event, 'contracts-and-contexts')">contract</a>. Define a contract for process instantiation and for each human task.
+These contracts are part of the process definition.
+A form has access to business data and documents using the <a href="?page=contracts-and-contexts" ng-click="contentCtrl.goTo($event, 'contracts-and-contexts')">context</a> and the <a href="?page=_rest-api" ng-click="contentCtrl.goTo($event, '_rest-api')">REST API</a>.
+A form also contains form <a href="?page=variables" ng-click="contentCtrl.goTo($event, 'variables')">variables</a>, which have no meaning outside the form.</p>
+<!-- Generated on Tue Jun 19 2018 09:27:07 GMT+0200 (Paris, Madrid (heure d’été)) -->

@@ -1,0 +1,166 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/rta-mail-template.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>How to use the rich textarea widget in a mail template</h1>
+<p>Learn how to use a mail template in a form with the rich textarea widget: the leave request management process example.</p>
+<h2>Out of office message process</h2>
+<p>Usually, when leaving for a vacation, you set your mail account up with an out of office message to notify your senders that you are not here until a specific date.</p>
+<p>You will design a process using Bonita:<br>
+First, draw the wireframe of the process in Bonita Studio.<br>
+The process consists of a :</p>
+<ul>
+<li>a start event</li>
+<li>a human task asking for the user to check the email content which will be send, the dates of its vacation and whether it wants to test the mail before submitting it to the mail server.</li>
+<li>a service task sending the mail to the user</li>
+<li>a service task which sends the out of office mail message to the mail server</li>
+<li>an end event</li>
+</ul>
+<p>The process will look like this:</p>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooomprocess.png" alt="Out of office message process" class="img-responsive" title="Out of office message process"></p>
+<p>Conditions are set on the transition out of the <em>Check Email content</em> task allowing to know which path to use.</p>
+<p>We create a <strong>Business Data Model</strong> to hold the user informations :</p>
+<ul>
+<li><em>startDate</em>: leave date start as a <strong>DATE</strong></li>
+<li><em>endDate</em>: leave date end as a <strong>DATE</strong></li>
+<li><em>title</em>: the mail title as a <strong>STRING</strong></li>
+<li><em>body</em>: the mail body as a <strong>STRING</strong> with a <em>length</em> of 2048</li>
+</ul>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-bdm.png" alt="Out of office message business model" class="img-responsive" title="Out of office message business model"></p>
+<p>A business object variable will be created at pool level, named <strong>outOfOfficeMessage</strong>. It will to be initialized via a Groovy script with the mail template of the out of office message.<br>
+The template will be filled with the initiator information and its manager contact:</p>
+<pre><code class="language-groovy">import org.bonitasoft.engine.identity.ContactData;
+import org.bonitasoft.engine.identity.User;
+
+def ooom = new com.company.model.OutOfOfficeMessage();
+
+User u = BonitaUsers.getProcessInstanceInitiator(apiAccessor,processInstanceId);
+User manager = BonitaUsers.getProcessInstanceInitiatorManager(apiAccessor,processInstanceId);
+
+ContactData managerData = BonitaUsers.getProcessInstanceInitiatorManagerProfessionalContactInfo(apiAccessor,processInstanceId);
+ContactData userData = BonitaUsers.getProcessInstanceInitiatorProfessionalContactInfo(apiAccessor,processInstanceId)
+
+ooom.setTitle(&quot;Out of office&quot;);
+ooom.setBody(&quot;&quot;&quot;
+&lt;p&gt;Hi,&lt;br&gt;
+&lt;br&gt;
+I'm currently out of office until the ... of .... YYYY with very limited email access.&lt;br&gt;
+&lt;br&gt;
+For any questions feel free to contact &lt;a href=&quot;mailto:${managerData.email}&quot;&gt;${manager.firstName} ${manager.lastName}&lt;/a&gt;.&lt;br&gt;
+&lt;br&gt;
+Best Regards&lt;br&gt;
+${u.firstName} ${u.lastName}
+&lt;/p&gt;
+&lt;div dir=&quot;ltr&quot;&gt;
+// ...
+// Mail signature
+// ...
+&lt;/div&gt;
+
+&quot;&quot;&quot;);
+ooom.setStartDate(new Date());
+ooom.setEndDate(new Date());
+
+return ooom;
+</code></pre>
+<p>This process instantiation do not hold any form (<em>no form</em> in the <strong>Execution &gt; Instantiation form</strong> tab) and a business object will be created with a groovy script setting the mail template.</p>
+<h3>Check email content task</h3>
+<p>The <em>Check email content</em> human task will consists of a contract matching the Business object <strong>outOfOfficeMessage</strong> for it to be mapped with the contract output. We also will need a local variable which will allows to know if the mail needs to be tested.<br>
+This variable needs to be mapped with a contract data too.</p>
+<p>The contract will looks like this :</p>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-check-mail-contract.png" alt="Out of office message - Check email content - contract" class="img-responsive" title="Out of office message - Check email content - contract"></p>
+<p>And the operation pane will look like this:</p>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-check-mail-operations.png" alt="Out of office message - Check email content - contract" class="img-responsive" title="Out of office message - Check email content - contract"></p>
+<h4>Out transistion</h4>
+<p>This task has two possible transition :</p>
+<ul>
+<li>the transition to the <em>Send test email</em> is condition if the local variable <strong>test</strong> is true</li>
+<li>the transition to the <em>Send Message to Mail Server</em> is condition if the <strong>default flow</strong></li>
+</ul>
+<h3>Send test email service task</h3>
+<p>This task allow to send a test email to the process instance initiator for him to check if the mail renderring is correct.</p>
+<p>Therefore, we will use the <strong>EMAIL (SMTP) Connector</strong> on the task out step.<br>
+The connector properties will be :</p>
+<ul>
+<li>The <em>to</em> and <em>from</em> properties of the connector will use groovy script to retrieve the appropriate address:<pre><code class="language-groovy">BonitaUsers.getProcessInstanceInitiatorProfessionalContactInfo(apiAccessor,processInstanceId).email;
+</code></pre>
+</li>
+<li>The <em>Subject</em> will use a groovy script too to retrieve the business variable property:<pre><code class="language-groovy">outOfOfficeMessage.title
+</code></pre>
+</li>
+<li>The <em>Message</em> will use a groovy script too to retrieve the business variable property:<pre><code class="language-groovy">outOfOfficeMessage.body
+</code></pre>
+</li>
+</ul>
+<p>Once this task is completed, a new <em>Check email content</em> human task is available.o</p>
+<h3>Send message to mail server</h3>
+<p>Here, the out of office mail message has been validated and the way the mail server handle the out of office mail configuration for a given user depends on the mail server provider and will not be detailed here.<br>
+It will use a connector that will send the appropriate information via an external API.</p>
+<h1>Form for 'Check Email content' task</h1>
+<p>On 'Check Email content' task, in the <strong>Execution &gt; Form</strong> pane, use the pencil <i class="fa fa-pencil"></i> icon to generate a default form from the contract.<br>
+It will look like this:</p>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-check-mail-initial-form.png" alt="Out of office message - Check email content - form" class="img-responsive" title="Out of office message - Check email content - form"></p>
+<p>For a better usability, we can  :</p>
+<ul>
+<li>rename <em>Start Date</em> to <em>Start</em></li>
+<li>rename <em>End Date</em> to <em>End</em></li>
+<li>have both date widget on the same line</li>
+<li>change the checkbox <em>Test</em> to a select box :
+<ul>
+<li>
+<p>add a <strong>select</strong> widget below the checkbox</p>
+</li>
+<li>
+<p>create a <em>nextStepChoice</em> JSON variable defining the different choices :</p>
+<pre><code class="language-json">[
+    {&quot;name&quot;: &quot;Receive a test email in my mailbox&quot;, &quot;value&quot;: true},
+    {&quot;name&quot;: &quot;Send mail message to mail server&quot;, &quot;value&quot;: false}
+]
+</code></pre>
+</li>
+<li>
+<p>set the following properties to the <strong>select</strong> widget:</p>
+<ul>
+<li><em>Label hidden</em> to <code>true</code></li>
+<li><em>Available values</em> to <code>nextStepChoices</code></li>
+<li><em>Displayed key</em> to <code>name</code></li>
+<li><em>Returned key</em> to <code>value</code></li>
+<li><em>Value</em> to <code>formInput.test</code>
+It will look like this:</li>
+</ul>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-check-mail-select-properties.png" alt="Out of office message - Check email content - select properties" class="img-responsive" title="Out of office message - Check email content - select properties"></p>
+</li>
+</ul>
+</li>
+</ul>
+<p>We need to retrieve the business object <em>outOfOfficeMessage</em> which contains the mail contents.<br>
+We use an <em>External API</em> variable named <strong>outOfOfficeMessage</strong> which uses the <strong>context</strong> variable business object reference link: <code>../{{context.outOfOfficeMessage_ref.link}}</code></p>
+<p>We bind the attributes of <strong>outOfOfficeMessage</strong> to fill the <strong>formInput</strong> variable that is already bound to inputs.<br>
+Change the <strong>formInput</strong> type to <em>Javascript Expression</em> and set the <em>value</em> to:</p>
+<pre><code class="language-javascript">return {
+  &quot;outOfOfficeMessageInput&quot; : {
+    &quot;title&quot; : $data.outOfOfficeMessage.title,
+    &quot;body&quot; : $data.outOfOfficeMessage.body,
+    &quot;startDate&quot; : $data.outOfOfficeMessage.startDate,
+    &quot;endDate&quot; : $data.outOfOfficeMessage.endDate
+  },
+  &quot;test&quot; : false
+};
+</code></pre>
+<p>The variable pane will look like this:</p>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-check-mail-variables.png" alt="Out of office message - Check email content - mail variables" class="img-responsive" title="Out of office message - Check email content - mail variables"></p>
+<p>We will take advantage of the <strong>Rich text area</strong> widget to have a nice way to visualize the mail body.</p>
+<p>Add a <strong>Rich text area</strong> widget below the <em>title</em> <strong>input</strong> widget:</p>
+<ul>
+<li>set the value to <code>formInput.outOfOfficeMessageInput.body</code> (the same as the <em>body</em> <strong>input</strong> widget)</li>
+<li>set the <em>Label</em> property to <code>Body</code></li>
+<li>set the <em>Required</em> property to <code>yes</code></li>
+<li>set the <em>Style toolbar</em> property to <code>p, ul, ol</code></li>
+<li>set the <em>Miscellaneous toolbar</em> property to <code>html, insertImage, insertLink, undo, redo, clear</code></li>
+</ul>
+<p>Click on preview. And the form will look like:</p>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-check-mail-form-preview.png" alt="Out of office message - Check email content - form preview" class="img-responsive" title="Out of office message - Check email content - form preview"></p>
+<h2>Run the process</h2>
+<p>Everything is now ready and the process can be started.</p>
+<p>In the Studio, click on <strong>Run</strong>.</p>
+<p>An instance of the process is started and a task is available.<br>
+Take it and you will see the following form:</p>
+<p><img src="bonita/images/7.10/rta-mail/rta-mail-template-ooom-check-mail-form.png" alt="Out of office message - Check email content - form" class="img-responsive" title="Out of office message - Check email content - form"></p>
+<!-- Generated on Tue Dec 10 2019 12:49:52 GMT+0100 (Paris, Madrid) -->

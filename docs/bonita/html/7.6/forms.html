@@ -1,0 +1,31 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/forms.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Forms</h1>
+<p>This page explains how to add a form resource to the Bonita Portal and make it available to users. Form resources are intended for use in applications.</p>
+<p>Pages are <a href="?page=resource-management" ng-click="contentCtrl.goTo($event, 'resource-management')">exported. imported, modified, and deleted</a> as resources in the Portal.</p>
+<p class="h2">Form definition</p>
+<p>A form is a <a href="?page=pages" ng-click="contentCtrl.goTo($event, 'pages')">page</a> that belongs to a process. It could be a process instantiation form, a human task form, or an overview form. There are some extra things to consider when you are creating a form compared with an ordinary page, concerning how data is passed between the process instance and the form.</p>
+<p>A <a href="?page=contracts-and-contexts" ng-click="contentCtrl.goTo($event, 'contracts-and-contexts')">context</a> is the set of data provided by the process instance or task instance to the form.
+There is no context for a process instantiation form.</p>
+<p>A <a href="?page=contracts-and-contexts" ng-click="contentCtrl.goTo($event, 'contracts-and-contexts')">contract</a> is the definition of that data that the form returns to the process instance. There is no contract for an overview form.</p>
+<p>Three auto-generated forms are provided by default, for process instantiation, for human task execution, and for the case overview.</p>
+<p>The process instantiation and step execution auto-generated forms are based on the relevant contract and they are a useful tool for testing and debugging your application.</p>
+<p>The overview consists of three main sections:</p>
+<ul>
+<li>List of business data: it shows the content of the business variables used by the case.</li>
+<li>List of documents: it shows the content of each document used by the case.</li>
+<li>Timeline: it shows in chronological order information about all the actions that have been performed in the selected case.</li>
+</ul>
+<p>To learn how to manage the link between process and forms, go to the <a href="?page=live-update" ng-click="contentCtrl.goTo($event, 'live-update')">live update</a> page.</p>
+<h3>Application Theme access</h3>
+<p>If your forms is viewed in an application, you will have access facilities for <a href="?page=applications" ng-click="contentCtrl.goTo($event, 'applications')">the application theme</a>.</p>
+<p>The <code>Theme.css</code> is directly accessible by adding the following link in <code>index.html</code>: <code>&lt;link href=&quot;../theme/theme.css&quot; rel=&quot;stylesheet&quot; /&gt;</code>
+This link is already inserted in the forms you design with the UI Designer.</p>
+<div class="alert alert-info" role="alert">
+<p>The <code>app</code> URL parameter is used to retrieve the current application related Theme.<br>
+The living application layout inject this <code>app</code> URL parameter in the targeted page/form URL, and the value is the application token.<br>
+If you create your own navigation link, you will need to include this <code>app</code> URL parameter in the forged form URL, in order to be able to benefit from the application theme.</p>
+</div>
+<div class="alert alert-info" role="alert">
+<p>In the portal, the link <code>../theme/theme.css</code> will point the file <code>theme.css</code> from the portal theme. This portal forms theme is empty, and customizable to fit to the current portal theme.</p>
+</div>
+<!-- Generated on Fri Jan 19 2018 16:08:27 GMT+0100 (Paris, Madrid) -->

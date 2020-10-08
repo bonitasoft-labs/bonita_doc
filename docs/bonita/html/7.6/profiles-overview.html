@@ -1,0 +1,35 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/profiles-overview.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Profiles overview</h1>
+<p>A profile is an indirection to some entities of the organization: users, groups, roles, and/or memberships.
+Profiles can be used to:</p>
+<ul>
+<li>Give access to <a href="?page=applications" ng-click="contentCtrl.goTo($event, 'applications')">Living Applications</a></li>
+<li>Give access to some content on Bonita Portal.</li>
+</ul>
+<p>One organization entity can be mapped to several profiles. In Bonita Portal, a loggued user can switch between his/her profiles in the navigation bar.</p>
+<p>To map entities of the organization to a profile, use the <a href="?page=profileCreation" ng-click="contentCtrl.goTo($event, 'profileCreation')">profile editor</a> in the studio.<br>
+In a production environment, an administrator must use the <strong>Organization</strong>&gt;<strong>Profiles</strong> menu.</p>
+<h2>Profile editor overview</h2>
+<p>In Bonita 7.6, we introduced the possibility to manage profiles from the Studio.
+It accounts for an additional step to ease the management of <a href="?page=applications" ng-click="contentCtrl.goTo($event, 'applications')">Living Applications</a> in Bonita, since our objective is to offer a unique application deployment artifact, managed from the Studio.<br>
+Then, all resources used by applications (like profiles) will be centralized and shared by the Bonita development suite: Bonita Studio and the UI Designer.</p>
+<h2>Default profiles</h2>
+<p>Bonita comes with 3 default profiles: <strong>User</strong> and <strong>Administrator</strong> are available in all editions ; <strong>Process Manager</strong> is available in Subscription editions only.</p>
+<h3>User profile</h3>
+<p>An employee mapped to the <strong>User</strong> profile can perform everyday tasks: start cases, perform tasks, add comments to a task.</p>
+<p>A manager can also see the <strong>More details</strong> page for their team members' tasks, by specifying the task id. To do so, display any task in the Portal, then change the task id in the URL to the id of the task you want to see.
+You can see only the <strong>More details</strong> view for the task, unlike in Bonita 6.x where you could also see the task form by using the task id.
+The manager needs only the user profile for this, not a special profile.</p>
+<p><strong>User</strong> is the profile used in Bonita Mobile Portal. As a consequence, an employee who does not have the <strong>User</strong> profile cannot access the mobile portal.</p>
+<h3>Administrator profile</h3>
+<p>An employee mapped to the <strong>Administrator</strong> profile has administration rights, including importing and exporting processes, monitoring, creating reports, live updating processes or resources, creating and modifying users, creating custom profiles, changing user memberships, creating applications, and so on.</p>
+<h3>Process manager profile</h3>
+<p>This profile is available for Subscription editions only.
+An employee mapped to the <strong>Process manager</strong> profile has limited administration rights for activities related to the processes they manage, as defined by the Administrator.</p>
+<p><strong>Note:</strong> In Bonita ACME organization, all users have the role <strong>Member</strong>, and the role <strong>Member</strong> is mapped to all default profiles. This simplifies process testing (log in as any user to see any Portal content).</p>
+<h2>Custom profiles</h2>
+<p>In addition to the default profiles, users of Performance and Efficiency editions can create <strong>[custom profiles]</strong>(custom-profiles.md).
+If a custom profile is created to give access to custom content in the portal, its <em>Portal menu</em> (navigation structure and pages) must also be defined in the profile.
+To create a custom profile, map it to entities of the organization, and create its portal menu, use the <a href="?page=profileCreation" ng-click="contentCtrl.goTo($event, 'profileCreation')">profile editor</a> in the studio.
+In a production environment, an Administrator must use the <strong>Organization</strong>&gt;<strong>Profiles</strong> menu.</p>
+<!-- Generated on Fri Jan 19 2018 16:08:27 GMT+0100 (Paris, Madrid) -->

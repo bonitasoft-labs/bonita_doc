@@ -1,0 +1,483 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/rest-api-authorization.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>REST API authorizations</h1>
+<p>Permissions to access Bonita platform's REST API resources are handled by a configurable authorizations mecanism.</p>
+<p>The Bonita Portal, or any application that uses the Web REST API, enables user to access resources.
+The set of resources that a user can access is determined by default by the user's profile.
+This authorization mechanism ensures that users can only access the appropriate resources.
+This means, for example, that a user with only the User profile cannot perform actions intended for the Administrator.</p>
+<p>The authorization mechanism is a &quot;white list&quot; implementation.
+It has two phases,
+a dynamic phase, which uses a script to grant or deny authorization,
+and a static phase, which checks in the static configuration to see whether the user is authorized to access a given resource.
+The static configuration is fixed when the application server is started.</p>
+<p>To access a given resource, a user must have a certain permission.
+These permissions are defined as simple permissions, which are the smallest units of permission, or compound permissions, which are groups of simple permissions.
+A user is granted set of permissions. These permissions define the set of resources the user is authorized to access.</p>
+<h2>Summary</h2>
+<p>For a new Bonita installation, a basic set of authorization checks is activated by default but you might also want to <a href="?hash=activate&amp;page=" ng-click="contentCtrl.goTo($event, '', 'activate')">deactivate the HTTP API</a>.
+Here are the key points of the authorizations configuration :</p>
+<ul>
+<li>The static checks (activated by default on a fresh installation) create an authorization layer that exactly matches the standard Bonita Portal features and profiles.
+If you are using the standard Portal, you do not need to configure anything.</li>
+<li>If you want to add extra authorization restrictions based on business rules, turn on the dynamic checks that you want.
+The configuration file defines standard rules for the most frequent cases, so all you need to do is uncomment the rules you want to apply.</li>
+<li>If you add a custom page, include a resources=[ list ] in your page.properties to specify which resources your custom page requires the users to have access to.</li>
+<li>If the previous points do not meet your security needs, you can still manually customize the configuration and rules as much as you want.</li>
+</ul>
+<p>If you have migrated your platform from a version of Bonita earlier than 6.4.0, security is deactivated by default.
+You need to <a href="?hash=migrate&amp;page=" ng-click="contentCtrl.goTo($event, '', 'migrate')">add authorization to your custom pages</a> before you activate authorization.</p>
+<h2>Static authorization checking</h2>
+<p>The static phase uses a set of configuration files:</p>
+<ul>
+<li><code>resources-permissions-mapping-*.properties</code></li>
+<li><code>compound-permissions-mapping-*.properties</code></li>
+<li><code>custom-permissions-mapping.properties</code></li>
+</ul>
+<p>These files grant permissions to sets of users based on profile or user name.
+You cannot remove permissions in a configuration file, so you must ensure that the default definitions grant the minimum permissions that you want to give to any user.</p>
+<p>The default versions of these files are located in <code>setup/platform_conf/initial/tenant_template_portal</code>.
+In order to change the configuration on an installation whose platform has already been initialized, use the <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')">platform setup tool</a> to
+retrieve the current configuration and update the files in <code>setup/platform_conf/current/tenants/[tenantId]/tenant_portal</code>.
+Then use the tool again to save your changes into the database.</p>
+<h4>Resources permissions mapping</h4>
+<p>The <code>resources-permissions-mapping-*.properties</code> files define the mapping of REST resources to simple permissions.
+This tells you what permission is needed to access a given resource.</p>
+<p>For example: <code>GET|identity/user=[organization_visualization,organization_management]</code></p>
+<p>This specifies that a user with the organization_visualization, or organization_management permissions can see information about users.</p>
+<p>By default, this file contains a mapping of each Bonita resources to at least one simple permission.
+You can modify the file <code>resources-permissions-mapping-custom.properties</code> to add your own mappings.
+For example: <code>GET|identity/user/3=[organization_management]</code></p>
+<p>This specifies that information about the user with id 3 can only be seen by users with the Organization_management permission.</p>
+<p>If there are conflicts between permissions, the more restrictive definition overrides the more general.
+You can see this in the example above, where the specific permission for user 3 overrides the general permission for seeing user information.</p>
+<div class="alert alert-warning" role="alert">
+<p>Do <strong>not</strong> modify file <code>resources-permissions-mapping.properties</code> directly, as it is reserved for default values.
+Custom values should be added manually in file <code>resources-permissions-mapping-</code><strong><code>-custom</code></strong><code>.properties</code></p>
+</div>
+<h4>Compound permissions mapping</h4>
+<p>The <code>compound-permissions-mapping-*.properties</code> files define sets of simple permissions that are grouped together into a compound permission.
+You can use a compound permission as &quot;shorthand&quot; for a list of simple permissions.
+By default, the file <code>resources-permissions-mapping.properties</code> contains a compound permission that corresponds to each page of the Bonita Portal,
+including <a href="?hash=custom_pages&amp;page=" ng-click="contentCtrl.goTo($event, '', 'custom_pages')">custom pages</a>.</p>
+<p>For example: <code>userlistingadmin=[profile_visualization, process_comment, organization_visualization, tenant_platform_visualization, organization_management]</code></p>
+<p>This specifies the REST API permissions that are granted with the Bonita Portal Administrator page that lists all the users in the tenant.</p>
+<p>By default, there is a compound permission defined for each page in the standard Bonita Portal and there is also one for each provided custom page.</p>
+<p>When you install a custom page in the portal, if the page declares its resources properly, then a new compound permission will be added in an internal version
+of this file (<code>compound-permissions-mapping-internal.properties</code>). Then all the users being able to access this page (because it is part of a custom profile or
+Living Application they have access to) will also be automatically granted the necessary permissions to call the required REST API resources.</p>
+<div class="alert alert-warning" role="alert">
+<p>Do <strong>not</strong> modify file <code>compound-permissions-mapping.properties</code> directly, as it is reserved for default values.
+Custom values should be added manually in file <code>compound-permissions-mapping</code><strong><code>-custom</code></strong><code>.properties</code></p>
+</div>
+<a id="custom-permissions-mapping"/>
+<h4>Custom permissions mapping</h4>
+<p>The <code>custom-permissions-mapping.properties</code> file contains custom rules that supplement the resource permissions and compound permissions.
+By default, this file is empty, because the compound permissions definitions automatically manage the permissions needed for default and custom profiles, and for default and custom pages.</p>
+<p>If you want to override the default behavior, you can add a rule to this file. You can add a simple or compound permission to a profile.
+For example, to give users with the User profile the ability to manage the Bonita Portal look &amp; feel: <code>profile|User=[look_and_feel]</code></p>
+<p>You can also assign a permission to a specific user. This is useful if you want to give a named user access to a resource that is not accessible through the user's profiles.
+For example, if the user John.Smith is assigned the User profile, he does not have permission to manage the portal Look &amp; Feel.
+You can add this specific permission to <code>custom-permissions-mapping.properties</code> by adding this line: <code>user|John.Smith=[look_and_feel]</code></p>
+<p>This means that in addition to the permissions given to him by the User profile, John.Smith can also manage the Portal Look &amp; Feel. It does not modify the permissions for any other user.</p>
+<p>If you do not use Bonita Portal but still want to manage REST API authorizations, you can do this using the <code>custom-permissions-mapping.properties</code> file.
+To do this, create a custom profile and configure the relevant permissions.
+For example, you could create a profile called CustomProcessManager and assign the permissions needed to monitor and manage processes:
+<code>profile|MyCustomProfile=[process_visualization, process_management, process_manager_management, custom_process_manager_permission]</code></p>
+<p>In this example, the <code>custom_process_manager_permission</code> can be defined in the <code>compound-permissions-mapping-custom.properties</code> file.</p>
+<h2>Dynamic authorization checking</h2>
+<p>If the static authorization checks are not suitable for your applications, you can override the rules as you want using dynamic checks.
+A user is then granted a permission only if the dynamic check authorizes it.
+A dynamic check is implemented as sequence of conditions, including a Groovy script.
+This enables you to tailor the permissions needed to access a resource using dynamic information related to processes.</p>
+<p>A dynamic authorization check for a resource is specified by a line in the file <code>dynamic-permissions-checks-custom.properties</code>.
+The line specifies the checks to be made for a request type for a method.
+There can be several terms in the line. Checking stops when the system returns success, indicating that the user is authorized.
+For example: <code>POST|bpm/case=[user|william.jobs, user|walter.bates, profile|Administrator, profile|User, check|org.bonitasoft.permissions.CasePermissionRule]</code></p>
+<p>This specifies that a POST action can be done for a case resource if the user is william.jobs or walter.bates,
+or any user with the Administrator profile, or any user with the User profile, or if the CasePermissionRule grants authorization.</p>
+<p>A <code>check</code> term indicates the name of a class to be called. The class must implement <code>org.bonitasoft.engine.api.permission.PermissionRule</code>.
+This example defines a dynamic check that is made whenever a user makes a GET request for the &quot;bpm/case&quot; resource.
+If the script returns <code>true</code>, the user is authorized. If the script returns <code>false</code> or any other result (including an error), the user is not authorized.</p>
+<p>The <code>dynamic-permissions-checks.properties</code> file contains a placeholder line for each method and resource. For example:</p>
+<pre><code class="language-properties">## CasePermissionRule
+    #GET|bpm/case=[profile|Administrator, check|org.bonitasoft.permissions.CasePermissionRule]
+    #POST|bpm/case=[profile|Administrator, check|org.bonitasoft.permissions.CasePermissionRule]
+    #DELETE|bpm/case=[profile|Administrator, check|org.bonitasoft.permissions.CasePermissionRule]
+    #GET|bpm/archivedCase=[profile|Administrator, check|org.bonitasoft.permissions.CasePermissionRule]
+</code></pre>
+<p>To specify a dynamic check for a method and resource, uncomment the line in the file <code>dynamic-permissions-checks-custom.properties</code> and add the conditions.
+If you specify a condition that calls a Groovy script, you must add the new script:</p>
+<p>If the platform has never been started yet:</p>
+<ul>
+<li>add the script to the <code>setup/platform_conf/initial/tenant_template_security_scripts</code> folder</li>
+<li>it will be pushed to database at first run</li>
+</ul>
+<p>If the platform has already been started:</p>
+<ul>
+<li>use the <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')">platform setup tool</a> to retrieve the current configuration</li>
+<li>add the script to the <code>setup/platform_conf/current/tenants/[tenantId]/tenant_security_scripts</code> folder</li>
+<li>then use the <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')">platform setup tool</a> again to push the new / modified scripts to database</li>
+</ul>
+<p>The <code>tenant_security_scripts</code> folder contains a script sample that can be used to write your own.
+Bonita also provides default scripts that should fit common usages. They are packages internally in the binaries, but the
+<a href="https://github.com/bonitasoft/bonita-engine/tree/master/bpm/bonita-core/bonita-process-engine/src/main/groovy/org/bonitasoft/permissions">source code is available</a>.
+These provided scripts can be used as a base for you own scripts.</p>
+<p>If you write your own scripts:</p>
+<ul>
+<li>make sure you either inherit from an existing rule, or implement the PermissionRule interface, by overriding the isAllowed() method</li>
+<li>make sure you use the default package declaration at the top of your groovy class (no <code>package</code> keyword used)</li>
+<li>make sure this .groovy file is placed in the default directory, under 'initial/tenant_template_security_scripts/' if the platform has never been started,
+or under 'current/tenants/TENANT_ID/tenant_security_scripts/' if the platform has already been started</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p>Do <strong>not</strong> modify file <code>dynamic-permissions-checks.properties</code> directly, as it is reserved for examples, and may be overwritten during migration to a newer version.
+Custom values should be added manually in file <code>dynamic-permissions-checks</code><strong><code>-custom</code></strong><code>.properties</code></p>
+</div>
+<h4>Example dynamic check script</h4>
+<p>This script is an example of how to write a dynamic check. It checks two conditions, depending on the method called for a case.
+If the method is a POST, which would start a case of a process. the user can only start the case if they are eligible to start the process itself.
+If the user action triggers a GET, the user can view the case information only if they are involved in the case.
+The Engine API Java method <code>isInvolvedInProcessInstance</code> is used to check whether the user is involved. For an archived case, the only check possible is whether the user started the case.</p>
+<pre><code class="language-groovy">import org.bonitasoft.engine.api.*
+import org.bonitasoft.engine.api.permission.APICallContext
+import org.bonitasoft.engine.api.permission.PermissionRule
+import org.bonitasoft.engine.bpm.process.ArchivedProcessInstanceNotFoundException
+import org.bonitasoft.engine.identity.User
+import org.bonitasoft.engine.identity.UserSearchDescriptor
+import org.bonitasoft.engine.search.SearchOptionsBuilder
+import org.bonitasoft.engine.search.SearchResult
+import org.bonitasoft.engine.session.APISession
+import org.json.JSONObject
+
+class CasePermissionRule implements PermissionRule {
+
+    @Override
+    boolean isAllowed(APISession apiSession, APICallContext apiCallContext, APIAccessor apiAccessor, Logger logger) {
+        long currentUserId = apiSession.getUserId()
+        if (&quot;GET&quot;.equals(apiCallContext.getMethod())) {
+            return checkGetMethod(apiCallContext, apiAccessor, currentUserId, logger)
+        } else if (&quot;POST&quot;.equals(apiCallContext.getMethod())) {
+            return checkPostMethod(apiCallContext, apiAccessor, currentUserId, logger)
+        }
+        return false
+    }
+
+    private boolean checkPostMethod(APICallContext apiCallContext, APIAccessor apiAccessor, long currentUserId, Logger logger) {
+        def body = apiCallContext.getBodyAsJSON()
+        def processDefinitionId = body.optLong(&quot;processDefinitionId&quot;)
+        if (processDefinitionId &lt;= 0) {
+            return false;
+        }
+        def processAPI = apiAccessor.getProcessAPI()
+        def identityAPI = apiAccessor.getIdentityAPI()
+        User user = identityAPI.getUser(currentUserId)
+        SearchOptionsBuilder searchOptionBuilder = new SearchOptionsBuilder(0, 10)
+        searchOptionBuilder.filter(UserSearchDescriptor.USER_NAME, user.getUserName())
+        SearchResult&lt;User&gt; listUsers = processAPI.searchUsersWhoCanStartProcessDefinition(processDefinitionId, searchOptionBuilder.done())
+        logger.debug(&quot;RuleCase : nb Result [&quot; + listUsers.getCount() + &quot;] ?&quot;)
+        def canStart = listUsers.getCount() == 1
+        logger.debug(&quot;RuleCase : User allowed to start? &quot; + canStart)
+        return canStart
+    }
+
+    private boolean checkGetMethod(APICallContext apiCallContext, APIAccessor apiAccessor, long currentUserId, Logger logger) {
+        def processAPI = apiAccessor.getProcessAPI()
+        def filters = apiCallContext.getFilters()
+        if (apiCallContext.getResourceId() != null) {
+            def processInstanceId = Long.valueOf(apiCallContext.getResourceId())
+            if (apiCallContext.getResourceName().startsWith(&quot;archived&quot;)) {
+                //no way to check that the were involved in an archived case, can just show started by
+                try {
+                    return processAPI.getArchivedProcessInstance(processInstanceId).getStartedBy() == currentUserId
+                } catch(ArchivedProcessInstanceNotFoundException e) {
+                    logger.debug(&quot;archived process not found, &quot;+e.getMessage())
+                    return false
+                }
+            } else {
+                def isInvolved = processAPI.isInvolvedInProcessInstance(currentUserId, processInstanceId)
+                logger.debug(&quot;RuleCase : allowed because get on process that user is involved in&quot;)
+                return isInvolved
+            }
+        } else {
+            def stringUserId = String.valueOf(currentUserId)
+            if (stringUserId.equals(filters.get(&quot;started_by&quot;)) || stringUserId.equals(filters.get(&quot;user_id&quot;)) || stringUserId.equals(filters.get(&quot;supervisor_id&quot;))) {
+                logger.debug(&quot;RuleCase : allowed because searching filters contains user id&quot;)
+                return true
+            }
+        }
+        return false
+    }
+}
+</code></pre>
+<h2>Initialization</h2>
+<p>After the application server starts, the first time that one of the configuration files is accessed, the information from all the files is cached in memory for fast access.
+If you update a file, the changes become active the next time the application server restarts.
+In your development environment, you can use the <a href="?hash=debug&amp;page=" ng-click="contentCtrl.goTo($event, '', 'debug')">debug mode</a> to makes any changes to the configuration files
+and dynamic check scripts available immediately.</p>
+<h2>User login</h2>
+<p>When a user logs in, after the user is <a href="?page=user-authentication-overview" ng-click="contentCtrl.goTo($event, 'user-authentication-overview')">authenticated</a>, a map of <code>LoggedUserPermissions</code> is created.
+<code>LoggedUserPermissions</code> is a combination of the information from <code>compound-permissions-mapping.properties</code> and
+<code>CustomUserPermissionsMapping</code> that is relevant to the user.
+It takes into account all the profiles assigned to the user, not only the current profile, so when you change profile the map does not need to be recreated.</p>
+<h2>Runtime behavior</h2>
+<p>At runtime, when a user requests access to a resource, the system checks to see if a dynamic check is defined for this resource. If so, it executes the check, and the result grants or denies the user access to the resource.
+If there is no dynamic check for the resource, the system uses the static checks: it uses the information in the <code>ResourceRequiredPermissions</code> to see what permissions are
+needed to access the resource (or page), and checks the <code>LoggedUserPermissions</code> to see whether the user has the necessary permissions.
+If so, the user is authorized.
+Otherwise, access is refused.
+If access is not authorized, a message is written in the log so that the Administrator is aware that an unauthorized user has tried to gain access.
+Note that this level of logging is only available if you <a href="?page=logging" ng-click="contentCtrl.goTo($event, 'logging')">set the logging level</a> to <code>FINEST</code>.</p>
+<a id="custom_pages"/>
+<h2>Authorizing access to a custom page</h2>
+<p>When a new <a href="?page=pages" ng-click="contentCtrl.goTo($event, 'pages')">custom page</a> is added, the permissions defined in the page properties are added to the permissions configuration files and the cache.
+It is not necessary to restart the applications server to activate security for the new custom page.
+Depending on the permissions that a user of the page already has, it might be necessary to log out and log in again to get access to the new custom page.</p>
+<div class="alert alert-warning" role="alert">
+<p>If the page declares resources provided by a REST API extension (link to the REST API extention page), then the REST API extension must be deployed before the page,
+otherwise the compound permissions won't be automatically created when deploying the page.</p>
+</div>
+<h2>Authorization and custom profiles</h2>
+<p>When a new <a href="?page=custom-profiles" ng-click="contentCtrl.goTo($event, 'custom-profiles')">custom profile</a> is created, the permissions mappings are updated in the configuration files and in the cache.
+It is not necessary to restart the application server to activate security for the new custom profile.</p>
+<h2>Granting permissions to a given resource</h2>
+<p>If you only develop custom pages and you declare the resources they use properly, you should never have to create custom permissions.
+However, you may need to do so if you need to manually grant permissions to a given REST API resource (so that it can be called programatically for example). In order to do that, you need to:</p>
+<ol>
+<li>Look into the file <code>resources-permissions-mapping.properties</code> for the permissions that grant access to the resource.
+For example, in order to perform a GET on <code>bpm/task</code>, I can see that I need the permission <code>flownode_visualization</code> (syntax: <code>GET|bpm/task=[flownode_visualization]</code>)</li>
+<li>Edit the file <code>custom-permissions-mapping.properties</code> to give the permission <code>flownode_visualization</code> to the required profiles or users.
+For example, to add the permission to the user walter.bates (username), add the following line : <code>user|walter.bates=[flownode_visualization]</code></li>
+</ol>
+<a id="activate"/>
+<h2>Restricting access to a BDM object or its attributes</h2>
+<p>Starting with the Bonita efficiency subscription edition, you can use a simpler mechanism to grant or deny access to BDM objects or some of their attributes to specific profiles, using the BDM Access Control feature.
+It is also possible to protect instances of the BDM objects, using REST API authorizations.
+For more details see : <a href="?page=bdm-access-control" ng-click="contentCtrl.goTo($event, 'bdm-access-control')">BDM access control</a></p>
+<h2>Activating and deactivating authorization</h2>
+<p><code>security-config.properties</code> contains a Boolean property that specifies whether authorization is activated. To activate authorization, set this property to <code>true</code>: <code>security.rest.api.authorizations.check.enabled true</code></p>
+<p>To activate authorization, edit <code>security-config.properties</code> and set the value of the <code>security.rest.api.authorizations.check.enabled</code> property to <code>true</code>, then restart the application server.</p>
+<p>To deactivate authorization, set the property to <code>false</code>, then restart the application server.</p>
+<p>If you activate authorization, you must also deactivate the HTTP API, so that is cannot be used to bypass the authorization settings.
+To do this, you can either filter the HTTP API in the Tomcat configuration (that is, accept only specific IP addresses), or you can
+deactivate the <code>HttpAPIServlet</code>. To deactivate the servlet, go to the <code>webapps/bonita/WEB-INF</code> folder of your web server,
+edit <code>web.xml</code> and comment out the following definitions:</p>
+<pre><code class="language-xml">    &lt;!-- For engine HTTP API --&gt;
+    &lt;!--
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;HttpAPIServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.bonitasoft.engine.api.internal.servlet.HttpAPIServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    --&gt;
+
+
+    &lt;!--
+     &lt;servlet-mapping&gt;
+         &lt;servlet-name&gt;HttpAPIServlet&lt;/servlet-name&gt;
+         &lt;url-pattern&gt;/serverAPI/*&lt;/url-pattern&gt;
+     &lt;/servlet-mapping&gt;
+     --&gt;
+</code></pre>
+<a id="debug"/>
+<h4>Running in debug mode</h4>
+<p>If debug mode is activated, whenever you update a configuration file or a dynamic check script, the changes take effect immediately.</p>
+<p>To activate debug mode, edit <code>security-config.properties</code> and set the value of the <code>security.rest.api.authorizations.check.debug</code> property to <code>true</code>, then restart the application server.</p>
+<p>To deactivate authorization, set the property to <code>false</code>, then restart the application server. Debug mode should be deactivated in production, so as not to impact performance.</p>
+<a id="migrate"/>
+<h4>Migration</h4>
+<p>When you migrate from a version earlier than 6.4.0, authorization is configured to be off (<code>security.rest.api.authorizations.check.enabled</code> is set to <code>false</code>).</p>
+<p>If you have an existing custom page and want to activate authorization, you need to add permissions to the definition of the custom page.
+To add authorization to an existing custom page:</p>
+<ol>
+<li>Export the <a href="?page=pages" ng-click="contentCtrl.goTo($event, 'pages')">custom page</a>.</li>
+<li>Update the page properties with <a href="?page=pages" ng-click="contentCtrl.goTo($event, 'pages')">permissions</a>.</li>
+<li>Activate authorization, by editing <code>security-config.properties</code> and setting the value of the <code>security.rest.api.authorizations.check.enabled</code> property to <code>true</code>.</li>
+<li>Restart the application server.</li>
+<li>Import the <a href="?page=pages" ng-click="contentCtrl.goTo($event, 'pages')">custom page</a>.</li>
+</ol>
+<p>If you have an existing custom profile, the permissions relating to the profiles is automatically added to the permissions files, so you do not need to update the profile.
+However, if a custom profile use a custom page, you must update the custom page definition to add permissions before you activate authorization.</p>
+<h2>Permissions and resources</h2>
+<p>The table below shows the default permissions and the resources to which they grant access.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Permission</th>
+<th style="text-align:left">Resources</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">activity_visualization</td>
+<td style="text-align:left">[GET|bpm/processResolutionProblem]</td>
+</tr>
+<tr>
+<td style="text-align:left">application_management</td>
+<td style="text-align:left">[POST|living/application, PUT|living/application, DELETE|living/application, POST|living/application-page, PUT|living/application-page, DELETE|living/application-page, POST|living/application-menu, PUT|living/application-menu, DELETE|living/application-menu]</td>
+</tr>
+<tr>
+<td style="text-align:left">application_visualization</td>
+<td style="text-align:left">[GET|living/application, GET|living/application-page, GET|living/application-menu]</td>
+</tr>
+<tr>
+<td style="text-align:left">bdm_management</td>
+<td style="text-align:left">[POST|tenant/bdm]</td>
+</tr>
+<tr>
+<td style="text-align:left">bdm_visualization</td>
+<td style="text-align:left">[GET|bdm/businessData, GET|bdm/businessDataReference]</td>
+</tr>
+<tr>
+<td style="text-align:left">bpm_monitoring_management</td>
+<td style="text-align:left">[POST|monitoring/report, DELETE|monitoring/report]</td>
+</tr>
+<tr>
+<td style="text-align:left">bpm_monitoring_visualization</td>
+<td style="text-align:left">[GET|monitoring/report]</td>
+</tr>
+<tr>
+<td style="text-align:left">case_delete</td>
+<td style="text-align:left">[DELETE|bpm/case, DELETE|bpm/archivedCase]</td>
+</tr>
+<tr>
+<td style="text-align:left">case_management</td>
+<td style="text-align:left">[POST|bpm/case, PUT|bpm/caseVariable, PUT|bpm/caseDocument, POST|bpm/caseDocument, DELETE|bpm/caseDocument, DELETE|bpm/archivedCaseDocument]</td>
+</tr>
+<tr>
+<td style="text-align:left">case_start</td>
+<td style="text-align:left">[PUT|bpm/process, POST|bpm/case]</td>
+</tr>
+<tr>
+<td style="text-align:left">case_start_for</td>
+<td style="text-align:left">[PUT|bpm/process]</td>
+</tr>
+<tr>
+<td style="text-align:left">case_visualization</td>
+<td style="text-align:left">[GET|bpm/case, GET|bpm/archivedCase, GET|bpm/caseVariable, GET|bpm/caseDocument, GET|bpm/archviedCaseDocument]</td>
+</tr>
+<tr>
+<td style="text-align:left">command_management</td>
+<td style="text-align:left">[POST|bpm/command, PUT|bpm/command, DELETE|bpm/command]</td>
+</tr>
+<tr>
+<td style="text-align:left">command_visualization</td>
+<td style="text-align:left">[GET|bpm/command]</td>
+</tr>
+<tr>
+<td style="text-align:left">connector_management</td>
+<td style="text-align:left">[PUT|bpm/process, PUT|bpm/processConnector, PUT|bpm/connectorInstance]</td>
+</tr>
+<tr>
+<td style="text-align:left">connector_visualization</td>
+<td style="text-align:left">[GET|bpm/process, GET|bpm/processConnector, GET|bpm/processConnectorDependency, GET|bpm/connectorInstance, GET|bpm/archivedConnectorInstance, GET|bpm/connectorFailure]</td>
+</tr>
+<tr>
+<td style="text-align:left">demo_permission (since 7.0.0)</td>
+<td style="text-align:left">[GET|extension/demo/getExample, GET|extension/demo/headerExample, GET|extension/demo/logExample, GET|extension/demo/soapExample, GET|extension/demo/xmlExample, POST|extension/demo/postExample]</td>
+</tr>
+<tr>
+<td style="text-align:left">document_management</td>
+<td style="text-align:left">[PUT|bpm/caseDocument, POST|bpm/caseDocument, DELETE|bpm/caseDocument, PUT|bpm/archivedCaseDocument, POST|bpm/archivedCaseDocument, DELETE|bpm/archivedCaseDocument, POST|bpm/document, PUT|bpm/document, DELETE|bpm/document]</td>
+</tr>
+<tr>
+<td style="text-align:left">document_visualization</td>
+<td style="text-align:left">[GET|bpm/caseDocument, GET|bpm/document, GET|bpm/archiveddocument, GET|bpm/archivedCaseDocument]</td>
+</tr>
+<tr>
+<td style="text-align:left">flownode_management</td>
+<td style="text-align:left">[PUT|bpm/flowNode, PUT|bpm/activity, PUT|bpm/task, PUT|bpm/timerEventTrigger]</td>
+</tr>
+<tr>
+<td style="text-align:left">flownode_visualization</td>
+<td style="text-align:left">[GET|bpm/processResolutionProblem, GET|bpm/flowNode, GET|bpm/activity, GET|bpm/task, GET|bpm/activityVariable, GET|bpm/archivedFlowNode, GET|bpm/archivedActivity, GET|bpm/archivedTask, GET|bpm/timerEventTrigger]</td>
+</tr>
+<tr>
+<td style="text-align:left">license</td>
+<td style="text-align:left">[GET|system/license]</td>
+</tr>
+<tr>
+<td style="text-align:left">look_and_feel</td>
+<td style="text-align:left">[POST|portal/theme, PUT|portal/theme, POST|userXP/theme, PUT|userXP/theme]</td>
+</tr>
+<tr>
+<td style="text-align:left">organization_management</td>
+<td style="text-align:left">[POST|identity/user, PUT|identity/user, DELETE|identity/user, POST|identity/personalcontactdata, PUT|identity/personalcontactdata, POST|identity/professionalcontactdata, PUT|identity/professionalcontactdata, POST|identity/role, PUT|identity/role, DELETE|identity/role, POST|identity/group, PUT|identity/group, DELETE|identity/group, POST|identity/membership, PUT|identity/membership, DELETE|identity/membership, POST|customuserinfo/definition, DELETE|customuserinfo/definition, PUT|customuserinfo/value]</td>
+</tr>
+<tr>
+<td style="text-align:left">organization_visualization</td>
+<td style="text-align:left">[GET|identity/user, GET|identity/personalcontactdata, GET|identity/professionalcontactdata, GET|identity/role, GET|identity/group, GET|identity/membership, GET|customuserinfo/user, GET|customuserinfo/definition, GET|customuserinfo/value]</td>
+</tr>
+<tr>
+<td style="text-align:left">platform_management (since 7.1.0)</td>
+<td style="text-align:left">[GET|platform/license]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_actor_mapping_management</td>
+<td style="text-align:left">[PUT|bpm/process]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_actor_mapping_visualization</td>
+<td style="text-align:left">[GET|bpm/process]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_categories</td>
+<td style="text-align:left">[GET|bpm/process, PUT|bpm/process, POST|bpm/processCategory, DELETE|bpm/processCategory, GET|bpm/category, POST|bpm/category, PUT|bpm/category, DELETE|bpm/category]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_comment</td>
+<td style="text-align:left">[GET|bpm/comment, POST|bpm/comment, GET|bpm/archivedComment]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_deploy</td>
+<td style="text-align:left">[POST|bpm/process, DELETE|bpm/process]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_management</td>
+<td style="text-align:left">[PUT|bpm/process, GET|bpm/processConnector, PUT|bpm/processConnector, GET|bpm/processConnectorDependency, POST|bpm/processCategory, DELETE|bpm/processCategory, GET|bpm/processParameter, PUT|bpm/processParameter, POST|bpm/actorMember, PUT|bpm/actorMember, DELETE|bpm/actorMember]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_manager_management</td>
+<td style="text-align:left">[POST|bpm/processSupervisor, DELETE|bpm/processSupervisor, POST|bpm/actorMember, PUT|bpm/actorMember, DELETE|bpm/actorMember]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_manager_visualization</td>
+<td style="text-align:left">[GET|bpm/processSupervisor, GET|bpm/actorMember]</td>
+</tr>
+<tr>
+<td style="text-align:left">process_visualization</td>
+<td style="text-align:left">[GET|bpm/process, GET|bpm/actor, GET|bpm/actorMember, GET|bpm/diagram]</td>
+</tr>
+<tr>
+<td style="text-align:left">profile_management</td>
+<td style="text-align:left">[POST|portal/profile, PUT|portal/profile, DELETE|portal/profile, POST|portal/page, PUT|portal/page, DELETE|portal/page, POST|portal/profileEntry, PUT|portal/profileEntry, DELETE|portal/profileEntry, POST|userXP/profile, PUT|userXP/profile, DELETE|userXP/profile, POST|userXP/profileEntry, PUT|userXP/profileEntry, DELETE|userXP/profileEntry]</td>
+</tr>
+<tr>
+<td style="text-align:left">profile_visualization</td>
+<td style="text-align:left">[GET|portal/profile, GET|portal/bonitaPage, GET|portal/page, GET|portal/profileEntry, GET|userXP/profile, GET|userXP/profileEntry, GET|userXP/bonitaPage]</td>
+</tr>
+<tr>
+<td style="text-align:left">profile_member_visualization</td>
+<td style="text-align:left">[GET|portal/profileMember, GET|userXP/profileMember]</td>
+</tr>
+<tr>
+<td style="text-align:left">profile_member_management</td>
+<td style="text-align:left">[POST|portal/profileMember, DELETE|portal/profileMember, POST|userXP/profileMember, DELETE|userXP/profileMember]</td>
+</tr>
+<tr>
+<td style="text-align:left">task_management</td>
+<td style="text-align:left">[PUT|bpm/humanTask, PUT|bpm/userTask, POST|bpm/hiddenUserTask, DELETE|bpm/hiddenUserTask, POST|bpm/manualTask, PUT|bpm/manualTask]</td>
+</tr>
+<tr>
+<td style="text-align:left">task_visualization</td>
+<td style="text-align:left">[GET|bpm/humanTask, GET|bpm/userTask, GET|bpm/hiddenUserTask, GET|bpm/manualTask, GET|bpm/archivedHumanTask, GET|bpm/archivedUserTask, GET|bpm/archivedManualTask]</td>
+</tr>
+<tr>
+<td style="text-align:left">tenant_platform_management</td>
+<td style="text-align:left">[PUT|system/tenant, POST|platform/platform, PUT|platform/platform, DELETE|platform/platform, POST|platform/tenant, PUT|platform/tenant, DELETE|platform/tenant]</td>
+</tr>
+<tr>
+<td style="text-align:left">tenant_platform_visualization</td>
+<td style="text-align:left">[GET|system/session, GET|system/log, GET|system/tenant, GET|system/feature, GET|system/monitoring, GET|system/i18nlocale, GET|system/i18ntranslation, GET|platform/platform, GET|platform/jvmDynamic, GET|platform/jvmStatic, GET|platform/systemProperty, GET|platform/tenant ]</td>
+</tr>
+</tbody>
+</table>
+<!-- Generated on Wed Dec 04 2019 17:46:52 GMT+0100 (Paris, Madrid) -->

@@ -1,0 +1,381 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/rest-api-extensions.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>REST API extensions</h1>
+<p>Create REST API extensions to use third party systems (databases, web services, Bonita Engine, etc) data in forms and pages.</p>
+<p>REST API extensions can be used to query <a href="bonita/7.10/define-and-deploy-the-bdm" ng-click="contentCtrl.goTo($event, 'define-and-deploy-the-bdm')">business data</a>, Bonita Engine APIs, or an external information system (such as a database, web service, LDAP directory...). They also help to keep a clean separation between the front-end (forms, pages, and interfaces visible to users) and the back-end (processes).</p>
+<h2>Prerequisites</h2>
+<p>Prerequisites for developing a REST API extension are:</p>
+<ul>
+<li>Java/Groovy development expertise.</li>
+</ul>
+<h2>Example description</h2>
+<p>The following sections show how to create a REST API extension. As an example, we create a REST API extension that uses the Bonita BPM Engine to provide user information (first name, last name, email address).</p>
+<h2>For Community Edition</h2>
+<h3>Create a new REST API extension skeleton</h3>
+<p>A single REST API extension can define several API extensions.</p>
+<p>A REST API extension includes two different type of files:</p>
+<ul>
+<li>One Groovy script file per API extension. The Groovy script files define the business logic of the API extensions.</li>
+<li>A <code>page.properties</code> file. It defines information such as REST API extension name but also for example mapping between URL and API extension Groovy script file.</li>
+</ul>
+<p>To start create the following text files:</p>
+<ul>
+<li><code>Index.groovy</code>. We will define a single API extension so you only need one Groovy file.</li>
+<li><code>page.properties</code>. File encoding should be set to ISO 8859-1.</li>
+</ul>
+<h3>Write the code</h3>
+<p>Code of an API extension (you can have several API extensions packaged in a single REST API extension) must be written as a Groovy script class.</p>
+<p>The Groovy class must implement the interface <code>org.bonitasoft.web.extension.rest.RestApiController</code>. You can find the definition of this interface in the <a href="https://search.maven.org/artifact/org.bonitasoft.web/bonita-web-extensions">bonita-web-extensions project available from Maven</a>.</p>
+<p>Our example also use Bonita API classes available from Maven in <a href="https://search.maven.org/artifact/org.bonitasoft.engine/bonita-common">bonita-common project</a>.</p>
+<p>In our example the class will be named Index and we will use the default package.</p>
+<p>You can create the Index.groovy using your favorite IDE or a simple text editor. Here is the content of the file:</p>
+<pre><code class="language-groovy">import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
+import org.bonitasoft.engine.identity.ContactData
+import org.bonitasoft.engine.identity.User
+import org.bonitasoft.engine.identity.UserCriterion
+import org.bonitasoft.web.extension.rest.RestAPIContext
+import org.bonitasoft.web.extension.rest.RestApiController
+import org.bonitasoft.web.extension.rest.RestApiResponse
+import org.bonitasoft.web.extension.rest.RestApiResponseBuilder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+import groovy.json.JsonBuilder
+
+
+
+class Index implements RestApiController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Index.class)
+
+    @Override
+    RestApiResponse doHandle(HttpServletRequest request, RestApiResponseBuilder responseBuilder, RestAPIContext context) {
+        // To retrieve query parameters use the request.getParameter(..) method.
+        // Be careful, parameter values are always returned as String values
+
+        // Retrieve p parameter
+        def p = request.getParameter &quot;p&quot;
+        if (p == null) {
+            return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,&quot;&quot;&quot;{&quot;error&quot; : &quot;the parameter p is missing&quot;}&quot;&quot;&quot;)
+        }
+
+        // Retrieve c parameter
+        def c = request.getParameter &quot;c&quot;
+        if (c == null) {
+            return buildResponse(responseBuilder, HttpServletResponse.SC_BAD_REQUEST,&quot;&quot;&quot;{&quot;error&quot; : &quot;the parameter c is missing&quot;}&quot;&quot;&quot;)
+        }
+
+       // Convert parameters from string to int
+        p = p as int
+        c = c as int
+
+        // Initialize the list to store users information
+        def usersInformation = []
+
+        // Get the list of user
+        List&lt;User&gt; users = context.apiClient.identityAPI.getUsers(p*c, c, UserCriterion.FIRST_NAME_ASC)
+
+        // Iterate over each user
+        for (user in users) {
+            // Get user extra information (including email address)
+            ContactData contactData = context.apiClient.identityAPI.getUserContactData(user.id, false)
+
+            // Create a map with current user first name, last name and email address
+            def userInformation = [firstName: user.firstName, lastName: user.lastName, email: contactData.email]
+
+            // Add current user information to the global list
+            usersInformation &lt;&lt; userInformation
+        }
+
+        // Prepare the result
+        def result = [p: p, c: c, userInformation: usersInformation]
+
+        int startIndex = p*c
+        int endIndex = p*c + users.size() - 1
+
+        // Send the result as a JSON representation
+        return buildPagedResponse(responseBuilder, new JsonBuilder(result).toString(), startIndex, endIndex, context.apiClient.identityAPI.numberOfUsers)
+    }
+
+    /**
+     * Returns a paged result like Bonita BPM REST APIs.
+     * Build a response with a content-range.
+     *
+     * @param  responseBuilder the Rest API response builder
+     * @param  body the response body
+     * @param  p the page index
+     * @param  c the number of result per page
+     * @param  total the total number of results
+     * @return a RestAPIResponse
+     */
+    RestApiResponse buildPagedResponse(RestApiResponseBuilder responseBuilder, Serializable body, int p, int c, long total) {
+        return responseBuilder.with {
+            withContentRange(p,c,total)
+            withResponse(body)
+            build()
+        }
+    }
+
+}
+</code></pre>
+<h3>Write the page.properties file</h3>
+<p>First part of the file defines the information related to the REST API extension:</p>
+<ul>
+<li>First line in the file should define the type of resource: <code>contentType=apiExtension</code></li>
+<li>Second line define the name of the REST API extension (e.g. custompage_userInformationRestAPIExension). Note that the name must start with <code>custompage_</code> and should not includes spaces or special characters: <code>name=custompage_userInformationRestAPIExension</code></li>
+<li>You can optionally define a display name that will be used in Portal administration view: <code>displayName=User information REST API Extension</code></li>
+<li>Also optionally you can include a description: <code>description=Query Bonita BPM Engine to retrieve user information</code></li>
+<li>Next you need to define the list of API extensions defined by your REST API extension. In our case we will have only one. Use comma separated values if you have multiple api extensions. <code>apiExtensions=userInformationRestAPIExension</code></li>
+</ul>
+<p>Second part of the file defines information related to API extensions that are defined by the REST API extension. You can have this block multiple times, one for each API extension. The property name is prefixed by the name of the API extension previously defined in <code>apiExtensions</code> property.</p>
+<ul>
+<li>Specify one HTTP verb from GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS|TRACE. GET is the recommended value for a REST API extension. Write operations should be performed by a process. <code>userInformationRestAPIExension.method=GET</code></li>
+<li>Define the URL path template. For a value <code>userInformation</code> the resulting URL will be: <code>../API/extension/userInformation</code>. <code>userInformationRestAPIExension.pathTemplate=userInformation</code></li>
+<li>Declare the associated RestAPIController Groovy file: <code>userInformationRestAPIExension.classFileName=Index.groovy</code></li>
+<li>Declare the permission required to call the API. You can learn more on <a href="bonita/7.10/rest-api-authorization" ng-click="contentCtrl.goTo($event, 'rest-api-authorization')">REST API authorization documentation page</a>. <code>userInformationRestAPIExension.permissions=organization_visualization</code></li>
+</ul>
+<h3>Package the files for deployment</h3>
+<p>Packaging of the REST API extension is simple: you only need to put all the file at the root (no folders) of a zip file.</p>
+<h3>Deployment</h3>
+<p>To deploy the REST API extension:</p>
+<ol>
+<li>Connect to Bonita Portal with a user account that have Administrator profile</li>
+<li>Switch to administration view</li>
+<li>Go in Resources and click on Add button</li>
+<li>Select the previously created zip file</li>
+<li>Click on Next and on Confirm</li>
+</ol>
+<h3>Configure the authorization</h3>
+<p>To configure the REST API authorization checkout the dedicated <a href="bonita/7.10/rest-api-authorization" ng-click="contentCtrl.goTo($event, 'rest-api-authorization')">documentation page</a>. Note that for our example we used a prexisting rule (organization_visualization) so no special configuration is needed.</p>
+<h3>Test the REST API extension</h3>
+<p>Now you can finally test your REST API extension:</p>
+<ol>
+<li>Open a new tab in the web browser</li>
+<li>Enter the following URL: <code>http://localhost:8080/bonita/API/extension/userInformation?p=0&amp;c=10</code>.</li>
+<li>The JSON response body should be displayed.</li>
+</ol>
+<p>The REST API extension can be used in forms and pages in the <strong>UI Designer</strong> using an <code>External API</code> variable.</p>
+<h2>For Enterprise, Performance, Efficiency, and Teamwork editions only.</h2>
+<p>There is some additional prerequisites when creating a REST API extension with Enterprise, Performance, Efficiency, and Teamwork editions:</p>
+<ul>
+<li>Basic knowledge of Maven</li>
+<li><strong>Access to <a href="http://central.maven.org/maven2">Maven central repository</a></strong>. If your provider is restricting Internet access you may configure <a href="https://maven.apache.org/guides/mini/guide-proxies.html">proxy settings</a> or create a <a href="https://maven.apache.org/guides/mini/guide-mirror-settings.html">mirror repository</a>.</li>
+</ul>
+<div class="alert alert-warning" role="alert">
+<p><strong>Mirror configuration:</strong> When setting a mirror using a <code>&lt;mirrorOf&gt;*&lt;/mirrorOf&gt;</code> redirection, add an exception for the studio internal repository id like this: <code>&lt;mirrorOf&gt;*,!studio-internal-repository&lt;/mirrorOf&gt;</code> in your <code>settings.xml</code> (do not put spaces in this String, otherwise the exclusion won't be considered by Maven)</p>
+<p>The <code>studio-internal-repository</code> repository is used by the Studio to resolve some dependencies not available in public repositories.
+Without this exclusion, the REST API Extension build fails because of some missing dependencies.</p>
+</div>
+<h3>Generate a new REST API extension skeleton</h3>
+<ol>
+<li>In the <strong>Development</strong> menu, choose <strong>REST API Extension</strong> then <strong>New...</strong>.</li>
+<li>Enter a <strong>Name</strong>, for example <em>User information REST API Extension</em>.</li>
+<li>Enter a <strong>Description</strong>, for example <em>Query Bonita Engine to retrieve user information</em>.</li>
+<li>Enter a package name, use to set the artifact <strong>Group id</strong>, for example: <em>com.company.rest.api</em></li>
+<li>Enter a <strong>Project name</strong>, for example <em>userInformationRestAPIExtension</em></li>
+<li>Click <strong>Next</strong>.</li>
+<li>Enter the <strong>pathTemplate</strong> for this REST API extension, for example <em>userInformation</em>. This will be the access point of the API, and follows this pattern: <code>{bonita_portal_context}/API/extension/userInformation</code>.</li>
+<li>As this REST API extension does not access business data you can safely uncheck &quot;Add BDM dependencies&quot; check box.</li>
+<li>Define a <strong>Permission</strong> name for the extension (replace the default one), for example <em>read_user_information</em>. This is the name of the permission the users should have to be granted access to the extension (see <a href="bonita/7.10/api-extensions" ng-click="contentCtrl.goTo($event, 'api-extensions', 'usage')">REST API extensions usage</a></li>
+<li>Click <strong>Next</strong></li>
+<li>This screen defines <strong>URL parameters</strong> that will be passed to the API. By default, <em>p</em> and <em>c</em> parameters are defined to enables paged result, it applies well in our examples as we want to return a list of users.</li>
+<li>Click <strong>Create</strong>.</li>
+</ol>
+<h3>Write the code</h3>
+<h4>Main source code</h4>
+<p>First step would be to remove files and code related to REST API configuration as we don't need to define configuration parameters for our REST API:</p>
+<ol>
+<li>Delete <code>configuration.properties</code> from <code>src/main/resources</code> folder</li>
+<li>Delete <code>testConfiguration.properties</code> from <code>src/test/resources</code></li>
+<li>Remove the setup of configuration file mock. Edit <code>IndexTest.groovy</code>, go to <code>setup()</code> method and remove the line starting with <code>resourceProvider...</code>.</li>
+<li>Remove the example of configuration usage in <code>Index.groovy</code> file (see comment starting with: &quot;Here is an example of you can...&quot;).</li>
+</ol>
+<p>Now we can add our business logic. In <code>Index.groovy</code>, in <code>doHandle</code> method, locate the &quot;Your code goes here&quot; comment and add your code below (removing the existing <code>result</code> and <code>return</code> statement):</p>
+<pre><code class="language-groovy">// Convert parameters from string to int
+p = p as int
+c = c as int
+
+// Initialize the list to store users information  
+def usersInformation = []
+
+// Get the list of user  
+List&lt;User&gt; users = context.apiClient.identityAPI.getUsers(p*c, c, UserCriterion.FIRST_NAME_ASC)
+
+// Iterate over each user
+for (user in users) {
+	// Get user extra information (including email address)
+	ContactData contactData = context.apiClient.identityAPI.getUserContactData(user.id, false)
+
+	// Create a map with current user first name, last name and email address
+	def userInformation = [firstName: user.firstName, lastName: user.lastName, email: contactData.email]
+
+	// Add current user information to the global list
+	usersInformation &lt;&lt; userInformation
+}
+
+// Prepare the result
+def result = [p: p, c: c, userInformation: usersInformation]
+
+int startIndex = p*c
+int endIndex = p*c + users.size() - 1
+
+// Send the result as a JSON representation
+return buildPagedResponse(responseBuilder, new JsonBuilder(result).toString(), startIndex, endIndex, context.apiClient.identityAPI.numberOfUsers)
+</code></pre>
+<p>Make sure you are adding all missing imports (default shortcut CTRL+SHIFT+o).</p>
+<h4>Test source code</h4>
+<p>Now we need to update the test to verify the behavior of our REST API extension by editing <code>IndexTest.groovy</code>.</p>
+<p>First step is to define some mocks for our externals dependencies such as Engine Identity API. Add the following mocks declaration after the existing ones:</p>
+<pre><code class="language-groovy">def apiClient = Mock(APIClient)
+def identityAPI = Mock(IdentityAPI)
+def april = Mock(User)
+def william = Mock(User)
+def walter = Mock(User)
+def contactData = Mock(ContactData)
+</code></pre>
+<p>Now we need to define the generic behavior of our mocks. <code>setup()</code> method should have the following content:</p>
+<pre><code class="language-groovy">context.apiClient &gt;&gt; apiClient
+apiClient.identityAPI &gt;&gt; identityAPI
+
+identityAPI.getUsers(0, 2, _) &gt;&gt; [april, william]
+identityAPI.getUsers(1, 2, _) &gt;&gt; [william, walter]
+identityAPI.getUsers(2, 2, _) &gt;&gt; [walter]
+
+april.firstName &gt;&gt; &quot;April&quot;
+april.lastName &gt;&gt; &quot;Sanchez&quot;
+william.firstName &gt;&gt; &quot;William&quot;
+william.lastName &gt;&gt; &quot;Jobs&quot;
+walter.firstName &gt;&gt; &quot;Walter&quot;
+walter.lastName &gt;&gt; &quot;Bates&quot;
+
+identityAPI.getUserContactData(*_) &gt;&gt; contactData
+contactData.email &gt;&gt; &quot;test@email&quot;
+</code></pre>
+<p>Now you can define a test method. Replace existing test <code>should_return_a_json_representation_as_result</code> method with the following one:</p>
+<pre><code class="language-groovy">def should_return_a_json_representation_as_result() {
+  given: &quot;a RestAPIController&quot;
+  def index = new Index()
+  // Simulate a request with a value for each parameter
+  httpRequest.getParameter(&quot;p&quot;) &gt;&gt; &quot;0&quot;
+  httpRequest.getParameter(&quot;c&quot;) &gt;&gt; &quot;2&quot;
+
+  when: &quot;Invoking the REST API&quot;
+  def apiResponse = index.doHandle(httpRequest, new RestApiResponseBuilder(), context)
+
+  then: &quot;A JSON representation is returned in response body&quot;
+  def jsonResponse = new JsonSlurper().parseText(apiResponse.response)
+  // Validate returned response
+  apiResponse.httpStatus == 200
+  jsonResponse.p == 0
+  jsonResponse.c == 2
+  jsonResponse.userInformation.equals([
+    [firstName:&quot;April&quot;, lastName: &quot;Sanchez&quot;, email: &quot;test@email&quot;],
+    [firstName:&quot;William&quot;, lastName: &quot;Jobs&quot;, email: &quot;test@email&quot;]
+  ]);
+}
+</code></pre>
+<p>Make sure you are adding all missing imports (default shortcut CTRL+SHIFT+o).</p>
+<p>You should now be able to run your unit test. Right click the <code>IndexTest.groovy</code> file and click on <strong>REST API Extension</strong> &gt; <strong>Run JUnit Test</strong>. The JUnit view displays the test results. All tests should pass.</p>
+<h3>Build, deploy and test the REST API extension</h3>
+<p>Studio let you build and deploy the REST API extension in the embedded test environment.</p>
+<p>First step is to configure security mapping for your extension in Studio embedded test environment:</p>
+<ol>
+<li>In the <strong>Development</strong> menu, choose <strong>REST API Extension</strong> then <strong>Edit permissions mapping</strong>.</li>
+<li>Append this line at the end of the file:
+<code>profile|User=[read_user_information]</code> This means that anyone logged in with the user profile is granted this permission.</li>
+<li>Save and close the file.</li>
+</ol>
+<p>Now you can actually build and deploy the extension:</p>
+<ol>
+<li>In the <strong>Development</strong> menu, choose <strong>REST API Extension</strong> &gt; <strong>Deploy...</strong></li>
+<li>Select the userInformationRestAPIExtension REST API extension.</li>
+<li>Click on <strong>Deploy</strong> button.</li>
+<li>In the coolbar, click the <strong>Portal</strong> icon. This opens the Bonita Portal in your browser.</li>
+<li>In the Portal, change to the <strong>Administrator</strong> profile.</li>
+<li>Go to the <strong>Resources</strong> tab, and check that the User information REST API extension is in the list of REST API extension resources.</li>
+</ol>
+<p>Now you can finally test your REST API extension:</p>
+<ol>
+<li>Open a new tab in the web browser</li>
+<li>Enter the following URL: <code>http://localhost:8080/bonita/API/extension/userInformation?p=0&amp;c=10</code>.</li>
+<li>The JSON response body should be displayed.</li>
+</ol>
+<p>The REST API extension can be used in forms and pages in the <strong>UI Designer</strong> using an <code>External API</code> variable.</p>
+<h2>Example ready to use</h2>
+<h3>For Community Edition</h3>
+<p>You can download the <a href="https://github.com/Bonitasoft-Community/rest-api-extension-user-information-example">REST API extension described in the tutorial above</a> or check <a href="http://community.bonitasoft.com/project/data-source-rest-api-extension">data source REST API extension</a> as a reference.</p>
+<h3>For Enterprise, Performance, Efficiency, and Teamwork editions</h3>
+<p>You can checkout the Bonita Studio repository that include this extension and a process that use it directly from the Studio by provinding the Git repository URL: https://github.com/bonitasoft/rest-api-extension-user-information-example</p>
+<h2>BDM and Performance matters</h2>
+<p>Two maven artifacts are generated from the Business Data Model : <strong>bdm-dao</strong> and <strong>bdm-client</strong>.<br>
+The version of those artifacts is fixed to 1.0.
+You have the possibility to edit the group id of those artifacts from the BDM edition wizard.<br>
+Those maven artifacts are meant to be used from REST API extensions, using the following dependencies:</p>
+<pre><code>&lt;dependency&gt;
+	&lt;groupId&gt;[YOUR GROUP ID]&lt;/groupId&gt;
+	&lt;artifactId&gt;bdm-client&lt;/artifactId&gt;
+	&lt;version&gt;1.0.0&lt;/version&gt;
+	&lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+	&lt;groupId&gt;[YOUR GROUP ID]&lt;/groupId&gt;
+	&lt;artifactId&gt;bdm-dao&lt;/artifactId&gt;
+	&lt;version&gt;1.0.0&lt;/version&gt;
+	&lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>Those dependencies are automatically added when a REST API Extension is created from the Bonita Studio. It allows to manipulate Business Objects from a REST API Extension.<br>
+ℹ️ Only <strong>read operations</strong>  can be performed on business objects from a REST API Extension, even with the dao. Write operations are done through processes.</p>
+<p>Be aware that a poor implementation of a custom REST API accessing BDM objects can lead to poor performance results. See the <a href="bonita/7.10/bdm-in-rest-api" ng-click="contentCtrl.goTo($event, 'bdm-in-rest-api')">best practice</a> on this matter.</p>
+<h2>Troubleshooting</h2>
+<ul>
+<li>I get the following stacktrace when using Java 8 Date types (LocalDate, LocalDateTime...) in my Rest API Extension</li>
+</ul>
+<pre><code>java.lang.StackOverflowError
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:361)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1806)
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1735)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:264)
+	at groovy.lang.MetaClassRegistry$MetaClassCreationHandle.createWithCustomLookup(MetaClassRegistry.java:149)
+	at groovy.lang.MetaClassRegistry$MetaClassCreationHandle.create(MetaClassRegistry.java:144)
+	at org.codehaus.groovy.reflection.ClassInfo.getMetaClassUnderLock(ClassInfo.java:253)
+	at org.codehaus.groovy.reflection.ClassInfo.getMetaClass(ClassInfo.java:285)
+	at org.codehaus.groovy.reflection.ClassInfo.getMetaClass(ClassInfo.java:295)
+	at org.codehaus.groovy.runtime.metaclass.MetaClassRegistryImpl.getMetaClass(MetaClassRegistryImpl.java:261)
+	at org.codehaus.groovy.runtime.InvokerHelper.getMetaClass(InvokerHelper.java:871)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.getMetaPropertyValues(DefaultGroovyMethods.java:364)
+	at org.codehaus.groovy.runtime.DefaultGroovyMethods.getProperties(DefaultGroovyMethods.java:383)
+	at groovy.json.JsonOutput.writeObject(JsonOutput.java:290)
+	at groovy.json.JsonOutput.writeIterator(JsonOutput.java:445)
+	at groovy.json.JsonOutput.writeObject(JsonOutput.java:269)
+	at groovy.json.JsonOutput.writeMap(JsonOutput.java:424)
+	at groovy.json.JsonOutput.writeObject(JsonOutput.java:294)
+	at groovy.json.JsonOutput.writeIterator(JsonOutput.java:441)
+	at groovy.json.JsonOutput.writeObject(JsonOutput.java:269)
+	at groovy.json.JsonOutput.writeMap(JsonOutput.java:424)
+	at groovy.json.JsonOutput.writeObject(JsonOutput.java:294)
+</code></pre>
+<p>The <a href="http://docs.groovy-lang.org/2.4.4/html/gapi/groovy/json/JsonBuilder.html"><code>groovy.json.JSONBuilder</code></a> does not support Java 8 Date types serialization for the groovy version currently used by Bonita.</p>
+<p>As a workaround you have to format dates in a new data structure before using the JSONBuilder.</p>
+<p>Example:</p>
+<pre><code class="language-groovy">def employee = //A given employee object
+def result = [
+			name:employee.name,
+			birthDate:employee.birthDate.format(DateTimeFormatter.ISO_LOCAL_DATE)
+			]
+
+return buildResponse(responseBuilder, HttpServletResponse.SC_OK,new JsonBuilder(result).toPrettyString())
+
+</code></pre>
+<div class="alert alert-info" role="alert">
+<p>We do not recommend to manage time zone at the Rest API level, as the local of the Rest API server, the Bonita Engine server, and the End User machine could be different.
+So we encourage you to manipulate UTC dates only server-side.
+You can see how we <a href="bonita/7.10/datetimes-management-tutorial" ng-click="contentCtrl.goTo($event, 'datetimes-management-tutorial', 'toc2')" class="alert-link">manage the time zone using the date time picker</a>. This time zone should only be managed in the end user interface.</p>
+</div>
+<!-- Generated on Tue Dec 10 2019 12:49:52 GMT+0100 (Paris, Madrid) -->

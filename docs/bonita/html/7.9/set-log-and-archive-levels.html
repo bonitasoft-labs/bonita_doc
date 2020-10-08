@@ -1,0 +1,36 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/set-log-and-archive-levels.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Logging and archiving of Bonita processes</h1>
+<p>How the information about your Bonita processes is recorded, and how to configure what is recorded.</p>
+<h2>Foreword</h2>
+<p>There are three ways to record the information of a process:</p>
+<ul>
+<li>Archive: used by a business analyst or process administrator using Bonita Portal, during the production phase, to trace the running of the process instances in their life cycle. Records who did what and when.</li>
+<li>Technical log: used by an application developer for troubleshooting, debugging and process tuning.</li>
+<li>Queriable log: used by a database administrator extracting information related to business actions that is stored in the internal database to be retrieved by a database request.</li>
+</ul>
+<p>You can configure the information that is recorded in the archive and the logs.</p>
+<h2>Archive</h2>
+<p>In the portal, after a process is executed, it can be viewed using the &quot;Archived&quot; filter.
+There you can find the information on the process instances (the cases). This information is also available using the Web REST API.
+By default, all the information is archived but in the Enterprise and Performance editions this is <a href="?page=configurable-archive" ng-click="contentCtrl.goTo($event, 'configurable-archive')">configurable</a>.</p>
+<p>Recommended configuration (Enterprise and Performance only):</p>
+<ul>
+<li>To keep all the user activity, set all the flowNode types to true.</li>
+<li>To maximize the overall performance of the system and reduce the disk space used by the database, set all the values to false. Completed tasks will not be visible.</li>
+</ul>
+<p>Between these two extreme cases, you can <a href="?page=configurable-archive" ng-click="contentCtrl.goTo($event, 'configurable-archive')">customize archiving</a> to your exact need.</p>
+<h2>Technical log</h2>
+<p>Bonita Engine uses SLF4J to log. The default implementation embedded in the Tomcat bundle is Java Util Logging.</p>
+<p>You can <a href="?page=logging" ng-click="contentCtrl.goTo($event, 'logging')">configure the log level</a>. The log level can be set on several categories in the <code>logging.properties</code> file. Some categories are very specific to a particular issue.
+For example:</p>
+<ul>
+<li>If you have an issue related to the database access, it might be interesting to change the level of <code>org.hibernate.level</code> from the default, <code>WARNING</code>, to <code>FINE</code>.</li>
+<li>When debugging cache issues, change the level of <code>net.sf.ehcache.level</code>.</li>
+<li>For the process execution, the relevant properties are <code>org.bonitasoft.level</code> and (for Subscription editions) <code>com.bonitasoft.level</code>.</li>
+</ul>
+<h2>Queriable log</h2>
+<p>You can use the <a href="?page=queriable-logging" ng-click="contentCtrl.goTo($event, 'queriable-logging')">queriable logger service</a> to log in a database the creation, deletion or update of bonita objects that are not related to a process (for instance users, groups, roles, profiles).
+Items that can be archived cannot be included in the queriable log.</p>
+<p>To configure what information you want to record in the quieriable log, modify the <a href="?page=BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')"><code>bonita-tenant-sp-custom.properties</code></a>.
+This file contains a map of available events. By default all are logged (the value is set to true). If you do want to log a particular event, set the value to false and restart the Bonita Engine.</p>
+<!-- Generated on Wed Dec 04 2019 17:46:52 GMT+0100 (Paris, Madrid) -->

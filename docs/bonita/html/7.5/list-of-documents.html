@@ -1,0 +1,163 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.5/md/list-of-documents.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>How to manage a list of documents</h1>
+<p>A list of documents is represented by several documents having the same name (attribute &quot;name&quot;).
+It is possible to add/remove elements to a list using the same methods as for a simple document.</p>
+<h2>Get the documents of the list</h2>
+<p>In a case with <code>myDocList</code> as a list of documents, use the following request to sort the result by ascending index value:</p>
+<p>Request URL:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Path + Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left"><code>/API/bpm/caseDocument?p=0&amp;c=10&amp;f=name=myDocList&amp;o=index ASC</code></td>
+</tr>
+</tbody>
+</table>
+<p>Response payload :</p>
+<pre><code class="language-json">[
+  { 
+    &quot;id&quot;:&quot;1&quot;, 
+    &quot;creationDate&quot;:&quot;2014-10-09 16:39:52.472&quot;, 
+    &quot;author&quot;:&quot;1&quot;, 
+    &quot;index&quot;:&quot;0&quot;, 
+    &quot;contentMimetype&quot;:&quot;text/plain&quot;, 
+    &quot;caseId&quot;:&quot;1&quot;, 
+    &quot;contentStorageId&quot;:&quot;1&quot;, 
+    &quot;isInternal&quot;:&quot;true&quot;, 
+    &quot;description&quot;:&quot;&quot;, 
+    &quot;name&quot;:&quot;myDocList&quot;, 
+    &quot;fileName&quot;:&quot;test1.txt&quot;, 
+    &quot;submittedBy&quot;:&quot;1&quot;, 
+    &quot;url&quot;:&quot;documentDownload?fileName=test1.txt&amp;contentStorageId=1&quot;, 
+    &quot;version&quot;:&quot;1&quot; 
+  }, {
+    &quot;id&quot;:&quot;2&quot;, 
+    &quot;creationDate&quot;:&quot;2014-10-09 16:39:52.473&quot;, 
+    &quot;author&quot;:&quot;1&quot;, 
+    &quot;index&quot;:&quot;1&quot;, 
+    &quot;contentMimetype&quot;:&quot;text/plain&quot;, 
+    &quot;caseId&quot;:&quot;1&quot;, 
+    &quot;contentStorageId&quot;:&quot;2&quot;, 
+    &quot;isInternal&quot;:&quot;true&quot;, 
+    &quot;description&quot;:&quot;&quot;, 
+    &quot;name&quot;:&quot;myDocList&quot;, 
+    &quot;fileName&quot;:&quot;test2.txt&quot;, 
+    &quot;submittedBy&quot;:&quot;1&quot;, 
+    &quot;url&quot;:&quot;documentDownload?fileName=test2.txt&amp;contentStorageId=2&quot;, 
+    &quot;version&quot;:&quot;1&quot; 
+  }, {
+    &quot;id&quot;:&quot;3&quot;, 
+    &quot;creationDate&quot;:&quot;2014-10-09 16:39:52.473&quot;, 
+    &quot;author&quot;:&quot;1&quot;, 
+    &quot;index&quot;:&quot;2&quot;, 
+    &quot;contentMimetype&quot;:&quot;text/plain&quot;, 
+    &quot;caseId&quot;:&quot;1&quot;, 
+    &quot;contentStorageId&quot;:&quot;3&quot;, 
+    &quot;isInternal&quot;:&quot;true&quot;, 
+    &quot;description&quot;:&quot;&quot;, 
+    &quot;name&quot;:&quot;myDocList&quot;, 
+    &quot;fileName&quot;:&quot;test3.txt&quot;, 
+    &quot;submittedBy&quot;:&quot;1&quot;, 
+    &quot;url&quot;:&quot;documentDownload?fileName=test3.txt&amp;contentStorageId=3&quot;,
+    &quot;version&quot;:&quot;1&quot;
+  }
+]
+</code></pre>
+<h2>Add a new document</h2>
+<p>To add a new document to the list <code>myDocList</code> at the end of the list, do a POST call without specifying the <em>index</em> attribute in the request payload.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Path + Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left"><code>/API/bpm/caseDocument</code></td>
+</tr>
+</tbody>
+</table>
+<p>Request payload:</p>
+<pre><code class="language-json">{ 
+  &quot;caseId&quot; : &quot;1&quot;, 
+  &quot;file&quot; : &quot;doc.jpg&quot;, 
+  &quot;name&quot; : &quot;myDocList&quot;, 
+  &quot;description&quot; : &quot;this is an element of the list&quot; 
+}
+</code></pre>
+<p>Response payload</p>
+<pre><code class="language-json">{
+  &quot;id&quot;:&quot;4&quot;, 
+  &quot;creationDate&quot;:&quot;2014-10-09 16:45:36.658&quot;, 
+  &quot;author&quot;:&quot;1&quot;, 
+  &quot;index&quot;:&quot;3&quot;, 
+  &quot;contentMimetype&quot;:&quot;application/octet-stream&quot;, 
+  &quot;caseId&quot;:&quot;1&quot;, 
+  &quot;contentStorageId&quot;:&quot;4&quot;, 
+  &quot;isInternal&quot;:&quot;true&quot;, 
+  &quot;description&quot;:&quot;this is a simple doc&quot;, 
+  &quot;name&quot;:&quot;myDocList&quot;, 
+  &quot;fileName&quot;:&quot;doc.jpg&quot;, 
+  &quot;submittedBy&quot;:&quot;1&quot;, 
+  &quot;url&quot;:&quot;documentDownload?fileName=doc.jpg&amp;contentStorageId=4&quot;, 
+  &quot;version&quot;:&quot;1&quot; 
+}
+</code></pre>
+<p><em>Note</em>: that this new document has got index=3.
+If you now rerun the first GET request, you will now get a list containing four documents with the new document as last element of the list.</p>
+<h2>Add a new document to the list at a given index</h2>
+<p>To add a new document to the list <code>myDocList</code> at index 1, do a POST call specifying the <em>index</em> attribute in the request payload.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:left">Path + Query</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left"><code>/API/bpm/caseDocument</code></td>
+</tr>
+</tbody>
+</table>
+<p>Request payload</p>
+<pre><code class="language-json">{ 
+  &quot;caseId&quot; : &quot;1&quot;, 
+  &quot;file&quot; : &quot;doc.jpg&quot;, 
+  &quot;name&quot; : &quot;myDocList&quot;, 
+  &quot;description&quot; : &quot;this is an element of the list at index 1&quot;, 
+  &quot;index&quot; : &quot;1&quot;
+}
+</code></pre>
+<p>Response payload</p>
+<pre><code class="language-json">{
+  &quot;id&quot;:&quot;5&quot;, 
+  &quot;creationDate&quot;:&quot;2014-10-09 16:45:36.658&quot;, 
+  &quot;author&quot;:&quot;1&quot;, 
+  &quot;index&quot;:&quot;1&quot;, 
+  &quot;contentMimetype&quot;:&quot;application/octet-stream&quot;, 
+  &quot;caseId&quot;:&quot;1&quot;, 
+  &quot;contentStorageId&quot;:&quot;4&quot;, 
+  &quot;isInternal&quot;:&quot;true&quot;, 
+  &quot;description&quot;:&quot;this is a simple doc&quot;, 
+  &quot;name&quot;:&quot;myDocList&quot;, 
+  &quot;fileName&quot;:&quot;doc.jpg&quot;, 
+  &quot;submittedBy&quot;:&quot;1&quot;, 
+  &quot;url&quot;:&quot;documentDownload?fileName=doc.jpg&amp;contentStorageId=4&quot;, 
+  &quot;version&quot;:&quot;1&quot; 
+}
+</code></pre>
+<p><em>Note</em>: that this new document has index=1.</p>
+<p>If you now rerun the request in Example 1, you will see that the indexes of the documents in myDocList have been
+recalculated with respect to the newly added document index.</p>
+<p>Knowing the document Id of a document list, it is possible to update it (PUT) and remove it(DELETE) as for a simple document.</p>
+<!-- Generated on Wed Jan 31 2018 10:20:49 GMT+0100 (Paris, Madrid) -->

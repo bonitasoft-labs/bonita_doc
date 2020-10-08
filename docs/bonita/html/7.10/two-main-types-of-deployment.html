@@ -1,0 +1,107 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/two-main-types-of-deployment.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Two main types of Bonita deployment</h1>
+<p>Discover the two main types of deployments of a Bonita Platform.</p>
+<p>There are two main types of deployment</p>
+<ul>
+<li>Bonita Portal + Bonita Engine on the same application server: this is the usual deployment and the default one when
+using a Bonita bundle</li>
+<li>Bonita Portal and Bonita Engine running on two different application servers</li>
+</ul>
+<h2>Bonita Portal + Bonita Engine on the same application server</h2>
+<p><img src="bonita/images/7.10/images-6_0/poss_deploy1.png" alt="deploy1" title="deploy1"></p>
+<p>Bonita Portal and the Bonita Engine run on the same JVM. This is the simplest deployment configuration and is also the most performant as there is no serialization and network overhead.
+To perform this setup, you can use the <a href="bonita/7.10/tomcat-bundle" ng-click="contentCtrl.goTo($event, 'tomcat-bundle')">prepackaged bundle</a> or the Bonita <a href="bonita/7.10/bonita-docker-installation" ng-click="contentCtrl.goTo($event, 'bonita-docker-installation')">docker image</a>.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>simple (single webapp and application server)</li>
+<li>works out of the box</li>
+<li>you can access the embedded Bonita Engine API (or the Bonita Portal REST API) through HTTP if you need an external application to access it</li>
+<li>improved performance</li>
+</ul>
+<p><strong>Drawbacks</strong></p>
+<ul>
+<li>may not be adapted to some architecture constraints</li>
+</ul>
+<h2>Bonita Engine on a remote application server</h2>
+<p><img src="bonita/images/7.10/images-6_0/poss_deploy2.png" alt="deploy2" title="deploy2"></p>
+<p>With this deployment, the Bonita Engine is accessed by the portal (and possibly other applications) through HTTP. The Bonita
+Portal is deployed on one application server and the engine on another one.
+But you can still use the pre-packaged Tomcat bundle, or Bonita docker image, in both servers.
+On one of them, only the Bonita Portal part will be used and on the other one, only the engine server.
+Access to the portal can be de-activated by server or webapp configuration if necessary.</p>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>may be adapted to some architecture and network constraints (DMZ)</li>
+</ul>
+<p><strong>Drawbacks</strong></p>
+<ul>
+<li>more complex than the first deployment option (two application servers instead of one)</li>
+<li>impact on performance (serialization + network overhead)</li>
+</ul>
+<h3>Configuring the Bonita Runtime</h3>
+<p>The example below is for use with the Tomcat bundle.</p>
+<h4>Bonita Engine</h4>
+<p>Follow the regular installation (see the <a href="bonita/7.10/tomcat-bundle" ng-click="contentCtrl.goTo($event, 'tomcat-bundle')">Tomcat bundle</a> installation page)
+and use the setup tool to configure Bonita</p>
+<h4>Bonita Portal</h4>
+<p>In this deployment, we will configure the Bonita Engine Client used by the Bonita Portal, by setting JVM System Properties for the following elements :</p>
+<ul>
+<li>set the Engine Client to use the HTTP protocol</li>
+<li>set the url to the Engine</li>
+<li>set username and password that match credentials configured for the platform admin (see the <a href="bonita/7.10/tomcat-bundle" ng-click="contentCtrl.goTo($event, 'tomcat-bundle')">Tomcat bundle</a> configuration page)
+In addition, all database datasources will be disabled</li>
+</ul>
+<p>For more details, please read <a href="bonita/7.10/configure-client-of-bonita-bpm-engine" ng-click="contentCtrl.goTo($event, 'configure-client-of-bonita-bpm-engine', 'client_config')">configuring the connection to a remote engine</a></p>
+<h5>Configuring the Bonita Portal</h5>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> At the end of these steps, you can start the Bonita Portal bundle with the startup script.</p>
+</div>
+<p>Unarchive the bundle.
+Remove the content of the <code>setup</code> directory as the setup tool in not used on the Portal part</p>
+<p>Configure the Engine Client by setting system properties in the <code>&lt;bonita-installation-directory&gt;/server/bin/setenv.(bat|sh)</code> file
+We suggest to define a <code>ENGINE_OPTS</code> variable and add its content to the <code>CATALINA_OPTS</code> variable, and remove <code>ARJUNA_OPTS</code></p>
+<p>On Linux (setenv.sh)</p>
+<pre><code>ENGINE_OPTS=&quot;-Dorg.bonitasoft.engine.api-type=HTTP -Dorg.bonitasoft.engine.api-type.server.url=http://localhost:8080&quot;
+ENGINE_OPTS=&quot;${ENGINE_OPTS} -Dorg.bonitasoft.engine.api-type.application.name=bonita -Dorg.bonitasoft.engine.api-type.connections.max=20&quot;
+ENGINE_OPTS=&quot;${ENGINE_OPTS} -Dorg.bonitasoft.platform.username=platformAdmin -Dorg.bonitasoft.platform.password=platform&quot;
+
+CATALINA_OPTS=&quot;${CATALINA_OPTS} ${ENGINE_OPTS} ${PLATFORM_SETUP} ...&quot;
+export CATALINA_OPTS
+</code></pre>
+<p>On Windows (setenv.bat)</p>
+<pre><code>set ENGINE_OPTS=&quot;-Dorg.bonitasoft.engine.api-type=HTTP&quot; &quot;-Dorg.bonitasoft.engine.api-type.server.url=http://localhost:8080&quot;
+set ENGINE_OPTS=%ENGINE_OPTS% &quot;-Dorg.bonitasoft.engine.api-type.application.name=bonita -Dorg.bonitasoft.engine.api-type.connections.max=20&quot;
+set ENGINE_OPTS=%ENGINE_OPTS% &quot;-Dorg.bonitasoft.platform.username=platformAdmin&quot; &quot;-Dorg.bonitasoft.platform.password=platform&quot;
+
+set CATALINA_OPTS=%CATALINA_OPTS% %ENGINE_OPTS% %PLATFORM_SETUP% ...
+</code></pre>
+<p>Remove the <code>&lt;bonita-installation-directory&gt;/server/webapps/bonita</code> folder if it exists
+Edit the <code>WEB-INF/web.xml</code> file in the <code>&lt;bonita-installation-directory&gt;/server/webapps/bonita.war</code> file and comment the
+following lines to disable Engine resources</p>
+<p>Community Edition only: listener starting the Engine</p>
+<pre><code class="language-xml">&lt;listener&gt; 
+    &lt;listener-class&gt;org.bonitasoft.engine.api.internal.servlet.EngineInitializerListener&lt;/listener-class&gt; 
+&lt;/listener&gt;
+</code></pre>
+<p>Subscription Edition only: listener starting the Engine</p>
+<pre><code class="language-xml">&lt;listener&gt; 
+    &lt;listener-class&gt;com.bonitasoft.engine.api.internal.servlet.EngineInitializerListenerSP&lt;/listener-class&gt; 
+&lt;/listener&gt;
+</code></pre>
+<p>HTTP Engine API Configuration</p>
+<pre><code class="language-xml">    &lt;servlet&gt;
+        &lt;servlet-name&gt;HttpAPIServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.bonitasoft.engine.api.internal.servlet.HttpAPIServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+...
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;HttpAPIServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/serverAPI/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+</code></pre>
+<p>Disable XA datasources managed by Arjuna by commenting or deleting the following line in the <code>&lt;bonita-installation-directory&gt;/server/conf/server.xml</code> file</p>
+<pre><code class="language-xml">  &lt;Listener className=&quot;org.jboss.narayana.tomcat.jta.TransactionLifecycleListener&quot; /&gt;
+</code></pre>
+<p>Disable datasources managed by Tomcat by commenting or removing database resources declared in the in the <code>&lt;bonita-installation-directory&gt;/conf/Catalina/localhost/bonita.xml</code> file</p>
+<p>You can now start the Bonita Portal bundle with the startup script.</p>
+<!-- Generated on Tue Dec 10 2019 12:49:52 GMT+0100 (Paris, Madrid) -->

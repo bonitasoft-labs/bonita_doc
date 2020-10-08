@@ -1,0 +1,21 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.7/md/gateways.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Process Gateways</h1>
+<p>Gateways are used to control how sequence flows interact as they converge and diverge within a process.</p>
+<h2>Types of gateways</h2>
+<p>There are three types of gateway available for process design in Bonita Studio: parallel (AND), exclusive (XOR), and inclusive. These gateways behave in accordance with the BPMN2 specification.</p>
+<h2>Parallel (AND) gateways</h2>
+<p><img src="bonita/images/7.7/images-6_0/papde_pm_diag_gateways_parallel_gate.png" alt="Diagram of a parallel (AND) gateway" title="Diagram of a parallel (AND) gateway"></p>
+<p>In a parallel (AND) gateway, all inputs must be received before the process can continue, and all outputs fire simultaneously. No condition can be put in the output.</p>
+<h2>Exclusive (XOR) gateways</h2>
+<p><img src="bonita/images/7.7/images-6_0/papde_pm_diag_gateways_exclusive_gate.png" alt="Diagram of a exclusive (XOR) gateway" title="Diagram of a exclusive (XOR) gateway"></p>
+<p>For an exclusive (XOR) gateway, <strong>the design must ensure that only one input will reach the gateway</strong>. Only one output fires.<br>
+If there are several outputs defined, a condition is required to determine which one fires. The first transition that have a condition evaluated to true is used.</p>
+<h2>Inclusive gateways</h2>
+<p><img src="bonita/images/7.7/images-6_0/papde_pm_diag_gateways_inclusive_gate.png" alt="diagram of a inclusive gateway" title="diagram of a inclusive gateway"></p>
+<p>An inclusive gateway waits for the input from all active paths, and activates all outgoing transitions that have a condition that
+evaluates to true.<br>
+If there is only one outgoing transition, no condition is needed and the transition is always activated.<br>
+If there is more than one outgoing transition, every transition should either be the default or should have a condition.<br>
+The default transition is used if all other conditions are evaluated to false. It is not mandatory to have a default transition, but an error will occure if no default transition is defined and all conditions are evaluated to false.
+If no default transition is defined, ensure that at least one of the conditions will be evaluated to true.</p>
+<!-- Generated on Wed Dec 04 2019 13:25:31 GMT+0100 (Paris, Madrid) -->

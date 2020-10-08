@@ -1,0 +1,58 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/bdm-management-in-bonita-bpm-portal.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>BDM Management in Bonita Portal</h1>
+<p>Processes using Business Objects with persisted data need to run with a Business Data Model deployed in the Bonita Portal.</p>
+<h2>Manage your BDM</h2>
+<p>Only one model can be deployed at a time in the Portal, so make sure it contains the Business object definition used in all processes that will run within this tenant.</p>
+<p>The Business objects must match the structure used by the deployed processes. Make sure that when modifying the Business Model, the process is modified accordingly.</p>
+<ol>
+<li>To import the Business Data Model created in Bonita  Studio, first <a href="?page=define-and-deploy-the-bdm" ng-click="contentCtrl.goTo($event, 'define-and-deploy-the-bdm')">export the Business Data Model</a> from Bonita  Studio where it was designed.</li>
+<li>In the Bonita  Portal, log in as the technical user (default login 'install', default password 'install').</li>
+<li>Go to the <strong>BPM Services</strong> menu.</li>
+<li>Click on <strong>Pause</strong> to <a href="?page=pause-and-resume-bpm-services" ng-click="contentCtrl.goTo($event, 'pause-and-resume-bpm-services')">pause</a> the tenant.</li>
+</ol>
+<div class="alert alert-info" role="alert">
+<p><strong><i class="fa fa-info-circle"></i> Note:</strong> The deployment of a Business Data Model requires pausing the service during the operation, so that the update can be performed without affecting ongoing processes.
+For Enterprise, Efficiency and Performance editions, you must have no <a href="?hash=installAccessControl&amp;page=" ng-click="contentCtrl.goTo($event, '', 'installAccessControl')" class="alert-link">access control</a> file installed in order to be able to install or update the Business Data Model.</p>
+</div>
+<ol start="5">
+<li>When services are paused, go to the <strong>BDM</strong> menu.</li>
+<li>A page called <strong>Business Data Model definition</strong> is displayed.</li>
+<li>Click on install button and choose the file containing the Business Data Model exported from Bonita Studio, and click on <em><strong>install</strong></em> button in the popup.</li>
+<li>A warning is displayed:</li>
+</ol>
+<div class="alert alert-warning" role="alert">
+<p><strong><i class="fa fa-exclamation-triangle"></i> Warning:</strong> The Business Data Model will now be installed.</p>
+</div>
+<p>Please note that existing business database tables will be modified definitively. This action cannot be reversed. It is highly recommended to back up the database before proceeding.</p>
+<ol start="9">
+<li>The Portal will load the file, retrieve the object definition and enable processes to use them at runtime. The portal will also create or update the database schema (set of tables, columns, indexes...)
+in the business database, so as to store business objects appropriately when modified by processes.</li>
+<li>The Business Data Model will now be installed.</li>
+<li>Go to the <strong>BPM Services</strong> menu.</li>
+<li>Click on <strong>Resume</strong> to <a href="?page=pause-and-resume-bpm-services" ng-click="contentCtrl.goTo($event, 'pause-and-resume-bpm-services')">resume tenant activity</a>.</li>
+</ol>
+<div class="alert alert-warning" role="alert">
+<p><strong><i class="fa fa-exclamation-triangle"></i> Warning:</strong>  Since business continually evolves, you may need to make some changes to a BDM already in production.
+Bonita uses Hibernate for data persistence, therefore some changes are handled well, like adding new objects or attributes, but some others, like changing the type of an attribute, we cannot guarantee so far.
+In such cases, you will have to implement the change on your own, through careful actions in a staging environment, and after the backup of your database.
+This limitation is well known and will be addressed in a future Bonita version.</p>
+</div>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For Enterprise, Efficiency and Performance editions only.</p>
+</div>
+<a id="installAccessControl"/>
+<p>It is possible to define Business Data Model access control rules in Bonita Studio and import them in Bonita Portal.<br>
+The Access control rules must match the Business Data model.</p>
+<ol>
+<li>To import the BDM access control rules created in Bonita Studio, first <a href="?page=bdm-access-control" ng-click="contentCtrl.goTo($event, 'bdm-access-control')">export the Access Control file</a> from Bonita Studio where it was designed.</li>
+<li>In the Bonita Portal, log in as the technical user (default login 'install', default password 'install') or as a user with the administrator profile.</li>
+<li>As the tenant technical user or as an administrator, go to the <strong>BDM</strong> menu.</li>
+<li>A page with a section <strong>Business Data Model access control</strong> is displayed.</li>
+<li>Click <strong><em>Install</em></strong> to open import popup and choose the file containing the Business Data Model access control definition exported from Bonita Studio, and click on <em><strong>Install</strong></em>.</li>
+<li>A successful import message will be displayed.</li>
+</ol>
+<p>Please note that a delay is required after the import for the engine to process the access control and for the filtering to be effective.</p>
+<div class="alert alert-info" role="alert">
+<p><strong><i class="fa fa-info-circle"></i> Note:</strong> Contrary to the BDM definition, the deployment of a Business Data Model access control file doesn't require pausing the BPM services during the operation.</p>
+</div>
+<!-- Generated on Wed Dec 04 2019 17:46:50 GMT+0100 (Paris, Madrid) -->

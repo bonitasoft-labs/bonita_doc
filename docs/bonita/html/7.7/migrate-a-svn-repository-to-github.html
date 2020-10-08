@@ -1,0 +1,73 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.7/md/migrate-a-svn-repository-to-github.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>How to migrate a SVN repository to Github</h1>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For Enterprise, Performance, Efficiency, and Teamwork editions only.</p>
+</div>
+<p>This page explains how to migrate a <strong>SVN</strong> repository and its history to a <strong>Git</strong> repository on <a href="https://github.com/">GitHub</a>.</p>
+<h2>Prerequistes</h2>
+<ul>
+<li>Ubuntu</li>
+<li>awk : <code>sudo apt-get install awk</code></li>
+<li>subversion: <code>sudo apt-get install subversion</code></li>
+<li>git: <code>sudo apt-get install git</code> (tested with git 2.17.1)</li>
+<li><a href="https://git-scm.com/docs/git-svn">git-svn</a>: <code>sudo apt-get install git-svn</code></li>
+</ul>
+<h2>Migration steps</h2>
+<h3>Retrieve the list of all Subversion committers</h3>
+<p>A first step will be to retrieve the committers list of the repository.<br>
+Checkout a copy of the repository to migrate in a location of your choice: <code>svn checkout &lt;svn-repository-url&gt;</code><br>
+Then run the following command from the locally checkouted repository to retrieve the svn committers:<br>
+<code>svn log -q | awk -F '|' '/^r/ {sub(&quot;^ &quot;, &quot;&quot;, $2); sub(&quot; $&quot;, &quot;&quot;, $2); print $2&quot; = &quot;$2&quot; &lt;&quot;$2&quot;&gt;&quot;}' | sort -u &gt; authors-transform.txt</code></p>
+<p>In Git, the commit author needs to have a name and email listed. So update <code>authors-transform.txt</code> accordingly.</p>
+<p>eg: <code>wbates = wbates &lt;wbates&gt;</code> into <code>wbates = Walter Bates &lt;wbates@acme.org&gt;</code></p>
+<h3>Clone the Subversion repository using git-svn</h3>
+<p><code>git svn clone &lt;svn-repository-url&gt;/&lt;bonita-repo-name&gt; --no-metadata --stdlayout --no-minimize-url -A authors-transform.txt ~/temp</code></p>
+<p>This will do the standard git-svn transformation (using the authors-transform.txt file you created in the step above) and place the git repository in the <code>~/temp</code> folder inside your home directory.<br>
+Note: <code>&lt;bonita-repo-name&gt;</code> should have <code>trunk</code>, <code>branches</code>, <code>tags</code> children folder.</p>
+<h3>Create a .gitignore</h3>
+<p>Add a .gitignore in <code>~/temp</code> with the following content</p>
+<pre><code>bin
+.classpath
+/src-providedGroovy
+/template
+/h2_database
+/process_configurations
+/META-INF
+.settings
+target/
+/build.properties
+
+#provided web widgets
+/web_widgets/pb*/
+
+#web component preferenes
+/web_widgets/.metadata
+/web_fragments/.metadata
+/web_page/.metadata
+/web_page/*/js
+/web_fragments/*/*.js
+/web_widgets/*/*.js
+
+#bdm jar dependency is regenerate from bom.xml file
+/lib/bdm-client-pojo.jar
+
+#only used as user preferences
+/database_connectors_properties
+</code></pre>
+<p>Double check that all files listed in the .gitignore are not present in <code>~/temp</code> folder.<br>
+Remove them otherwise.</p>
+<p>Then add all the changes and commit:
+<code>git add -A</code><br>
+<code>git commit -m 'Add .gitignore.'</code></p>
+<h3>Push repository to GitHub</h3>
+<p>Create a new empty repository on GitHub.<br>
+Configure the upstream<br>
+<code>git remote add origin &lt;github-repo-url&gt;</code><br>
+<code>git push --set-upstream origin master</code></p>
+<p>You can now clone this git repository in Bonita Studio.</p>
+<h2>References</h2>
+<p>For a more advanced migration read the following article</p>
+<ul>
+<li><a href="https://john.albin.net/git/convert-subversion-to-git">https://john.albin.net/git/convert-subversion-to-git</a></li>
+</ul>
+<!-- Generated on Wed Dec 04 2019 13:25:31 GMT+0100 (Paris, Madrid) -->

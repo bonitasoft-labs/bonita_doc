@@ -1,0 +1,25 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/managing-dependencies.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Manage dependencies</h1>
+<p>A dependency is an external code module, not provided in Bonita, that is used by a process. This page explains how to manage dependencies using
+Bonita Studio, so that when you build a process for deployment, all the dependencies are met.</p>
+<p>Dependencies are primarily managed through the Development menu of Bonita Studio. This makes the external module available for all processes.
+You can also import a dependency when you configure a process, but in this case, it is only available for the process you are configuring.</p>
+<p>From the Development menu, you can manage:</p>
+<ul>
+<li>Connectors</li>
+<li>Actor filters</li>
+<li>Data types</li>
+<li>Business data model</li>
+<li>Validators</li>
+<li>Scripts</li>
+<li>Other jar files</li>
+</ul>
+<p>To specify the dependencies for a process, click <strong><em>Configure</em></strong> in the coolbar. You can then define Process dependencies and Application dependencies.</p>
+<ul>
+<li>Process dependencies are modules required by the process when it runs. These are specified in Studio and are managed by the Engine.</li>
+<li>Application dependencies are modules required by clients of the engine, including forms.
+If forms (or any client) manipulate objects programmatically, the dependencies must be in the client's classpath.
+The classpath is initialized with the application dependencies specified in the Studio. The most common use case for application dependencies is custom datatypes.</li>
+</ul>
+<p>Note that certain libraries cannot be included in more than one classpath. To avoid this problem, we recommend that you always check for <a href="?page=manage-jar-files" ng-click="contentCtrl.goTo($event, 'manage-jar-files')">duplicate libraries</a> when you configure a process.</p>
+<!-- Generated on Fri Jan 19 2018 16:08:27 GMT+0100 (Paris, Madrid) -->

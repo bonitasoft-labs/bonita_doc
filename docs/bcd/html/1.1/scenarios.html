@@ -1,0 +1,313 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-continuous-delivery-doc/edit/1.1/md/scenarios.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"/></a></div>
+<h1>Bonita Platform Provisioning scenarios</h1>
+<p>With scenarios, you can define your infrastructure, Bonita installation and potential tests you want to execute. A scenario is a YAML Ansible variable file injected in Ansible with the command <code>-e &quot;@/path/to/scenario.yml&quot;</code>. The variables described in a scenario have precedence over those defined in the playbooks or the group vars. It is possible to overload these variables with a declaration of additional variables after this, in order to test multiple alternatives (for instance overloading <code>bonita_version</code> can be interesting if one wants to test multiple versions of Bonita.</p>
+<p>The format is flat as shows this sample :</p>
+<pre><code class="language-yaml">bcd_stack_id: vagrant
+configuration: vagrant_vars
+bonita_cluster_mode: false
+bonita_cluster_qty: 1
+</code></pre>
+<p>The following sections describe the main and mandatory variables.</p>
+<h2>Infrastructure and misc.</h2>
+<p>Some parameters are mandatory for general provisioning and test description.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mandatory</th>
+<th>Default</th>
+<th>Description</th>
+<th>Sample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bcd_stack_id</td>
+<td>Y</td>
+<td></td>
+<td>Bonita stack identifier used to group machines by stack membership. For AWS deployments the characters allowed are limited to letters, numbers and underscore.</td>
+<td>uswest2_test</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>Y</td>
+<td></td>
+<td>Configuration filename. Initialize main variables. Choose between aws_vars, vagrant_vars</td>
+<td>aws_vars</td>
+</tr>
+<tr>
+<td>ansible_ssh_user</td>
+<td>N</td>
+<td>ubuntu</td>
+<td>SSH user</td>
+<td>ubuntu</td>
+</tr>
+<tr>
+<td>ansible_private_key_file</td>
+<td>Y</td>
+<td>-</td>
+<td>Path for the private SSH key.</td>
+<td>~/.ssh/jenkins_ansible_us-west-2.pem</td>
+</tr>
+</tbody>
+</table>
+<h3>Vagrant scenarios</h3>
+<p>In case of Vagrant scenario, for testing purposes. The configuration file value should be <code>vagrant_vars</code>.</p>
+<h3>On-premises scenarios</h3>
+<p>In case of on-premises scenario. An inventory with all the corresponding machines should be used. A configuration file similar to <code>vagrant_vars</code> can be used.</p>
+<h3>AWS Cloud scenarios</h3>
+<p>In case of AWS deployments. The configuration file value should be  <code>aws_vars</code> in this case.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mandatory</th>
+<th>Default</th>
+<th>Description</th>
+<th>Sample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ec2_region</td>
+<td>Y</td>
+<td></td>
+<td>AWS region.</td>
+<td>us-west-2</td>
+</tr>
+<tr>
+<td>ec2_security_group</td>
+<td>Y</td>
+<td></td>
+<td>Security group id for the target instances</td>
+<td>sg-944888f1</td>
+</tr>
+<tr>
+<td>ec2_security_group_name</td>
+<td>Y</td>
+<td></td>
+<td>Security group name for the target instances</td>
+<td>default</td>
+</tr>
+<tr>
+<td>ec2_subnet_ids</td>
+<td>Y</td>
+<td></td>
+<td>Subnet id for the target instances</td>
+<td>subnet-aa14e0cf</td>
+</tr>
+<tr>
+<td>ec2_keypair</td>
+<td>Y</td>
+<td></td>
+<td>Key pair name for the target instances. Linked to ansible_private_key_file.</td>
+<td>jenkins_ansible_us-west-2</td>
+</tr>
+<tr>
+<td>boto_path</td>
+<td>N</td>
+<td>~/.boto</td>
+<td>Path to the Boto file with the AWS credentials.</td>
+<td></td>
+</tr>
+<tr>
+<td>rds</td>
+<td>N</td>
+<td>false</td>
+<td>Precises if we use RDS for the Bonita BPM databases or if we use a Docker container deployed in an EC2 instance instead (default)</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>The following figure describes for each tier the important variables.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mandatory</th>
+<th>Default</th>
+<th>Description</th>
+<th>Sample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aws_ami</td>
+<td>Y</td>
+<td></td>
+<td>Common AMI for all EC2 instances. Depends on region. Should be Ubuntu 14.04 (trusty) and ebs-ssd type.</td>
+<td>ami-fc4f5e85</td>
+</tr>
+<tr>
+<td>aws_database_instance_type</td>
+<td>Y</td>
+<td></td>
+<td>Instance type for the database instance</td>
+<td>t2.micro</td>
+</tr>
+<tr>
+<td>aws_bonita_instance_type</td>
+<td>Y</td>
+<td></td>
+<td>Instance type for the Bonita instance</td>
+<td>t2.micro</td>
+</tr>
+<tr>
+<td>aws_load_balancer_instance_type</td>
+<td>Y</td>
+<td></td>
+<td>Instance type for the load balancer instance</td>
+<td>t2.micro</td>
+</tr>
+</tbody>
+</table>
+<h2>Bonita</h2>
+<p>Some parameters should be precised for Bonita. The corresponding Docker tar files should be present in <code>docker</code> directory.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mandatory</th>
+<th>Default</th>
+<th>Description</th>
+<th>Sample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bonita_version</td>
+<td>Y</td>
+<td></td>
+<td>Bonita version. Used for the Docker tar.gz filename</td>
+<td>7.5.0</td>
+</tr>
+<tr>
+<td>bonita_edition</td>
+<td>N</td>
+<td>yes</td>
+<td>performance edition of Bonita by default, other values: teamwork, efficiency, community. Docker tar filename depends on this.</td>
+<td>performance</td>
+</tr>
+<tr>
+<td>bonita_cluster_mode</td>
+<td>N</td>
+<td>false</td>
+<td>Activates cluster mode for Bonita</td>
+<td>false</td>
+</tr>
+<tr>
+<td>bonita_cluster_qty</td>
+<td>N</td>
+<td>1</td>
+<td>Number of instances for Bonita. This variable is also used in EC2 mode for the number of Bonita EC2 instance.</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bonita_port</td>
+<td>N</td>
+<td>8081</td>
+<td>Bonita HTTP port</td>
+<td>8081</td>
+</tr>
+<tr>
+<td>bonita_db_vendor</td>
+<td>N</td>
+<td>postgres</td>
+<td>Database vendor (postgres, mysql, oracle)</td>
+<td>postgres</td>
+</tr>
+<tr>
+<td>bonita_db_host</td>
+<td>N</td>
+<td></td>
+<td>Database host (usually retrieved from inventory)</td>
+<td>postgres.a1bac2defghi.us-west-2.rds.amazonaws.com</td>
+</tr>
+<tr>
+<td>bonita_db_port</td>
+<td>N</td>
+<td>5432</td>
+<td>Database port</td>
+<td>5432</td>
+</tr>
+<tr>
+<td>bonita_db_admin_user</td>
+<td>N</td>
+<td>postgres</td>
+<td>Admin user on database instance</td>
+<td>root</td>
+</tr>
+<tr>
+<td>bonita_db_admin_pass</td>
+<td>N</td>
+<td>mysecretpassword</td>
+<td>Admin password on database instance</td>
+<td>password</td>
+</tr>
+</tbody>
+</table>
+<h2>Email notification</h2>
+<p>An email can be sent automatically with Bonita stack details at the end of the deployment phase. This feature uses <a href="http://docs.ansible.com/ansible/latest/mail_module.html">Ansible mail module</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Mandatory</th>
+<th>Default</th>
+<th>Description</th>
+<th>Sample</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mail_notification</td>
+<td>N</td>
+<td>false</td>
+<td>Enable email notification or not.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>mail_host</td>
+<td>N</td>
+<td>-</td>
+<td>The SMTP server host.</td>
+<td>smtp.gmail.com</td>
+</tr>
+<tr>
+<td>mail_port</td>
+<td>N</td>
+<td>-</td>
+<td>The SMTP port.</td>
+<td>465</td>
+</tr>
+<tr>
+<td>mail_username</td>
+<td>N</td>
+<td>-</td>
+<td>The SMTP username.</td>
+<td>john.doe<i>@</i>acme.com</td>
+</tr>
+<tr>
+<td>mail_password</td>
+<td>N</td>
+<td>-</td>
+<td>The SMTP password.</td>
+<td>SomePassword</td>
+</tr>
+<tr>
+<td>mail_from</td>
+<td>N</td>
+<td>-</td>
+<td>The email-address the mail is sent from. May contain address and phrase.</td>
+<td>john.doe<i>@</i>acme.com (John Doe)</td>
+</tr>
+<tr>
+<td>mail_to</td>
+<td>N</td>
+<td>-</td>
+<td>The email-address(es) the mail is being sent to. This is a comma-separated list, which may contain address and phrase portions.</td>
+<td>John Doe &lt;john.doe<i>@</i>acme.com&gt;, Suzie Something &lt;sue<i>@</i>example.com&gt;</td>
+</tr>
+</tbody>
+</table>
+<!-- Generated on Wed Jan 31 2018 10:22:57 GMT+0100 (Paris, Madrid) -->

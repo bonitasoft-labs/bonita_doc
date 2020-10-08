@@ -1,0 +1,26 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/bonita-layout.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Bonita Layout</h1>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For Enterprise, Performance, Efficiency, and Teamwork editions only.</p>
+</div>
+<p>This layout has different desktop and mobile versions.</p>
+<p>For the desktop version, the layout contains two rows.<br>
+The first row has the logo, the name of the application on the left, as well as the user name, which, when clicked,
+opens the information about the current session. The last button of the first row opens a window that will let you
+switch between living applications.<br>
+The second row contains the menu of the application pages.</p>
+<p>For the mobile version there is only one row that has the name of the application, as well as a button that opens a
+dropdown. The dropdown will contain the menu of the application pages, the user name which, when clicked, opens the
+information about the current session, as well as the button that opens the navigation between applications.</p>
+<h2>Customizing this layout</h2>
+<p>You can customize this layout by following the <a href="?page=customize-layouts" ng-click="contentCtrl.goTo($event, 'customize-layouts')">customize-layouts</a> steps.</p>
+<h2>Dependencies</h2>
+<h3>Adding a logo to the layout</h3>
+<p>The first option is changing the theme that is used by the application by adding a<code>logo.png</code> file in the
+<code>resources/images/</code> folder. If the folder does not exist, create it manually.<br>
+The second option is adding an image asset to the layout in UI Designer, and using this asset directly in the URL
+property of the image widget.</p>
+<h3>Font awesome</h3>
+<p>This layout requires a theme containing the font-awesome library.
+If you are using a custom theme, make sure <a href="?hash=font-awesome&amp;page=themes" ng-click="contentCtrl.goTo($event, 'themes', 'font-awesome')">font-awesome is available in your theme</a>.</p>
+<!-- Generated on Wed Dec 04 2019 17:46:50 GMT+0100 (Paris, Madrid) -->

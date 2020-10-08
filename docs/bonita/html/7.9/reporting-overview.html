@@ -1,0 +1,30 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/reporting-overview.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Reporting overview</h1>
+<p>Learn how reporting can be made on application of the Bonita Plaform.</p>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For Enterprise, Performance, Efficiency, and Teamwork editions only.</p>
+</div>
+<h2>Terminology</h2>
+<p>Reporting is the act of collecting and aggregating Key Performance Indicators (KPIs) to present them in reports.<br>
+KPIs are defined as a set of measures that are used to assess the operational success of a business process.</p>
+<p>Reporting is also know as Business Intelligence (BI) or Business Activity Monitoring (BAM).</p>
+<h2>Reporting dependencies</h2>
+<p>Reporting involves Bonita and two other third-party software components:</p>
+<ul>
+<li>A reporting database of your choice.</li>
+<li>A BI tool of your choice.</li>
+</ul>
+<h2>Reporting main steps</h2>
+<p>Reporting is composed in several ordered steps.</p>
+<p>At design time:</p>
+<ol>
+<li><a href="?page=set-up-a-reporting-database" ng-click="contentCtrl.goTo($event, 'set-up-a-reporting-database')">Reporting database setup</a></li>
+<li><a href="?page=set-up-kpis" ng-click="contentCtrl.goTo($event, 'set-up-kpis')">KPI definition in Bonita Studio</a></li>
+<li><a href="?page=create-a-report" ng-click="contentCtrl.goTo($event, 'create-a-report')">Report creation in the BI tool</a></li>
+</ol>
+<p>At execution time:</p>
+<ol>
+<li>KPI collection in Bonita Engine and storage in the reporting database (this is performed automatically based on KPI definitions)</li>
+<li>Report generation using the BI tool or Bonita Portal</li>
+</ol>
+<!-- Generated on Wed Dec 04 2019 17:46:52 GMT+0100 (Paris, Madrid) -->

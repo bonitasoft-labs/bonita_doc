@@ -1,0 +1,18 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.9/md/work-execution-audit.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Work execution audit</h1>
+<p>Sometimes it is useful to understand what is currently happening in the platform, in particular for work execution, see <a href="?page=execution-sequence-states-and-transactions" ng-click="contentCtrl.goTo($event, 'execution-sequence-states-and-transactions')">Work service mechanism</a>.</p>
+<p>This can be achieved using a specific logger called <em>Work execution audit</em></p>
+<h2>What can be tracked</h2>
+<h3>Abnormal work execution</h3>
+<p>The logger produce a <em>Warning</em> each time a work takes too much time to be executed or it was <em>rescheduled</em> too much times.</p>
+<p>For theses cases, it also produces an <em>Info</em> log when the work was finally executed.</p>
+<p>A <em>reschedule</em> happens when a work can't be executed right now because some other work already locked the same process instance.</p>
+<h2>How to activate it</h2>
+<h3>Logging configuration</h3>
+<p>Enable the logger called <code>BONITA_WORK_AUDIT.EXECUTION</code> in the logger configuration.</p>
+<h3>Activate and configure the work execution audit</h3>
+<p>The audit is activated by default, it can be deactivated or reactivated here:</p>
+<p>In <code>bonita-tenant-community-custom.properties</code> set flag <code>bonita.tenant.work.audit.activated</code> to <code>true</code> or <code>false</code></p>
+<p>Some properties can be configured, these can be found in the default configuration file <code>bonita-tenant-community.properties</code> under the <code>Work execution audit</code> section</p>
+<p>See <a href="https://github.com/bonitasoft/bonita-engine/blob/7.9.0/bpm/bonita-core/bonita-process-engine/src/main/resources/bonita-tenant-community.properties">the file on Github</a></p>
+<!-- Generated on Wed Dec 04 2019 17:46:52 GMT+0100 (Paris, Madrid) -->

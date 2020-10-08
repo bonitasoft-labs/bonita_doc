@@ -1,0 +1,24 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.7/md/cluster-administration.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Cluster administration</h1>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> For Enterprise and Performance editions only.</p>
+</div>
+<p>Discover how to administer, monitor and manage a Bonita cluster.</p>
+<h2>Backing up a cluster</h2>
+<p>Back up your cluster in the same as you would <a href="bonita/7.7/back-up-bonita-bpm-platform" ng-click="contentCtrl.goTo($event, 'back-up-bonita-bpm-platform')">back up a standalone Bonita system</a>, by backing up the database.
+You also need to back up the load balancer (see your load balancer documentation for details of how to do this).</p>
+<h2>Troubleshooting</h2>
+<p>Each Bonita Engine maintains its own log file on the node at <code>tomcat_home/logs/bonita.</code><em><code>date</code></em><code>.log</code>, where <em><code>date</code></em> is the date the file is created.
+In addition, there is an incident file <code>tomcat_home/logs/tenants/[TENANT_ID]/incident.log</code> (where <code>[TENANT_ID]</code> is the ID of the tenant on which the error
+occurred) that is used as a last resort to record an error that cannot be handled, such as failure to access the database.</p>
+<h2>Monitoring a process</h2>
+<p>To monitor a process in a cluster, use the Bonita Portal as usual. The information presented applies to process activity on all nodes in the cluster.</p>
+<h2>Deploying a process in a Bonita cluster</h2>
+<p>To deploy a process in a cluster, configure the process in Bonita Studio, and then create a .bar file using the Build option of the Server menu.
+Import the process bar file into Bonita Portal on one of the nodes. The process is now available to Bonita Portal on every node in the cluster.
+The process must be started on one node. Subsequently, instances can be created on all nodes.
+This means that all nodes have the possibility of running instances of tasks of all processes.</p>
+<p>You can also <a href="bonita/7.7/manage-a-process" ng-click="contentCtrl.goTo($event, 'manage-a-process')">deploy a process using the API</a>, exactly as you would in a standalone system.</p>
+<h2>Managing your organization in a cluster</h2>
+<p>The organization data used by Bonita is stored in the database, so only has to be configured once. It can be maintained from any Bonita Portal in the cluster.</p>
+<!-- Generated on Wed Dec 04 2019 13:25:31 GMT+0100 (Paris, Madrid) -->

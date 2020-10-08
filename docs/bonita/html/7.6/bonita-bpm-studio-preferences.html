@@ -1,0 +1,70 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/bonita-bpm-studio-preferences.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Bonita Studio preferences</h1>
+<p>This page provides information about Bonita Studio preferences and the Bonita Studio embedded Tomcat configuration.</p>
+<h2>Bonita Studio preferences</h2>
+<p>To configure Bonita Studio preferences, click <em><strong>Preferences</strong></em> in the Cool bar.</p>
+<h3>General preferences</h3>
+<p>Database
+Database clean-up: by default, the database (used by Bonita Engine) is purged when Bonita Studio exits, which is useful when you are testing processes. You can override this in order to preserve all data.<br>
+Organization load: by default, the default organization is loaded with Bonita Studio starts. You can override this.</p>
+<p>Appearance
+Coolbar size: Normal (default) or small.<br>
+Grid options for process diagrams. You can choose to use a grid positioning for all new process diagrams</p>
+<p>Language
+Bonita Studio language.<br>
+Web applications language: the language to use by default when loading process forms and Bonita Portal</p>
+<p>Java
+The JRE (Java Runtime Environment) to used by default. JRE will be used when compiling and running Java code</p>
+<h3>Deployment preferences</h3>
+<p>Run mode
+Validation: whether to validate the process before it runs. We recommend to keep this option enabled.<br>
+The default look &amp; feel for application forms. Will be applied to any newly created process.</p>
+<p>Server settings
+Port number: Studio embedded Tomcat HTTP listening port.<br>
+Log in: the username and password of the user who will be logged when Bonita Portal or an application is started from Bonita Studio. The password can be obscured.<br>
+The default look &amp; feel for the Portal</p>
+<p>Database connectors<br>
+Manage the JDBC drivers associated with database connectors. You should use that to include JDBC drivers for commercial DBMS (e.g. DB2)</p>
+<h3>Web preferences</h3>
+<p>Browser
+Specify the web browser used when a web page is displayed. Note that some application might override this setting and use a different browser</p>
+<p>Proxy
+HTTP Proxy settings for web access</p>
+<h3>Other preferences</h3>
+<p>Advanced
+SVN connector: the SVN connector used if you are using a remote SVN <a href="?page=workspaces-and-repositories" ng-click="contentCtrl.goTo($event, 'workspaces-and-repositories')">&quot;repository</a>. Note: if you change this your local working copy might become unstable. To avoid this, commit any outstanding changes before you modify the connector setting, and reinitialize your local working copy after the update</p>
+<p>6.x legacy
+Controls whether the 6.x legacy features are shown are hidden</p>
+<p>Eclipse
+Give access to all Eclipse settings (Bonita Studio is based on Eclipse)</p>
+<h2>Bonita Studio embedded Tomcat configuration</h2>
+<h3>Default configuration</h3>
+<ul>
+<li>Embedded Tomcat listens on the following ports:
+<ul>
+<li>8080: HTTP. This value can be modified using Bonita Studio preferences (see above).</li>
+<li>8006: shutdown.</li>
+<li>8009: AJP.</li>
+<li>9091: embedded h2 database server.</li>
+</ul>
+</li>
+<li>Bonita Studio also uses the following port:
+<ul>
+<li>6969: watchdog</li>
+</ul>
+</li>
+</ul>
+<h3>Changing the configuration</h3>
+<p>You might need to edit the Tomcat configuration files for example to:</p>
+<ul>
+<li><a href="?page=logging" ng-click="contentCtrl.goTo($event, 'logging')">Configure logging</a></li>
+<li>Change listening ports (shutdown, AJP, h2) to prevent conflicts</li>
+<li>Declare a datasource to connect to a business database</li>
+</ul>
+<p>The Tomcat configuration files are located in the Bonita Studio <code>workspace/tomcat/conf</code> folder.</p>
+<ul>
+<li>To change a port number, edit <code>server.xml</code>.</li>
+<li>To add a data source, edit <code>context.xml</code> or <code>workspace/tomcat/conf/Catalina/localhost/bonita.xml</code>.</li>
+</ul>
+<p>For more details, see the <a href="http://tomcat.apache.org/tomcat-8.5-doc/">Tomcat documentation</a>.</p>
+<!-- Generated on Fri Jan 19 2018 16:08:26 GMT+0100 (Paris, Madrid) -->

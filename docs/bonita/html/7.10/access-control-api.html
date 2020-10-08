@@ -1,0 +1,57 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/access-control-api.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Access control API</h1>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> This API is only available in Enterprise, Efficiency and Performance editions.</p>
+</div>
+<h2>BDM</h2>
+<h4>Description</h4>
+<p>Access control is available to protect the tenant BDM. You can use this API to get the access control status (lastUpdatedBy, lastUpdateDate...).</p>
+<h4>Methods</h4>
+<ul>
+<li>GET - Read access control status.</li>
+<li>DELETE - Remove access control</li>
+</ul>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> A servlet to import access control file exists. You can use it with this url  <code>services/bdmAccessControl/install?bdmAccessControlUpload=accessControlFileToUpload.xml</code>.
+The file upload needs to be performed before (POST portal/bdmAccessControlUpload). Use the file name returned in the response of the upload request to perform the import request (bdmAccessControlUpload parameter).</p>
+</div>
+<h4>Get access Control status</h4>
+<p>Make this call to get the access control status.</p>
+<ul>
+<li><strong>URL</strong><br>
+<code>/API/accessControl/bdm</code></li>
+<li><strong>Method</strong><br>
+<code>Get</code></li>
+<li><strong>Success Response</strong>
+<ul>
+<li>Code: 200</li>
+<li>Payload:</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;4090&quot;,
+  &quot;name&quot;: &quot;bdm_access_control.xml&quot;,
+  &quot;type&quot;: &quot;BDM_ACCESS_CONTROL&quot;,
+  &quot;state&quot;: &quot;INSTALLED&quot;,
+  &quot;lastUpdatedBy&quot;: &quot;4&quot;,
+  &quot;lastUpdateDate&quot;: &quot;2018-01-17T17:05:36.671Z&quot;
+}
+</code></pre>
+</li>
+</ul>
+<div class="alert alert-info" role="alert">
+<p><strong>Note:</strong> If <code>&quot;lastUpdatedBy&quot;: &quot;-1&quot;</code> it means that the access control were last installed or updated by tenant_technical_user.</p>
+</div>
+<h4>Delete an access control</h4>
+<p>Delete the access control which are installed on the current tenant.</p>
+<ul>
+<li><strong>URL</strong><br>
+<code>/API/accessControl/bdm</code></li>
+<li><strong>Method</strong><br>
+<code>Delete</code></li>
+<li><strong>Success Response</strong>
+<ul>
+<li>Code: 204</li>
+</ul>
+</li>
+</ul>
+<!-- Generated on Tue Dec 10 2019 12:49:51 GMT+0100 (Paris, Madrid) -->

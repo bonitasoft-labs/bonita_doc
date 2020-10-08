@@ -1,0 +1,40 @@
+<div style="position: relative;"><a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/bonita-bpm-installation-overview.md"><img style="position: absolute; top: -1px; right: -40px; border: 0; z-index=-100;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a></div>
+<h1>Bonita installation overview</h1>
+<p>Description of the different options for Bonita installation.</p>
+<p>Bonita exists in several <a href="http://www.bonitasoft.com/bonita-editions">editions</a>: Enterprise, Performance, Efficiency, Teamwork, and Community.</p>
+<p>For the Bonita Subscription editions: Enterprise, Performance, Efficiency, and Teamwork, you need to <a href="bonita/7.10/licenses" ng-click="contentCtrl.goTo($event, 'licenses')">install a license</a> during the installation procedure. This license depends on the edition, the deployment environment, the number of cases purchased or the number of cores.</p>
+<p>For the Bonita Community edition, no license is needed.</p>
+<h2>Bonita Studio</h2>
+<p>Bonita Studio contains an embedded test platform that includes an Apache Tomcat application server, an h2 database and the Bonita web application (that itself includes Bonita Engine).</p>
+<p>To install Bonita Studio you can either use:</p>
+<ul>
+<li>The installer for your operating system (Windows, Mac OS, Linux).
+Used to install Bonita Studio (using a wizard) on your computer. No configuration necessary.</li>
+<li>The OS independent package. Used to manually set up Bonita Studio.
+The package contains the individual launchers in one .zip file, and creates the same installation environment as the installers.</li>
+</ul>
+<p>To know more, go to <a href="bonita/7.10/bonita-bpm-studio-installation" ng-click="contentCtrl.goTo($event, 'bonita-bpm-studio-installation')">Bonita Studio installation</a>.</p>
+<a id="platform"/>
+<h2>Bonita Platform</h2>
+<p>Bonita Platform can be installed in several ways:</p>
+<ul>
+<li>If you want to migrate an existing installation to the latest version follow the <a href="bonita/7.10/migrate-from-an-earlier-version-of-bonita-bpm" ng-click="contentCtrl.goTo($event, 'migrate-from-an-earlier-version-of-bonita-bpm')">migration guide</a>.</li>
+<li>If you want to do a fresh install, get our <a href="bonita/7.10/tomcat-bundle" ng-click="contentCtrl.goTo($event, 'tomcat-bundle')">prepackaged bundle</a> that include an Application Server</li>
+<li>If you want to do a custom installation, see <a href="bonita/7.10/custom-deployment" ng-click="contentCtrl.goTo($event, 'custom-deployment')">Custom Deployment</a>.</li>
+</ul>
+<p>For all options, you will need to <a href="bonita/7.10/database-configuration" ng-click="contentCtrl.goTo($event, 'database-configuration')">configure</a> Bonita Engine to work with the database of your choice (e.g. PostgreSQL or Oracle).</p>
+<div class="alert alert-warning" role="alert">
+<p>Starting from Bonita 7.3.0, there is no more bonita home to store the configuration, all the configuration is in the database. For more information, take a look at <a href="bonita/7.10/BonitaBPM_platform_setup" ng-click="contentCtrl.goTo($event, 'BonitaBPM_platform_setup')" class="alert-link">Bonita Platform configuration</a></p>
+</div>
+<p>For detailed information on the Supported Environment Matrix, see the <a href="https://customer.bonitasoft.com/support-policies">Support Guide</a> or <a href="http://www.bonitasoft.com/contact-us">ask to be contacted by our commercial team</a>.</p>
+<h2>Bonita Docker image</h2>
+<p>Bonita Platform can be installed in a docker container using the Bonita docker distribution.
+Read <a href="bonita/7.10/bonita-docker-installation" ng-click="contentCtrl.goTo($event, 'bonita-docker-installation')">how to configure and run the container</a>.</p>
+<h2>Bonita Engine only <img src="bonita/images/7.10/bonita-lab-icon.png" alt="" title=""></h2>
+<p>If you only need the execution engine you can integrate it two different ways:</p>
+<ul>
+<li>Using the Spring boot starter</li>
+<li>If you are not using Spring boot, it can be integrated programmatically</li>
+</ul>
+<p>This mode of installation is currently in <em>Lab</em> mode, see how to <a href="bonita/7.10/embed-engine" ng-click="contentCtrl.goTo($event, 'embed-engine')">embed Bonita Engine</a>.</p>
+<!-- Generated on Tue Dec 10 2019 12:49:51 GMT+0100 (Paris, Madrid) -->
