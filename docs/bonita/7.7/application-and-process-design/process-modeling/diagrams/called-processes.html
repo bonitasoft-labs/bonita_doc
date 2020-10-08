@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Called processes</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Called processes | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Called processes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Called processes. Called processes Overview. Overview. OverviewoverviewA called process is a complete process that is called from another process. There is a parent-child relationship between the calling process and the called process, that is, the flow in the child process is essentially contained within the paren" />
+<meta property="og:description" content="Called processes. Called processes Overview. Overview. OverviewoverviewA called process is a complete process that is called from another process. There is a parent-child relationship between the calling process and the called process, that is, the flow in the child process is essentially contained within the paren" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Called processes","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes","description":"Called processes. Called processes Overview. Overview. OverviewoverviewA called process is a complete process that is called from another process. There is a parent-child relationship between the calling process and the called process, that is, the flow in the child process is essentially contained within the paren","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.7">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.7</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/release-notes">Release notes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#application-and-process-design" aria-controls="application-and-process-design"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Application and Process Design</strong></a><ul id="application-and-process-design" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/bonita-bpm-overview">Bonita overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#application-and-process-design-overview" aria-controls="application-and-process-design-overview"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Application and process design overview</strong></a><ul id="application-and-process-design-overview" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/application-and-process-design-overview/getting-started-tutorial">Getting started tutorial</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/application-and-process-design-overview/key-concepts">Key concepts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/application-and-process-design-overview/comparison-of-7-x-and-6-x">Comparison of 7.x and 6.x</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles">Lifecycle and profiles</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/application-and-process-design-overview/design-methodology">Design methodology</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/bonita-bpm-studio-preferences">Bonita Studio preferences</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/bonita-bpm-studio-hints-and-tips">Bonita Studio hints and tips</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#organization" aria-controls="organization"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Organization</strong></a><ul id="organization" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/organization/organization-overview">Organization overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping">Approaches to managing organizations and actor mapping</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/organization/organization-management-in-bonita-bpm-studio">Organization management in Bonita Studio</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/organization/custom-user-information-in-bonita-bpm-studio">Custom User Information in Bonita Studio</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/organization/ldap-synchronizer">LDAP synchronizer</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#profiles" aria-controls="profiles"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Profiles</strong></a><ul id="profiles" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/profiles/profiles-overview">Profiles overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/profiles/profileCreation">Profiles editor</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#process-modeling" aria-controls="process-modeling"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Process modeling</strong></a><ul id="process-modeling" class="collapse"><li><a role="button" data-toggle="collapse"  href="#diagrams" aria-controls="diagrams"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Diagrams</strong></a><ul id="diagrams" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/diagram-overview">Diagram overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/pools-and-lanes">Pools and lanes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/diagram-tasks">Tasks</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/gateways">Gateways</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/transitions">Transitions</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/events">Events</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="active" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes">Called processes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/event-subprocesses">Event subprocesses</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/text-annotations">Text annotations</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/migrate-a-process-from-bonita-open-solution-5-x">Migrate a process from Bonita Open Solution 5.x</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/naming-conventions">Naming conventions</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/generate-process-documentation">Generate process documentation</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/refactoring">Refactoring</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/actors">Actors</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/actor-filtering">Actor filters</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/iteration">Iteration</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#data" aria-controls="data"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Data</strong></a><ul id="data" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/data/data-handling-overview">Data handling overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/data/define-and-deploy-the-bdm">Define and deploy the BDM</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#define-access-control-on-business-objects" aria-controls="define-access-control-on-business-objects"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Define access control on business objects</strong></a><ul id="define-access-control-on-business-objects" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/specify-data-in-a-process-definition">Specify data in a process definition</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/parameters">Parameters</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/contracts-and-contexts">Contracts and contexts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/documents">Documents</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/create-a-complex-data-type">Complex data types</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/define-a-search-index">Define a search key</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/expressions-and-scripts">Expressions and scripts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/define-access-control-on-business-objects/operations">Operations</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#page-and-form-development" aria-controls="page-and-form-development"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Page and form development</strong></a><ul id="page-and-form-development" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/page-and-form-development-overview">Page and form development overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#ui-designer" aria-controls="ui-designer"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>UI Designer</strong></a><ul id="ui-designer" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/ui-designer-overview">UI Designer overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/create-or-modify-a-page">Create or modify UI artifacts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/widgets">Widgets</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/widget-properties">Widget properties</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#widget-use-examples" aria-controls="widget-use-examples"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Widget use examples</strong></a><ul id="widget-use-examples" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/widget-use-examples/repeat-a-container-for-a-collection-of-data">Repeat a container for a collection of data</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/fragments">Fragments</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/custom-widgets">Custom widgets</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/variables">Variables</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/appearance">Appearance</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.7/application-and-process-design/page-and-form-development/ui-designer/assets">Assets</a></li></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.7/md/called-processes.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="called-processes">Called processes</h1>
+
+<div class="list-group"><a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes#overview" class="list-group-item toc-h2">Overview</a><a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes#define-a-called-process" class="list-group-item toc-h2">Define a called process</a><a href="/bonita_doc/bonita/7.7/application-and-process-design/process-modeling/diagrams/called-processes#extract-a-called-process" class="list-group-item toc-h2">Extract a called process</a>
+</div>
+<h2 id="overview">Overview</h2>
+
+<p id="overview">A called process is a complete process that is called from another process.<br />
+There is a parent-child relationship between the calling process and the called process, that is, the flow in the child process is essentially contained within the parent process.</p>
+
+<p>A called process is an independent process that is called from a call activity in a parent process.<br />
+Process flow goes from a call activity in the parent process to the start element in the called process. While the called process is executing, the parent process is paused.<br />
+When the flow reaches an end element of the called process, processing returns to the call activity.</p>
+
+<p>A called process is defined in exactly the same way as any other process. It can call called processes and can contain event subprocesses. A parent process can call more than one called process.</p>
+
+<p>A called process can be called by more than one parent.</p>
+
+<p>A called process can be in a pool in the same diagram as a parent process or can be in a separate diagram. If a process is called from several parent processes, it is usually easier for maintenance and for deployment to define it in a separate diagram.<br />
+If the diagram containing the called process is in the same workspace, the called process is deployed automatically when you build and deploy the parent process.<br />
+If the parent process and called process are not in the same workspace, they need to be deployed separately.</p>
+
+<p>Data in a called process is defined in the same way as for any process. In addition, you can map data from the parent process, making it available in the called process. Specify data mapping when you define a call activity that calls a called process.</p>
+
+<p>You can define a called process in the same way as you define a process. You can also extract a called process from a process diagram.</p>
+
+<h2 id="define-a-called-process">Define a called process</h2>
+
+<p>There are two parts to defining a called process: defining the called process, and defining the call activity. It is easier to define the call activity if the called process already exists, but not essential.</p>
+
+<p>Define the called process as you would define any other process. When you create the variables in the called process, make a note of those that are related to variables in the parent process.</p>
+
+<p>In the parent process, define a call activity task. Define the normal task characteristics. Note that although a call activity cannot
+have forms associated with it, it can have connectors and task-level data.</p>
+
+<p>In the <strong>Details</strong> panel, <strong>General</strong> tab, <strong>General</strong> pane, specify the name of the called process. If you know the process name, you can enter it directly, otherwise use the expression editor.</p>
+
+<p>In the <strong>Details</strong> panel, <strong>General</strong> tab, <strong>Mapping</strong> pane, specify the mapping of data or contract inputs between the parent process and called process. You can only map variables or inputs of the same type.<br />
+It is recommended to set a contract up on the called process. This way, you can map the parent process variable to a contract inputs of the called process.</p>
+
+<p>You can use <strong>Auto map</strong> to automatically map data from the called process to the parent process for a pair variables that have the same name in the parent and called process variables.<br />
+You can also specify the mapping of variables of called process variable to parent process variable explicitly.</p>
+
+<h2 id="extract-a-called-process">Extract a called process</h2>
+
+<p>You can also extract a called process from a process. To do this, open the process diagram, click on the marquee tool in the <strong>BPMN elements</strong> menu, then select the part of the process that you want to extract. There selected part of the process must have a single entry point and a single exit. Then right click on the selected part, and choose Extract called process from the menu. The selected part of process is extracted and put into a new pool, inserted in the diagram below the current pool. The extracted items are replaced in the original diagram by a call activity. The data in the parent process and called process is mapped automatically.</p>
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>

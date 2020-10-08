@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Variables</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Variables | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Variables" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Variables. VariablesVariables is a key concept of the UI Designer. They define page, layout, form, and fragment behavior, they are used to fetch external resources, to manipulate and process information, and much more. It is important to understand how to define and use variables in those artifacts, and how the data" />
+<meta property="og:description" content="Variables. VariablesVariables is a key concept of the UI Designer. They define page, layout, form, and fragment behavior, they are used to fetch external resources, to manipulate and process information, and much more. It is important to understand how to define and use variables in those artifacts, and how the data" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Variables","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables","description":"Variables. VariablesVariables is a key concept of the UI Designer. They define page, layout, form, and fragment behavior, they are used to fetch external resources, to manipulate and process information, and much more. It is important to understand how to define and use variables in those artifacts, and how the data","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.5">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.5</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/release-notes">Release notes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#application-and-process-design" aria-controls="application-and-process-design"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Application and Process Design</strong></a><ul id="application-and-process-design" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/bonita-bpm-overview">Bonita overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#application-and-process-design-overview" aria-controls="application-and-process-design-overview"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Application and process design overview</strong></a><ul id="application-and-process-design-overview" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/application-and-process-design-overview/getting-started-tutorial">Getting started tutorial</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/application-and-process-design-overview/key-concepts">Key concepts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/application-and-process-design-overview/comparison-of-7-x-and-6-x">Comparison of 7.x and 6.x</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles">Lifecycle and profiles</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/application-and-process-design-overview/design-methodology">Design methodology</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/bonita-bpm-studio-preferences">Bonita Studio preferences</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/bonita-bpm-studio-hints-and-tips">Bonita Studio hints and tips</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#organization" aria-controls="organization"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Organization</strong></a><ul id="organization" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/organization/organization-overview">Organization overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping">Approaches to managing organizations and actor mapping</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/organization/organization-management-in-bonita-bpm-studio">Organization management in Bonita Studio</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/organization/custom-user-information-in-bonita-bpm-studio">Custom User Information in Bonita Studio</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/organization/ldap-synchronizer">LDAP synchronizer</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#profiles" aria-controls="profiles"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Profiles</strong></a><ul id="profiles" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/profiles/profiles-overview">Profiles overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/profiles/profileCreation">Profiles editor</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#process-modeling" aria-controls="process-modeling"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Process modeling</strong></a><ul id="process-modeling" class="collapse"><li><a role="button" data-toggle="collapse"  href="#diagrams" aria-controls="diagrams"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Diagrams</strong></a><ul id="diagrams" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/diagram-overview">Diagram overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/pools-and-lanes">Pools and lanes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/diagram-tasks">Tasks</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/gateways">Gateways</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/transitions">Transitions</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/events">Events</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/called-processes">Called processes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/event-subprocesses">Event subprocesses</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/text-annotations">Text annotations</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/diagrams/migrate-a-process-from-bonita-open-solution-5-x">Migrate a process from Bonita Open Solution 5.x</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/naming-conventions">Naming conventions</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/generate-process-documentation">Generate process documentation</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/refactoring">Refactoring</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/actors">Actors</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/actor-filtering">Actor filters</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/process-modeling/iteration">Iteration</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#data" aria-controls="data"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Data</strong></a><ul id="data" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/data/data-handling-overview">Data handling overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/data/define-and-deploy-the-bdm">Define and deploy the BDM</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#define-access-control-on-business-objects" aria-controls="define-access-control-on-business-objects"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Define access control on business objects</strong></a><ul id="define-access-control-on-business-objects" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/specify-data-in-a-process-definition">Specify data in a process definition</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/parameters">Parameters</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/contracts-and-contexts">Contracts and contexts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/documents">Documents</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/create-a-complex-data-type">Complex data types</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/define-a-search-index">Define a search key</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/expressions-and-scripts">Expressions and scripts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/operations">Operations</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#page-and-form-development" aria-controls="page-and-form-development"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Page and form development</strong></a><ul id="page-and-form-development" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/page-and-form-development-overview">Page and form development overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#ui-designer" aria-controls="ui-designer"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>UI Designer</strong></a><ul id="ui-designer" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/ui-designer-overview">UI Designer overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/create-or-modify-a-page">Create or modify UI artifacts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/widgets">Widgets</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/widget-properties">Widget properties</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#widget-use-examples" aria-controls="widget-use-examples"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Widget use examples</strong></a><ul id="widget-use-examples" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/widget-use-examples/repeat-a-container-for-a-collection-of-data">Repeat a container for a collection of data</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/fragments">Fragments</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/custom-widgets">Custom widgets</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="active" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables">Variables</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/appearance">Appearance</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/assets">Assets</a></li></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.5/md/variables.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="variables">Variables</h1>
+
+<p><strong>Variables</strong> is a key concept of the UI Designer. They define page, layout, form, and fragment behavior, they are used to fetch external resources, to manipulate and process information, and much more. It is important to understand how to define and use variables in those artifacts, and how the data contained in the variables works when combined with widget properties. Unless otherwise stated, we will use “page” as the generic for page, layout, form, and fragment.</p>
+
+<p>There are several types of variables:</p>
+<ul>
+  <li>Static
+    <ul>
+      <li>String</li>
+      <li>JSON</li>
+    </ul>
+  </li>
+  <li>Dynamic
+    <ul>
+      <li>JavaScript Expression</li>
+      <li>External API</li>
+      <li>URL parameter</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="list-group"><a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables#evaluation-cycle" class="list-group-item toc-h2">Evaluation cycle</a><a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables#evaluation-cycle-external-api" class="list-group-item toc-h3">External API</a><a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables#evaluation-cycle-javascript-expression" class="list-group-item toc-h3">JavaScript expression</a><a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables#using-a-variable" class="list-group-item toc-h2">Using a variable</a><a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/variables#in-bonita-forms" class="list-group-item toc-h2">In Bonita forms</a>
+</div>
+<h2 id="evaluation-cycle">Evaluation cycle</h2>
+
+<p id="evaluation-cycle">String and JSON are initialization types. Variables with these types are used at page data model instantiation and their values do not change subsequently.</p>
+
+<p>Expression, external API and URL parameter variables are dynamic. They are evaluated every time something happens on the page, such as when receiving data or on a user interaction. The call of an External API variable is triggered every time the URL of the resource it points at changes.</p>
+
+<h3 id="evaluation-cycle-external-api">External API</h3>
+
+<p>External API variables are used to fetch data from outside the page. This is typically a REST API. The call to the specified URL is done using an HTTP GET request. The result is stored in the page data model. You can parameterize the URL construction with other data using `` syntax. You can retrieve information using the Bonita REST APIs.</p>
+
+<p>Here are some examples:</p>
+
+<ul>
+  <li>Get the id of the current user - API URL:<br />
+<code class="highlighter-rouge">../API/system/session/</code></li>
+</ul>
+
+<p>This variable is evaluated every time the value of <code class="highlighter-rouge">userId</code> changes. Also, if <code class="highlighter-rouge">userId</code> is not yet defined then the call is not triggered.</p>
+
+<ul>
+  <li>
+    <p>Retrieve the taskId:<br />
+API URL: <code class="highlighter-rouge">../API/bpm/humanTask/</code></p>
+  </li>
+  <li>
+    <p>Retrieve a <a href="/bonita_doc/bonita/7.5/development/rest-api/bdm-api">business object</a> associated with a process instance:<br />
+API URL: <code class="highlighter-rouge">../API/bdm/businessDataReference//</code></p>
+  </li>
+  <li>
+    <p>Retrieve business data using the reference in the <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/contracts-and-contexts">context</a> when building a form:<br />
+API URL: <code class="highlighter-rouge">../</code></p>
+  </li>
+</ul>
+
+<h3 id="evaluation-cycle-javascript-expression">JavaScript expression</h3>
+
+<p>An JavaScript expression variable is a JavaScript function. During the evaluation, the function can use the <strong>$data</strong> variable, which provides access to the page data model. For example:</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">$data</span><span class="p">.</span><span class="nx">expenses</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>An expression often relies on other variables as dependencies. When one of these variables changes, the expression is reevaluated and the previous value is overwritten. <br />
+For example, create a <code class="highlighter-rouge">login</code> expression variable: <code class="highlighter-rouge">return $data.firstname.toLowercase() + '-' + $data.lastname.toLowercase()</code>. Its dependencies are the two variables <code class="highlighter-rouge">firstname</code> and <code class="highlighter-rouge">lastname</code>. <br />
+Create two input widgets “First name” and “Last name” bound the two variables, and a text widget “Login” to display the result of the expression. When the user fills out the two input fields, the expression is updated. If the login value is manually edited before the user fills out the fields, then its value is overwritten.</p>
+
+<h2 id="using-a-variable">Using a variable</h2>
+
+<p>A variable is used with a <a href="/bonita_doc/bonita/7.5/application-and-process-design/page-and-form-development/ui-designer/widgets">widget</a>. There are many ways to use a variable in widget properties:</p>
+<ul>
+  <li>In a property containing text or HTML to be displayed in a widget, you can use the syntax __ in the content to make it dynamic content. For example, you could display the user’s name in a welcome message.</li>
+  <li>In the case of user input (for example the <em>Value</em> property of a text input) the variable value is used both to set the initial value and retrieve the user input.</li>
+</ul>
+
+<p>A binding is dynamic, so every time the value of a variable changes, the whole data model is re-evaluated and the UI is updated.</p>
+
+<h2 id="in-bonita-forms">In Bonita forms</h2>
+
+<p>One of the goals of the UI Designer is to enable you to build forms for process instantiation and human tasks execution. The <a href="/bonita_doc/bonita/7.5/application-and-process-design/define-access-control-on-business-objects/contracts-and-contexts">contract</a> eases the decoupling between the user views and the process. When a form is submitted for process instantiation or for human task execution, the UI Designer sends data to fulfill the contract.</p>
+
+<p>To ease the definition of the form data to send back to the process, when you create a form from the Bonita Studio, the UI Designer generates the following variables:</p>
+
+<ul>
+  <li><em>formInput</em>. It is a JSON object. Its structure is defined by the contract inputs and the attributes are initialized with default values. It could be used to set initial values for form fields. You can set the values in formInput either by editing the default values with constants (useful for test and debug) or with values from an object in an external source that has the same model (such as with a BDM external API). You can also set the initial values of a form from some other source without using formInput. However, you will then have to edit formOutput manually.</li>
+  <li><em>formOutput</em>. It is a JavaScript expression returning an object. The object structure matches the contract requirements and it is filled with formInput by default. On Submit, values entered or modified by the user and aggregated in the formOutput object (as defined by the <em>Data sent on click</em> property of the Submit button) are submitted to the process or task to fulfill the contract.</li>
+  <li><em>taskId</em>. It is the id of the current BPM task. You can use it as a BPM API parameter.</li>
+  <li><em>context</em>. It is an External API that provides references to all business variables and documents in the process instance. To retrieve a business variable instance, create an External API variable with value <code class="highlighter-rouge">../</code>.</li>
+</ul>
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Documents</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Documents | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Documents" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Documents. DocumentsMany business processes require documents, or exist because of documents. For example A process to claim travel expenses includes scanned copies of receipts, a company credit card statement, and a list of currency exchange rates. A process for considering candidates for a position includes CVs and" />
+<meta property="og:description" content="Documents. DocumentsMany business processes require documents, or exist because of documents. For example A process to claim travel expenses includes scanned copies of receipts, a company credit card statement, and a list of currency exchange rates. A process for considering candidates for a position includes CVs and" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Documents","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents","description":"Documents. DocumentsMany business processes require documents, or exist because of documents. For example A process to claim travel expenses includes scanned copies of receipts, a company credit card statement, and a list of currency exchange rates. A process for considering candidates for a position includes CVs and","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.10">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.10</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/documents.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="documents">Documents</h1>
+
+<p>Many business processes require documents, or exist because of documents. For example:</p>
+
+<ul>
+  <li>A process to claim travel expenses includes scanned copies of receipts, a company credit card statement, and a list of currency exchange rates.</li>
+  <li>A process for considering candidates for a position includes CVs and a job description.</li>
+  <li>A process for approving a document for publication includes the document itself and a quality checklist.</li>
+</ul>
+
+<p>Documents can also be attached to processes to provide supplementary information. For example, a travel expense claim process could have an attached document detailing the expense policy of the company. <br />
+Users have the option to download the document if required.</p>
+
+<div class="list-group"><a href="/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents#document-definition" class="list-group-item toc-h2">Document definition</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents#documents-storage" class="list-group-item toc-h2">Documents storage</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents#define-a-document-in-a-process-definition" class="list-group-item toc-h2">Define a document in a process definition</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents#documents-and-called-processes" class="list-group-item toc-h2">Documents and called processes</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents#specify-a-document-in-a-process-form" class="list-group-item toc-h2">Specify a document in a process form</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/define-access-control-on-business-objects/documents#connectors-and-documents" class="list-group-item toc-h2">Connectors and documents</a>
+</div>
+<h2 id="document-definition">Document definition</h2>
+
+<p id="document-definition">A document is a self-contained structured set of information that is attached to a process instance. It is created and updated by a tool that is not part of the process. It can have a lifecycle that begins before the process instance is created and continues after the process instance is completed and archived.</p>
+
+<ul>
+  <li><strong>Create</strong>: The lifecycle of a document begins before the process instance is created. A document is created in an external system.</li>
+  <li><strong>Add to process instance</strong>: When a process instance is created, the document instances defined for the process are initialized, in the form of document objects.
+At this point, the documents have the content specified in the document definition (which might be no content).</li>
+  <li><strong>Update in process instance</strong>: A document in a process instance is updated by an automatic action in the process definition or following information specified by a user in a form. Updating a document creates a new object.</li>
+  <li><strong>Delete from process instance</strong>: A document object can be deleted from an active process instance but not from an archived process instance.</li>
+</ul>
+
+<p>A document in a process instance is a Java object. When you update a document in a process instance, you create a new object. A document has the following:</p>
+
+<ul>
+  <li><strong>Name</strong>: the name of the document, defined in the process definition</li>
+  <li><strong>Description</strong>: a description of the document, defined in the process definition (optional)</li>
+  <li><strong>Content</strong>: the content of the document, set from a file or URL. The initial content source is specified in the process definition. <br />
+The content does not have to be initialized when the process instance is created. The content can be initialized or updated in a process task by the system or as a result of user action.</li>
+  <li><strong>MIME type</strong>: the type of content of the document. This is defined for the initial content in the process definition. A browser (or your computer) uses the MIME type to select the best application to use to display the document content. If you do not specify the MIME type, the browser reads the beginning of the file to discover the MIME type.</li>
+  <li><strong>Submitter</strong>: the name of the user who uploaded the content.</li>
+  <li><strong>Creation date</strong>: the date and time when the content was uploaded.</li>
+</ul>
+
+<h4 id="document-lists">Document lists</h4>
+
+<p>A document list is a collection of related documents attached to a process. Each component of the list is itself a document object, but it is not necessary to define each one separately. The number of components in the list does not have to be fixed. For example, a process to claim travel expenses includes a document list for the scanned copies of receipts. When the process instance is created, the number of receipts is unknown and the receipts can be in any image format.</p>
+
+<p>In a process definition, you can specify multiple documents or document lists. Use a document list if you have several documents that you need to handle as a set as well as individually. Use multiple documents if you have documents that have independent lifecycles. For example, a process to claim travel expenses could have a document list for expenses receipts and a document with the expenses policy.</p>
+
+<p>To initialize a document list, use a script that returns a list of DocumentValue objects. For example:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.bonitasoft.engine.bpm.document.DocumentValue</span>
+
+<span class="o">[</span>
+  <span class="k">new</span> <span class="nf">DocumentValue</span><span class="o">(</span><span class="s">"http://url.to.my.cms.document"</span><span class="o">),</span><span class="c1">//External</span>
+  <span class="k">new</span> <span class="nf">DocumentValue</span><span class="o">(</span><span class="s">"exampleContentType"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(),</span> <span class="s">"text/plain"</span><span class="o">,</span> <span class="s">"example.txt"</span><span class="o">)</span><span class="c1">//Internal</span>
+<span class="o">]</span>  
+</code></pre></div></div>
+
+<p>To update a document list, you need to specify the whole list again using a script,. You cannot just add or replace one component of the list.</p>
+
+<h2 id="documents-storage">Documents storage</h2>
+
+<p>The decision about where to store a document is critical to your process definition. There are three options:</p>
+
+<ul>
+  <li><a href="#cms">CMS</a></li>
+  <li><a href="#file">File</a></li>
+  <li>
+    <p><a href="#resource">Resource</a></p>
+
+    <p><img src="images/images-6_0/document_lifecycle.png" alt="Document lifecycle" class="img-responsive" /></p>
+  </li>
+</ul>
+
+<p>The table below shows the possible interactions between each storage option and a process.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Storage option</th>
+      <th>Update process instance from storage</th>
+      <th>Update storage from process instance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CMS</td>
+      <td>URL (in process definition or form widget), connector (in process definition)</td>
+      <td>Connector (in process definition)</td>
+    </tr>
+    <tr>
+      <td>File</td>
+      <td>URL (in process definition or form), file (in process definition or form widget)</td>
+      <td>File (in form widget)</td>
+    </tr>
+    <tr>
+      <td>Resource</td>
+      <td>Resource name (in process definition)</td>
+      <td>Cannot update resource from process instance</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For most use cases, we recommend storing documents in a CMS.</p>
+
+<p><a id="cms"></a></p>
+
+<h4 id="cms">CMS</h4>
+
+<p>Typically, business documents are stored in an external system such as a CMS, and accessed by other applications in addition to Bonita. Bonita is not iteself a CMS, and it is more efficient for performance to store documents in an external system and store only links in the process instance. This is particularly true if you have many documents attached to a process instance.</p>
+
+<p>You can initialize a document object in a process instance by specifying a URL that identifies the document. The document object stores a reference to the URL, not the content itself. The document can be updated in the process instance when the user specifies a URL in a form, or using a connector. You can also use a connector to push an update to the CMS.</p>
+
+<p>If the document is stored in a CMS, you need to consider the lifecycle of the content in the CMS when you are designing your process.<br />
+For example, the content might be updated by some other applications after you have initialized the document object in the process instance, so you need to be sure that the content that is referenced in the CMS is the relevant version. If your process requires the latest version of the content, you should minimize the time between getting the content from the CMS and making it available in the process instance. Also, if your process updates a document and sends new content to the CMS, consider whether you need to handle multiple concurrent updates to the CMS. This might be handled automatically by the CMS itself, or might need to be managed by the connector.</p>
+
+<p>For example, in a process to approve a document for publication, the document exists in an external file store or CMS before the process is instantiated. At a step in the process, the document is approved for external publication, and a new revision of the file is created with a “Confidential” watermark removed. This new revision is uploaded to the CMS by connector, and continues to exist after the process instance is completed and archived.</p>
+
+<p><a id="file"></a></p>
+
+<h4 id="file">File</h4>
+
+<p>A document that is stored as a file can be used to initialize or update the document object in a process instance. This is done when the user specifies the file in a form. Typically, this is useful for information that does not have to be stored outside the process, where the file can be deleted after the document object is created. For example, a file containing a scanned copy of a travel receipt does not need to be kept after the receipt object has been added to a travel expense claim process instance.</p>
+
+<p><a id="resource"></a></p>
+
+<h4 id="resource">Resource</h4>
+
+<p>The Bonita Studio Document Repository contains documents that have been imported from the file system. After a document is imported, it is called a resource. When you <a href="/bonita_doc/bonita/7.10/application-and-process-design/build-a-process-for-deployment">build a process bar file for deployment</a>, the resources used in the process are automatically included. A resource is available to all processes in an installation of Studio. A resource cannot be updated directly in Studio, but is updated by uploading a new file. Typically, resources are used for information that is stable and common to all instances of a process, or is used in several processes. The resource is used to initialize the document object in the process instance. You cannot use a resource to update a document object.</p>
+
+<p>When you <a href="/bonita_doc/bonita/7.10/application-and-process-design/import-and-export-a-process">export a process in a bos file for import into another Studio</a>, you must select the resources that are used so that they are included.</p>
+
+<p>The dialog for adding a resource to the document repository is inside the dialog for adding a resource to a process definition.   However, you can add a resource without updating the process definition, as follows:</p>
+
+<ol>
+  <li>Open any process diagram and select the pool. This definition will not be updated.</li>
+  <li>Go to the <strong>Details</strong> panel, <strong>Data</strong> tab, <strong>Documents</strong> pane.</li>
+  <li>Select any document, and check <strong>From local file</strong>. If there are no documents defined for the process, click <strong><em>Add</em></strong> and specify a name for the document.</li>
+  <li>Click <strong><em>Browse…</em></strong>. A popup shows the list of resources in the repository.</li>
+  <li>Click <strong><em>Import…</em></strong>. A file selector popup is displayed.</li>
+  <li>Select the file that you want to import. The filename is added to the list of resources.</li>
+  <li>Click <strong><em>Cancel</em></strong> to close the list of resources in the repository.</li>
+  <li>Click <strong><em>Cancel</em></strong> to close the document editor or creator. The process diagram and document definition are not updated.</li>
+</ol>
+
+<p>When you deploy a process, the documents included in the bar file are stored in the local Bonita database. They are used to initialize document objects when a process instance is created or when a form is initialized.</p>
+
+<h4 id="document-maximum-size-setting">Document maximum size setting</h4>
+
+<p>By default, the maximum size of a document is 25Mb. You can reduce or increase this in your production environment by modifying the value of the <code class="highlighter-rouge">form.attachment.max.size</code> property in the <code class="highlighter-rouge">console-config.properties</code> file of your tenant.
+For the V6 forms, you also need to change the <code class="highlighter-rouge">form.attachment.max.size</code> property of the <code class="highlighter-rouge">forms-config.properties</code> file. Those modifications will be applied after a server restart.
+The maximum document size cannot exceed the capacity of the database column. This value depends on your database. This setting applies to all processes in the tenant.
+This maximum document size will also depend on your web server configuration, it can’t be more than the maximum post size of the web server.</p>
+
+<h4 id="document-versioning-in-a-process-instance">Document versioning in a process instance</h4>
+
+<p>In a process instance, there is no specific versioning. When a document is updated, a new object is created. These objects are archived with the associated activity instance, and can be retrieved using Bonita Engine API.</p>
+
+<h4 id="document-archives">Document archives</h4>
+
+<p>When a process element is archived the associated documents are also archived. It is possible to delete the archived documents using the Engine API or REST API when they are no longer needed, to save space. You can delete an archived document from a live process instance or from an archived process instance. When you delete an archived document, only the content is deleted. The metadata, such as the name, last updated date, and uploader, is kept so that it can be retrieved if needed for audit.</p>
+
+<h2 id="define-a-document-in-a-process-definition">Define a document in a process definition</h2>
+
+<p>This section explains how to specify a document or document list in a process definition.</p>
+
+<h4 id="add-a-document">Add a document</h4>
+
+<p>A document is added to a process definition at pool level. It is similar to defining a pool-level process variable. You must define at pool level all the documents that will be used in the process.</p>
+
+<p>To define a document in Bonita Studio:</p>
+
+<ol>
+  <li>In your process diagram, select the pool.</li>
+  <li>Go to the <strong>Details</strong> panel, <strong>Data</strong> tab, <strong>Documents</strong> pane.</li>
+  <li>Click <strong><em>Add</em></strong>. A popup for defining a document is displayed.</li>
+  <li>In the popup, specify the following:
+    <ul>
+      <li>The <strong>name</strong> of the document, used to identify it in the Studio. This must be a valid Java identifier.</li>
+      <li>A <strong>description</strong> of the document. This is optional, but we recommend that you add a description stating the document purpose in the process, for collaboration and maintenance.</li>
+      <li>Whether the document is <strong>single</strong> or <strong>multiple</strong>. Specify <strong>multiple</strong> to define a document list.</li>
+      <li>The source of the <strong>initial content</strong> of the document. For a document, there are the following options:</li>
+    </ul>
+    <ul>
+      <li>Choose <strong>None</strong> if there is no initial content for the document when the process instance is created.</li>
+      <li>Choose <strong>From contract</strong> if the document content is to be retrieved from the contract input.</li>
+      <li>Choose <strong>From local file</strong> if the document content is to be retrieved from a resource.</li>
+      <li>Choose <strong>From an external system</strong> if the document content is to be retrieved from an external system by URL
+For a document list, initial content is defined using a script. The script must return a <code class="highlighter-rouge">java.util.List</code>.
+      * Optionally, for a local file, you can specify the media type of the content, by setting the MIME type of the document.</li>
+    </ul>
+  </li>
+  <li>If you want to specify the MIME type, click <strong>Manage MIME type…</strong>, and then specify the MIME type in the field that is displayed.</li>
+  <li>When you have provided all the information for the document, click either <strong><em>Finish &amp; Add</em></strong> to define another document or <strong><em>Finish</em></strong> if you have no more documents to define for this pool.</li>
+</ol>
+
+<h4 id="edit-a-document-in-the-process-definition">Edit a document in the process definition</h4>
+
+<ol>
+  <li>In your process diagram, select the pool.</li>
+  <li>Go to the <strong>Details</strong> panel, <strong>Data</strong> tab, <strong>Documents</strong> pane. The list of documents defined for the pool is displayed.</li>
+  <li>Click the name of the document that you want to edit, and click <strong><em>Edit</em></strong>.</li>
+  <li>Update the document information in the popup.</li>
+  <li>Click <strong><em>OK</em></strong> to save your changes.</li>
+</ol>
+
+<h4 id="remove-a-document-from-a-process-definition">Remove a document from a process definition</h4>
+
+<ol>
+  <li>In your process diagram, select the pool.</li>
+  <li>Go to the <strong>Details</strong> panel, <strong>Data</strong> tab, <strong>Documents</strong> pane. The list of documents defined for the pool is displayed.</li>
+  <li>Click the name of the document that you want to edit, and click <strong><em>Remove</em></strong>.</li>
+</ol>
+
+<h2 id="documents-and-called-processes">Documents and called processes</h2>
+
+<p>A document is defined in a pool. You can map documents to other pools similarly to how you map variables.</p>
+
+<p>To map a document when using a call activity:</p>
+
+<ol>
+  <li>Define a document in the main process, for example “mainDoc”.</li>
+  <li>Define a document in the called process, for example “subDoc”.</li>
+  <li>In the call activity of the main process, add a task variable of type long (for example called “docId”) that will contain the id of the instance of mainDoc. <br />
+Set the default value of docId with the following code: <code class="highlighter-rouge">apiAccessor.getProcessAPI().getLastDocument(processInstanceId, "mainDoc").getId();</code></li>
+  <li>In the called process, add a pool-level variable of type long (for example called docId).</li>
+  <li>Define the <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/diagrams/called-processes">variable mapping in the call activity</a> so that docId in the call activity is mapped to docId in the called process.</li>
+  <li>In the called process, as the first task add an automatic task that will get the mainDoc, create a DocumentValue object with the content of mainDoc, and use it to update the content of subDoc.<br />
+To do this, define an operation in the automatic task as follows:
+    <ol>
+      <li>In the first field, select subDoc.</li>
+      <li>Set the operator type to Set document.</li>
+      <li>Open the expression editor for the second field and create a script expression with the following content:</li>
+    </ol>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>```java
+import org.bonitasoft.engine.bpm.document.Document;
+import org.bonitasoft.engine.bpm.document.DocumentValue;
+
+Document doc=apiAccessor.getProcessAPI().getDocument(sub_docId);
+DocumentValue docValue=new DocumentValue(apiAccessor.getProcessAPI().getDocumentContent(doc.getContentStorageId()), doc.getContentMimeType(), doc.getContentFileName());
+return docValue;
+```
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="specify-a-document-in-a-process-form">Specify a document in a process form</h2>
+
+<p>When you have specified the documents in the process definition, you need to define how they are handled in the process tasks.</p>
+
+<p>A document is represented in a form definition by the <a href="/bonita_doc/bonita/7.10/application-and-process-design/page-and-form-development/ui-designer/widgets">upload widget</a>.</p>
+
+<h2 id="connectors-and-documents">Connectors and documents</h2>
+
+<p>During a process instance, you can use <a href="/bonita_doc/bonita/7.10/application-and-process-design/connectivity/connectivity-overview">connectors</a> to manipulate documents. <br />
+In addition to the connectors that interact with content management systems (such as the Alfrecso and CMIS connectors), some other connectors can also manipulate documents. For example:</p>
+
+<ul>
+  <li>A task that uses the Email connector to send a message can attach a document to the message.</li>
+  <li>A task that uses the Google Calendar connector to create a calendar event can attach a document as content.</li>
+</ul>
+
+<p>Note that connectors handle single documents. If your process contains a document list, you can manipulate component documents using connectors.</p>
+
+<p>The standard connectors provided with Bonita (CMIS, Alfresco) take a document as input. They cannot handle document lists. <br />
+The email connector can handle a document list that specifies the attachments to be added to a message. The standard connectors do not provide a documentValue as output. This means that you cannot use a connector to get a document. Instead, specify the URL of the document, as you would for initialization.</p>
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>

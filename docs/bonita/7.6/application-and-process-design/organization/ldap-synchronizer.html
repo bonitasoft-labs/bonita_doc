@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>LDAP synchronizer</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>LDAP synchronizer | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="LDAP synchronizer" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="LDAP synchronizer. LDAP synchronizerNote For Enterprise, Performance, Efficiency, and Teamwork editions only.The LDAP synchronizer is a service for synchronizing Bonita and LDAP directory users and groups in a single direction, LDAP to Bonita. The LDAP synchronization service keeps the Bonita organization information" />
+<meta property="og:description" content="LDAP synchronizer. LDAP synchronizerNote For Enterprise, Performance, Efficiency, and Teamwork editions only.The LDAP synchronizer is a service for synchronizing Bonita and LDAP directory users and groups in a single direction, LDAP to Bonita. The LDAP synchronization service keeps the Bonita organization information" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"LDAP synchronizer","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer","description":"LDAP synchronizer. LDAP synchronizerNote For Enterprise, Performance, Efficiency, and Teamwork editions only.The LDAP synchronizer is a service for synchronizing Bonita and LDAP directory users and groups in a single direction, LDAP to Bonita. The LDAP synchronization service keeps the Bonita organization information","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.6">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.6</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/release-notes">Release notes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#application-and-process-design" aria-controls="application-and-process-design"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Application and Process Design</strong></a><ul id="application-and-process-design" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/bonita-bpm-overview">Bonita overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#application-and-process-design-overview" aria-controls="application-and-process-design-overview"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Application and process design overview</strong></a><ul id="application-and-process-design-overview" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/application-and-process-design-overview/getting-started-tutorial">Getting started tutorial</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/application-and-process-design-overview/key-concepts">Key concepts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/application-and-process-design-overview/comparison-of-7-x-and-6-x">Comparison of 7.x and 6.x</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles">Lifecycle and profiles</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/application-and-process-design-overview/design-methodology">Design methodology</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/bonita-bpm-studio-preferences">Bonita Studio preferences</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/bonita-bpm-studio-hints-and-tips">Bonita Studio hints and tips</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#organization" aria-controls="organization"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Organization</strong></a><ul id="organization" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/organization-overview">Organization overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping">Approaches to managing organizations and actor mapping</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/organization-management-in-bonita-bpm-studio">Organization management in Bonita Studio</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/custom-user-information-in-bonita-bpm-studio">Custom User Information in Bonita Studio</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="active" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer">LDAP synchronizer</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#profiles" aria-controls="profiles"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Profiles</strong></a><ul id="profiles" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/profiles/profiles-overview">Profiles overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/profiles/profileCreation">Profiles editor</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#process-modeling" aria-controls="process-modeling"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Process modeling</strong></a><ul id="process-modeling" class="collapse"><li><a role="button" data-toggle="collapse"  href="#diagrams" aria-controls="diagrams"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Diagrams</strong></a><ul id="diagrams" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/diagram-overview">Diagram overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/pools-and-lanes">Pools and lanes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/diagram-tasks">Tasks</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/gateways">Gateways</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/transitions">Transitions</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/events">Events</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/called-processes">Called processes</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/event-subprocesses">Event subprocesses</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/text-annotations">Text annotations</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/diagrams/migrate-a-process-from-bonita-open-solution-5-x">Migrate a process from Bonita Open Solution 5.x</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/naming-conventions">Naming conventions</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/generate-process-documentation">Generate process documentation</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/refactoring">Refactoring</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/actors">Actors</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/actor-filtering">Actor filters</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/process-modeling/iteration">Iteration</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#data" aria-controls="data"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Data</strong></a><ul id="data" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/data/data-handling-overview">Data handling overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/data/define-and-deploy-the-bdm">Define and deploy the BDM</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#define-access-control-on-business-objects" aria-controls="define-access-control-on-business-objects"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Define access control on business objects</strong></a><ul id="define-access-control-on-business-objects" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/specify-data-in-a-process-definition">Specify data in a process definition</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/parameters">Parameters</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/contracts-and-contexts">Contracts and contexts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/documents">Documents</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/create-a-complex-data-type">Complex data types</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/define-a-search-index">Define a search key</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/expressions-and-scripts">Expressions and scripts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/define-access-control-on-business-objects/operations">Operations</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li><a role="button" data-toggle="collapse"  href="#page-and-form-development" aria-controls="page-and-form-development"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Page and form development</strong></a><ul id="page-and-form-development" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/page-and-form-development-overview">Page and form development overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#ui-designer" aria-controls="ui-designer"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>UI Designer</strong></a><ul id="ui-designer" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/ui-designer-overview">UI Designer overview</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/create-or-modify-a-page">Create or modify UI artifacts</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/widgets">Widgets</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/widget-properties">Widget properties</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li><a role="button" data-toggle="collapse"  href="#widget-use-examples" aria-controls="widget-use-examples"><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span><strong>Widget use examples</strong></a><ul id="widget-use-examples" class="collapse"><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/widget-use-examples/repeat-a-container-for-a-collection-of-data">Repeat a container for a collection of data</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --></ul></li><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/fragments">Fragments</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/custom-widgets">Custom widgets</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/variables">Variables</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/appearance">Appearance</a></li><!-- create an array with all categories corresponding to a node in the taxonomy  --><li class="" ><i class="fa fa-circle-o" aria-hidden="true"></i> <a href="/bonita_doc/bonita/7.6/application-and-process-design/page-and-form-development/ui-designer/assets">Assets</a></li></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.6/md/ldap-synchronizer.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="ldap-synchronizer">LDAP synchronizer</h1>
+
+<div class="alert alert-info">
+<p><strong>Note:</strong> For Enterprise, Performance, Efficiency, and Teamwork editions only.</p>
+</div>
+
+<p>The LDAP synchronizer is a service for synchronizing 
+Bonita and LDAP directory users and groups in a single direction, LDAP to Bonita.</p>
+
+<p>The LDAP synchronization service keeps the Bonita organization information synchronized with an external LDAP directory, by creating, updating, or removing
+users and groups in the organization
+to match as closely as possible the user list attributes defined in LDAP. It does not modify the LDAP directory.</p>
+
+<p>The LDAP Synchronizer connects to both the LDAP server and Bonita Engine to read the data from the LDAP server and modify the organization in the Bonita Engine database using the API.
+Both the Engine and the LDAP server must be running when the LDAP Synchronizer tool is run.</p>
+
+<p>The synchronizer program runs in the background. There is no user interface: all configuration settings are specified in files and
+all output is written to a log file.</p>
+
+<div class="list-group"><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#ldap-objects-supported" class="list-group-item toc-h2">LDAP objects supported</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#installation" class="list-group-item toc-h2">Installation</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#configuration-files" class="list-group-item toc-h2">Configuration files</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#configuration-files-bonita-properties" class="list-group-item toc-h3">bonita.properties</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#configuration-files-ldap-properties" class="list-group-item toc-h3">ldap.properties</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#configuration-files-logger-properties" class="list-group-item toc-h3">logger.properties</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#configuration-files-mapper-properties" class="list-group-item toc-h3">mapper.properties</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#configuration-files-sync-properties" class="list-group-item toc-h3">sync.properties</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#running-the-synchronizer" class="list-group-item toc-h2">Running the synchronizer</a><a href="/bonita_doc/bonita/7.6/application-and-process-design/organization/ldap-synchronizer#a-id-non-default-tenant-using-the-ldap-synchronizer-in-a-non-default-tenant" class="list-group-item toc-h2"><a id="non-default-tenant" />Using the LDAP synchronizer in a non-default tenant</a>
+</div>
+<h2 id="ldap-objects-supported">LDAP objects supported</h2>
+
+<p id="ldap-objects-supported">The synchronizer will synchronize LDAP objects that inherit from the “person” class as users in Bonita.
+The synchronizer application does not support user meta data and cannot synchronize passwords. A new user password is initialized with the user name.</p>
+
+<p>The tool supports LDAP groups of the following classes:</p>
+
+<ul>
+  <li>group</li>
+  <li>groupOfURLs</li>
+  <li>groupOfNames</li>
+  <li>groupOfUniqueNames</li>
+  <li>ds-virtual-static-group</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<p>To install the synchronizer, unzip the provided deploy.zip file and configure the files located under the conf directory. 
+This directory contains a sample configuration in the <code class="highlighter-rouge">conf/default</code> subfolder which is used to perform LDAP synchronization
+on the default tenant. This is also possible to perform the synchronization on a <a href="#non-default-tenant">non default tentant</a>
+which requires dedicated configuration.</p>
+
+<p>Two way to connect the Bonita Engine is possible:</p>
+
+<p>1/ Connection using the Environment variables:</p>
+
+<p>Set the API access mode used by the LDAP Synchronizer, by editing the <code class="highlighter-rouge">&lt;LDAP_SYNCHRONIZER&gt;\BonitaSubscription-&lt;version&gt;-LDAP-Synchronizer.(bat or sh)</code> file.</p>
+
+<p>Add between <code class="highlighter-rouge">java</code> and <code class="highlighter-rouge">-classpath</code>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-Dorg.bonitasoft.engine.api-type=HTTP -Dorg.bonitasoft.engine.api-type.server.url=http://localhost:8080 -Dorg.bonitasoft.engine.api-type.application.name=bonita
+</code></pre></div></div>
+
+<p>The LDAP Synchronizer can use the HTTP, or EJB3 modes, but not local access. For more information about API access modes,
+see the <a href="/bonita_doc/bonita/7.6/development/engine-api/engine-api-overview">Engine API overview</a>.</p>
+
+<p>2/ Connection using Bonita.properties files:</p>
+
+<p>See bonita.properties section</p>
+
+<p>Customize the configuration for your system, by editing the configuration files. 
+There are some additional considerations for using the LDAP synchronizer in a non-default tenant.</p>
+
+<h2 id="configuration-files">Configuration files</h2>
+
+<p>There are five properties files:</p>
+
+<ul>
+  <li>bonita.properties defines the Bonita connection settings and specifies the account used for user synchronization (requires administration privileges).</li>
+  <li>ldap.properties defines the LDAP connection settings and specifies the account used for user browsing.</li>
+  <li>logger.properties provides the settings for the logger. Default settings should be fine for most uses.</li>
+  <li>mapper.properties specifies the translation between Bonita and LDAP directory user attributes.</li>
+  <li>sync.properties defines the synchronization settings.</li>
+</ul>
+
+<p>All configurations files can be found in the conf directory.</p>
+
+<p><strong>Note</strong>: to use a special character in a properties file, use the Unicode equivalent. For example, for <code class="highlighter-rouge">à</code> use \u00E0. 
+You can use a tool such as <a href="http://docs.oracle.com/javase/8/docs/technotes/tools/unix/native2ascii.html">native2ascii</a> to convert any special characters in the configuration files to Unicode.</p>
+
+<p>You also need to <a href="/bonita_doc/bonita/7.6/development/engine-api/configure-client-of-bonita-bpm-engine">configure connection on Bonita Engine</a> for the LDAP Synchronizer.</p>
+
+<h3 id="configuration-files-bonita-properties">bonita.properties</h3>
+
+<p>This file defines the connection settings and specifies the account used for user synchronization (requires administration privileges).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Item</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">bonita_home</td>
+      <td style="text-align: left">The path to the Bonita Home folder of the LDAP Synchronizer. (deprecated)</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">apiType</td>
+      <td style="text-align: left">The API Type to access the Bonita Engine: HTTP or EJB3</td>
+      <td style="text-align: left">(1)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">serverUrl</td>
+      <td style="text-align: left">Url to access the Bonita Server (http://myHost:8080)</td>
+      <td style="text-align: left">(1)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">applicationName</td>
+      <td style="text-align: left">Application name (bonita is the general name)</td>
+      <td style="text-align: left">(1)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ejbReference</td>
+      <td style="text-align: left">Ejb reference when Bonita Server is deployed on an Application server</td>
+      <td style="text-align: left">(1)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">login</td>
+      <td style="text-align: left">The login to provide is a userName.</td>
+      <td style="text-align: left">install</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">password</td>
+      <td style="text-align: left">Password of the Bonita account used for synchronization.</td>
+      <td style="text-align: left">install</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">technicalUser</td>
+      <td style="text-align: left">This is the <a href="/bonita_doc/bonita/7.6/installation/basic-bonita-platform-installation/first-steps-after-setup">username of the platform adminstrator</a>.</td>
+      <td style="text-align: left">platformAdmin</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">technicalPassword</td>
+      <td style="text-align: left">This is the <a href="/bonita_doc/bonita/7.6/installation/basic-bonita-platform-installation/first-steps-after-setup">password of the platform adminstrator</a>.</td>
+      <td style="text-align: left">platform</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>(1)</strong>: if apiType properties is not defined, then the variable environment mechanism 
+is used to connect to the Bonita Engine.</p>
+
+<h3 id="configuration-files-ldap-properties">ldap.properties</h3>
+
+<p>This file defines the LDAP connection settings and specifies the account used for user browsing.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Item</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">host_url</td>
+      <td style="text-align: left">LDAP server URL</td>
+      <td style="text-align: left">ldap://localhost:389</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">auth_type</td>
+      <td style="text-align: left">LDAP authentication type (supported values: none, simple or strong)</td>
+      <td style="text-align: left">simple</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">principal_dn</td>
+      <td style="text-align: left">distinguished name (DN) of the user account used for browsing through the LDAP users</td>
+      <td style="text-align: left">cn=Directory Manager</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">principal_password</td>
+      <td style="text-align: left">password of the LDAP ?browser account</td>
+      <td style="text-align: left">root</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">directory_user_type</td>
+      <td style="text-align: left">type of the user object (“user” for an Active Directory, “person” for an LDAP)</td>
+      <td style="text-align: left">person</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="configuration-files-logger-properties">logger.properties</h3>
+
+<p>This file provides the settings for the logger. Default settings should be fine for most uses.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Item</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">log_dir_path</td>
+      <td style="text-align: left">directory path where the log files will be stored. The log files are named on the following template: <em><code class="highlighter-rouge">log_file_date_prefix</code></em><code class="highlighter-rouge">_LDAP-BOS_Synchronizer.log</code></td>
+      <td style="text-align: left">logs/</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">log_file_date_prefix</td>
+      <td style="text-align: left">date format used for prefixing the log file name</td>
+      <td style="text-align: left">yyyy=MM=dd</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">log_level</td>
+      <td style="text-align: left">level of reporting of the logger (relevant values are INFO for production use, FINE for debug use)</td>
+      <td style="text-align: left">INFO</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The date format in log file names follows the syntax of the Java SimpleDateFormat class. 
+This is useful to control the number of log file create as the logger will append information to an existing log file if the file name already exists. 
+Example: if you set the format to “?yyyy-mm”, you will get one new log file per month.</p>
+
+<h3 id="configuration-files-mapper-properties">mapper.properties</h3>
+
+<p>This file specifies the translation between Bonita and LDAP directory user attributes such as:
+<code class="highlighter-rouge">bonita_property = ldap_property</code></p>
+
+<p>The only mandatory property is user_name, which is the key defined for matching users. All other properties are optional.</p>
+
+<p>An LDAP property may be used several times in the configuration file but each Bonita property should be defined only once. Unused properties should be commented out.</p>
+
+<p>These are the supported Bonita user properties:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">General information</th>
+      <th style="text-align: left">Professional information</th>
+      <th style="text-align: left">Personal information</th>
+      <th style="text-align: left">Custom User Information</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">user_name  <br /> first_name  <br /> last_name  <br /> title  <br /> job_title  <br /> manager</td>
+      <td style="text-align: left">pro_email  <br /> pro_phone  <br /> pro_mobile  <br /> pro_fax  <br /> pro_website  <br /> pro_room  <br /> pro_building  <br /> pro_address  <br /> pro_city  <br /> pro_zip_code  <br /> pro_state  <br /> pro_country</td>
+      <td style="text-align: left">perso_email  <br /> perso_phone  <br /> perso_mobile  <br /> perso_fax  <br /> perso_website  <br /> perso_room  <br /> perso_building  <br /> perso_address  <br /> perso_city  <br /> perso_zip_code  <br /> perso_state  <br /> perso_country</td>
+      <td style="text-align: left">custom_&lt;Custom User Information&gt;</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The following items are configured by default:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Item</th>
+      <th style="text-align: left">Default</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">user_name</td>
+      <td style="text-align: left">uid</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">last_name</td>
+      <td style="text-align: left">sn</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">title</td>
+      <td style="text-align: left">title</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pro_email</td>
+      <td style="text-align: left">mail</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pro_phone</td>
+      <td style="text-align: left">telephoneNumber</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">pro_mobile</td>
+      <td style="text-align: left">mobile</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">perso_phone</td>
+      <td style="text-align: left">homePhone</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Custom User Information</strong></p>
+
+<p>The prefix ‘‘custom_’’ is used to map any ‘Custom User Information’. For example, to map the ‘Custom User Information’ “skypeId” and “room”
+from LDAP property “skype” and “roomNumber”, the syntax is:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>custom_skypeId = skype
+custom_room = roomNumber 
+</code></pre></div></div>
+
+<h3 id="configuration-files-sync-properties">sync.properties</h3>
+
+<p>This file defines the synchronization settings.</p>
+
+<ul>
+  <li>error_level_upon_failing_to_get_related_user: optional parameter that specifies whether an error should be blocking upon getting related users (manager)<br />
+Supported values: ignore, warn or fatal<br />
+Default value: warn</li>
+  <li>bonita_username_case: optional parameter that specifies whether the LDAP user names should be converted to a given case upon being imported in Bonita.<br />
+Supported values: mixed, uppercase or lowercase<br />
+Default value: mixed (conserves the current LDAP user name case)</li>
+  <li>ldap_watched_directories: defines the LDAP directories to watch.<br />
+Supported values: list of LDAP watched directory object identifiers separated by commas.<br />
+The syntax for watched directory object properties is detailed in the next section.</li>
+  <li>bonita_nosync_users: specifies the list of users who should not be synchronized.<br />
+Supported values: user names separated by commas.</li>
+  <li>bonita_user_role: specifies the role assigned to Bonita users.<br />
+Default value: user</li>
+  <li>bonita_deactivate_users: optional parameter that specifies whether the tool should deactivate Bonita users who are not present in LDAP. 
+When bonita_deactivate_users is set to true, a Bonita user who is not present in LDAP is deactivated. The user are not removed from Bonita, but they cannot start process instances or do tasks.</li>
+  <li>bonita_reactivate_users: optional parameter that specifies whether the tool should reactivate Bonita users who are deactivated in bonita but present in LDAP.<br />
+Supported values: true or false<br />
+Default value: true</li>
+  <li>allow_recursive_groups: optional parameter that specifies whether sub-groups should also be synchronized. The operation does not preserve the group hierarchy however, and the LDAP sub-groups will be created at root level in Bonita organization.<br />
+Supported values: true or false<br />
+Default value: true</li>
+  <li>
+    <p>ldap_groups: optional parameter that specifies the LDAP groups that should be synchronized.<br />
+Supported values: list of LDAP Group object identifiers separated by commas.<br />
+The syntax for group object properties is detailed in a later section.</p>
+  </li>
+  <li>
+    <p>bonita_user_custominfo_policy: Define the policy to synchronize the ‘Custom User Information’. The 
+different policy is detailed in a later section.<br />
+Default value: none</p>
+  </li>
+  <li>allow_custominfo_creation: define the strategy when a Custom User Information is detected 
+in the mapper.properties configuration, and not exist in the Bonita database. If this 
+property is true, then the Custom User Information is created.<br />
+Default value: false</li>
+</ul>
+
+<h4 id="policy-to-synchronize-the-custom-user-information">Policy to synchronize the Custom User Information</h4>
+<p>In Bonita, you can defined a set of Custom User Information attributes. Then, each user has 
+a value for each attribute.
+A policy named  bonita_user_custominfo_policy gives the strategy to synchronize this 
+information.
+All examples are based on</p>
+
+<ol>
+  <li>
+    <p>Two Custom User Information exist in the Bonita database : <em>badgeId</em> and <em>room</em></p>
+  </li>
+  <li>
+    <p>The mapper.properties contains</p>
+  </li>
+</ol>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>custom_badgeId = ldapBadgeIdentification
+</code></pre></div></div>
+<p>The <em>room</em> is not declared in the mapper.properties.</p>
+
+<ul>
+  <li><strong>none</strong>:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bonita_user_custominfo_policy = none
+</code></pre></div></div>
+
+<p>no ‘Custom User Information’ is synchronized.</p>
+
+<ul>
+  <li><strong>partial</strong> :</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bonita_user_custominfo_policy = partial
+</code></pre></div></div>
+
+<p>Synchronize only ‘Custom User Information’ declared in the mapper.properties.</p>
+
+<p>A ‘Custom User Information’ not declared in mapper.properties will not be modified. When the Ldap Object doesn’t have a property, it will not be modified.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">LDAP object</th>
+      <th style="text-align: left">LDAP property</th>
+      <th style="text-align: left">Synchronization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">WalterBates</td>
+      <td style="text-align: left"><em>ldapBadgeIdentification</em>== ‘walterSid’</td>
+      <td style="text-align: left">(Synchronized) <em>badgeId</em>==’walterSid’</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">HelenKelly</td>
+      <td style="text-align: left">no property <em>ldapBadgeIdentification</em> defined</td>
+      <td style="text-align: left">(No synchronization)</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><strong>scope</strong>:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bonita_user_custominfo_policy = scope
+</code></pre></div></div>
+
+<p>Same as partial, plus if the Ldap Object doesn’t have a property, it will be set to null 
+  (all the scope is synchronized)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">LDAP object</th>
+      <th style="text-align: left">LDAP property</th>
+      <th style="text-align: left">Synchronization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">WalterBates</td>
+      <td style="text-align: left"><em>ldapBadgeIdentification</em>== ‘walterSid’</td>
+      <td style="text-align: left">(Synchronized) <em>badgeId</em>==’walterSid’</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">HelenKelly</td>
+      <td style="text-align: left">no property <em>ldapBadgeIdentification</em> defined</td>
+      <td style="text-align: left">(Set to null) <em>badgeId</em>==null</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><strong>full</strong>:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bonita_user_custominfo_policy = full
+</code></pre></div></div>
+
+<p>Synchronize all ‘Custom User Information’. If a ‘Custom User Information’ is not declared in mapper.properties, or the Ldap doesn’t have the property, it is set to null</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">LDAP object</th>
+      <th style="text-align: left">LDAP property</th>
+      <th style="text-align: left">Synchronization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">WalterBates</td>
+      <td style="text-align: left"><em>ldapBadgeIdentification</em>== ‘walterSid’</td>
+      <td style="text-align: left">(Synchronized) <em>badgeId</em>==’walterSid’<br /><em>room</em>==null</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">null</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="ldap-watched-directory-object-properties-syntax">LDAP Watched directory object properties syntax</h4>
+
+<p>A watched directory is defined by an id that is declared in the “ldap_watched_directories” 
+list. 
+This id provides access to the object properties with this syntax: object_id.property.</p>
+
+<p>Here are the available object properties:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">ldap_search_dn</td>
+      <td style="text-align: left">DN of the LDAP watched directory that will be used to get the list of the LDAP users.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ldap_search_filter</td>
+      <td style="text-align: left">LDAP user search filter (mandatory attribute, but can be a wide filter such as “cn=*”).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example of a watched directory declaration:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Declare a list of LDAP watched directories
+ldap_watched_directories = dir1,dir2
+
+# Specify dir1 settings
+dir1.ldap_search_dn =   ou=People,dc=example,dc=com
+dir1.ldap_search_filter =   cn=*
+
+# Specify dir2 settings
+dir2.ldap_search_dn =   ou=OtherPeople,dc=example,dc=com
+dir2.ldap_search_filter =   cn=*
+</code></pre></div></div>
+
+<h4 id="ldap-group-object-properties-syntax">LDAP Group object properties syntax</h4>
+
+<p>The tool will automatically detect the group class from LDAP. Here are the LDAP group classes supported by the LDAP
+Synchronizer:</p>
+
+<ul>
+  <li>group</li>
+  <li>groupOfURLs</li>
+  <li>groupOfNames</li>
+  <li>groupOfUniqueNames</li>
+  <li>ds-virtual-static-group</li>
+</ul>
+
+<p>The tool can determine the list of users belonging to a group by looking these properties, depending on the group’s objectClass:</p>
+<ul>
+  <li>member: group <code class="highlighter-rouge">objectclass</code></li>
+  <li>memberURL: <code class="highlighter-rouge">groupOfURLs</code> objectclass</li>
+  <li>member: <code class="highlighter-rouge">groupOfNames</code> objectclass</li>
+  <li>uniqueMember: <code class="highlighter-rouge">groupOfUniqueNames</code> objectclass</li>
+  <li>ds-target-group-dn: <code class="highlighter-rouge">ds-virtual-static-group</code> objectclass</li>
+</ul>
+
+<p>There are two ways (they can be configured individually or at the same time) to synchronize groups</p>
+<ul>
+  <li>declare a list of groups</li>
+  <li>perform a LDAP searches to find the list of groups to synchronize</li>
+</ul>
+
+<h4 id="synchronize-a-list-of-groups">Synchronize a list of groups</h4>
+
+<p>An LDAP group is defined by an id which is declared in the “ldap_groups” list. This id provides access to the object properties with this syntax: object_id.property.
+You can also specify groups with a search: all groups that match the search are synchronized.</p>
+
+<p>Groups will be synchronized based on the matching of their LDAP common name (CN) and their Bonita BPM names.</p>
+
+<p>Groups can be declared individually in the configuration file with the following properties :
+ldap_group_dn
+mandatory attribute that specifies the DN of the LDAP group.</p>
+
+<p>forced_bonita_group_name
+optional attribute that renames the Bonita group instead of using the original LDAP group name.</p>
+
+<p>force_add_non_existing_users
+optional Boolean attribute (true by default) that defines whether group members that are not present in Bonita should be imported (if false, these users are ignored).</p>
+
+<p>Example of group declarations:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># List of groups to synchronize
+ldap_groups = group1, group2
+
+# Specify group1 settings
+group1.ldap_group_dn  =  cn=group1,ou=groups,dc=bonita,dc=com
+group1.forced_bonita_group_name  =  forced group1
+
+# Specify group2 settings: 
+# sync the group with specified dn but not the users inside this group
+group2.ldap_group_dn  =  cn=group2,ou=groups,dc=bonita,dc=com
+group2.force_add_non_existing_users  =  false
+</code></pre></div></div>
+
+<h4 id="synchronize-a-list-of-groups-retrieved-using-a-ldap-search">Synchronize a list of groups retrieved using a LDAP search</h4>
+
+<p>In combination or as an alternative, groups can be declared using the result of an LDAP search that is defined in the configuration file with the following properties :</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: left"> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">ldap_group_search_dn</td>
+      <td style="text-align: left">DN of the LDAP watched directory that will be used to get the list of the LDAP groups.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">ldap_group_search_filter</td>
+      <td style="text-align: left">LDAP group search filter (mandatory attribute, but can be a wide filter such as “cn=*”).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">force_add_non_existing_users</td>
+      <td style="text-align: left">optional boolean attribute (true by default) that defines whether group members that are not present in Bonita should be imported (if false, these users are ignored).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example of group searches:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Specify search of groups
+ldap_search_filter_groups  =  search1,search2
+
+# Specify search1 settings: 
+# sync all groups under ou=people,dc=bonita,dc=com with cn starting with "A_"
+search1.ldap_group_search_dn  =  ou=people,dc=bonita,dc=com
+search1.ldap_group_search_filter  =  cn=A_*
+
+# Specify search2 settings: 
+# sync all groups under ou=people,dc=bonita,dc=com with cn starting with "B_" 
+# but without importing new users inside these groups
+search2.ldap_group_search_dn  =  ou=people,dc=bonita,dc=com
+search2.ldap_group_search_filter  =  cn=B_*
+search2.force_add_non_existing_users  =  false
+</code></pre></div></div>
+
+<h2 id="running-the-synchronizer">Running the synchronizer</h2>
+
+<p>Below are all the actions completed by the LDAP synchronizer tool:</p>
+
+<ol>
+  <li>Reads all Users in the source LDAP directory</li>
+  <li>Creates all Users in the bonita engine db</li>
+  <li>Reads all Groups in the source LDAP directory</li>
+  <li>Creates all Groups in the Bonita Engine db</li>
+  <li>Retrieves all Users that are belonging to the groups in the source LDAP directory</li>
+  <li>Retrieves all Users that are belonging to the groups in the Bonita Engine db</li>
+  <li>For all Users belonging to the groups in the Bonita Engine db and not in the groups in the source LDAP directory, do Delete membership (user, role-in-ldap-tool-config, group)</li>
+  <li>Creates all memberships for all users and groups with a configured role (user, role-in-ldap-tool-config, group)</li>
+</ol>
+
+<p>To run the LDAP synchronizer, execute the script <code class="highlighter-rouge">BonitaSubscription-x.y.z-LDAP-Synchronizer.bat</code> (for Windows) or <code class="highlighter-rouge">BonitaSubscription-x.y.z-LDAP-Synchronizer.sh</code> (for Linux), 
+where <code class="highlighter-rouge">x.y.z</code> is the version of Bonita you are running.</p>
+
+<p><strong>Warning:</strong> Do not modify the Organization from the Bonita Portal while the tool is running, as this will cause a synchronization error.</p>
+
+<h2 id="a-id-non-default-tenant-using-the-ldap-synchronizer-in-a-non-default-tenant"><a id="non-default-tenant"></a>Using the LDAP synchronizer in a non-default tenant</h2>
+
+<p><strong>Installation:</strong> The LDAP Synchronizer is installed on the platform as described above. 
+After installation, Check that the <a href="/bonita_doc/bonita/7.6/application-and-process-design/profiles/profiles-overview">“User” profile</a> is defined for the tenant. 
+The default tenant has a “User” profile by default, but it must be created manually when a tenant is created. 
+The LDAP synchronizer will fail if this profile is not defined.</p>
+
+<p><strong>Configuration:</strong> To configure the LDAP synchronizer for a tenant that is not the default tenant:</p>
+
+<ul>
+  <li>Create a new folder in <code class="highlighter-rouge">$BonitaSynchronizerFolder/conf</code> with the same name as the name of the tenant (not the id) that was set when the tenant was created.</li>
+  <li>Copy the contents of the default folder from <code class="highlighter-rouge">$BonitaSynchronizerFolder/conf</code> to this new tenant-specific folder.</li>
+  <li>Configure the LDAP synchronizer for the tenant by editing the configuration files in the tenant-specific folder, as described above.</li>
+</ul>
+
+<p><strong>Running:</strong> To run the LDAP Synchronizer on a tenant, give the name of the tenant as a parameter of the script.</p>
+
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>

@@ -1,0 +1,56 @@
+plugins {
+    id 'com.bmuschko.docker-remote-api' version '4.0.4'
+}
+
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.container.DockerCreateContainer
+import com.bmuschko.gradle.docker.tasks.container.DockerStartContainer
+import com.bmuschko.gradle.docker.tasks.container.DockerExecContainer
+
+def imageArtifactId = 'bdg'
+def imageLabel = 'bonita/' + imageArtifactId
+def imageTag
+def ctnerName
+if (project.hasProperty('imageVersion')) {
+    imageTag = imageLabel + ':' + imageVersion
+    ctnerName = imageArtifactId + '-' + imageVersion
+} else {
+    imageTag = imageLabel + ':latest'
+    ctnerName = imageArtifactId + '-latest'
+}
+
+task buildImage(type: DockerBuildImage) {
+    dockerFile = project.file('Dockerfile')
+    inputDir = dockerFile.get().asFile.parentFile
+    tag = imageTag
+}
+
+task createContainer(type: DockerCreateContainer) {
+    dependsOn buildImage
+    targetImageId buildImage.getImageId()
+    containerName = ctnerName
+    portBindings = [':4000']
+    // Use replaceAll to be compatible with windowsOS
+    def current = projectDir.path.replaceAll("\\\\", "/").replaceAll(':','')
+    binds = ["/${current}" : "/doc"]
+    //autoRemove = true
+}
+
+task startContainer(type: DockerStartContainer) {
+    dependsOn createContainer
+    targetContainerId createContainer.getContainerId()
+}
+
+task execContainerDev(type: DockerExecContainer) {
+    dependsOn startContainer
+    targetContainerId createContainer.getContainerId()
+    commands = ['//bin//sh','./generate_documentation.sh']
+}
+
+task execContainerBuild(type: DockerExecContainer) {
+    dependsOn startContainer
+    targetContainerId createContainer.getContainerId()
+    commands = ['//bin//sh','./generate_documentation.sh', 'jekyll build']
+}
+
+

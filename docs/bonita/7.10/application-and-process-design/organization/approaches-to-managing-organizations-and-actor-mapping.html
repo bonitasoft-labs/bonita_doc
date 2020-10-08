@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Approaches to managing organizations and actor mapping</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Approaches to managing organizations and actor mapping | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Approaches to managing organizations and actor mapping" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Approaches to managing organizations and actor mapping. Approaches to managing organizations and actor mappingThere are several possible approaches to managing the organization information required by Bonita. The most appropriate approach for your organization depends on many factors, including the size and stability" />
+<meta property="og:description" content="Approaches to managing organizations and actor mapping. Approaches to managing organizations and actor mappingThere are several possible approaches to managing the organization information required by Bonita. The most appropriate approach for your organization depends on many factors, including the size and stability" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Approaches to managing organizations and actor mapping","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping","description":"Approaches to managing organizations and actor mapping. Approaches to managing organizations and actor mappingThere are several possible approaches to managing the organization information required by Bonita. The most appropriate approach for your organization depends on many factors, including the size and stability","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.10">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.10</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/approaches-to-managing-organizations-and-actor-mapping.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="approaches-to-managing-organizations-and-actor-mapping">Approaches to managing organizations and actor mapping</h1>
+
+<p>There are several possible approaches to managing the organization information required by Bonita. The most appropriate approach for your organization depends on many factors, including the size and stability of your organization, the actors that are defined in the processes you are using, and whether you have a central repository for user data that is LDAP-compatible.</p>
+
+<p>If your organization structure is maintained in LDAP, to avoid duplication of the organization data and its maintenance, you are recommended to use the <a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/ldap-synchronizer">LDAP synchronizer</a>, which is available with the Bonita Enterprise, Performance, Efficiency, and Teamwork editions.</p>
+
+<p>The next three sections describe typical approaches, two using LDAP and one maintaining the organization data manually:</p>
+
+<div class="list-group"><a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping#maintain-organization-in-ldap-and-map-actors-to-groups" class="list-group-item toc-h2">Maintain organization in LDAP and map actors to groups</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping#maintain-organization-in-ldap-and-map-actors-to-roles-or-memberships" class="list-group-item toc-h2">Maintain organization in LDAP and map actors to roles or memberships</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping#maintain-organization-manually" class="list-group-item toc-h2">Maintain organization manually</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/approaches-to-managing-organizations-and-actor-mapping#other-considerations" class="list-group-item toc-h2">Other considerations</a>
+</div>
+<h2 id="maintain-organization-in-ldap-and-map-actors-to-groups">Maintain organization in LDAP and map actors to groups</h2>
+
+<p id="maintain-organization-in-ldap-and-map-actors-to-groups">If the groups within your organization are suitable for mapping to the actors in your processes, you can use these groups when <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actors">mapping actors</a>.</p>
+
+<p>If you are using the Bonita Enterprise, Performance, Efficiency, or Teamwork edition, you can <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/process-maintenance/processes">define the actor mapping in Bonita Portal</a> after a process is deployed.<br />
+For the Community edition, you <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actors">specify the actor mapping in Bonita Studio</a>, so you need to <a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/organization-management-in-bonita-bpm-studio">define the groups in Bonita Studio</a>. However, you only need to create the groups that are used in actor mappings, not your whole organization hierarchy.</p>
+
+<h2 id="maintain-organization-in-ldap-and-map-actors-to-roles-or-memberships">Maintain organization in LDAP and map actors to roles or memberships</h2>
+
+<p>If the groups within your organization are not suitable for mapping to actors in your processes, you can use roles or memberships when <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actors">mapping actors</a>.<br />
+A membership is a combination of a group and a role.</p>
+
+<p>If you are using the Bonita Enterprise, Performance, Efficiency, or Teamwork edition, you can <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/process-maintenance/processes">define the actor mapping in Bonita Portal</a> after a process is deployed.<br />
+For the Community edition, you <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actors">specify the actor mapping in Bonita Studio</a>, so you need to <a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/organization-management-in-bonita-bpm-studio">define the roles and memberships in Bonita Studio</a>. However, you only need to create the roles and memberships that are used in actor mappings.</p>
+
+<p>In Bonita Portal, <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/organization-in-bonita-portal/organization-maintenance/role">define the roles and memberships</a> used in the actor mappings, and <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/organization-in-bonita-portal/organization-maintenance/manage-users/manage-a-user">specify the roles of the users</a>. User roles are specified using a membership.</p>
+
+<h2 id="maintain-organization-manually">Maintain organization manually</h2>
+
+<p>For smaller organizations that do not use LDAP, or if you are using the Community edition, you can maintain your organization manually.
+Typically, you <a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/organization-management-in-bonita-bpm-studio">manage an organization manually using Bonita Studio</a>, and then <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/organization-in-bonita-portal/organization-maintenance/import-export-an-organization">import it into Bonita Portal</a>. <br />
+This means that the organization management and actor mapping are carried out in the same tool, from a single set of data.</p>
+
+<p>Alternatively, you can initialize the organization in Bonita Studio with just the elements needed for actor mapping. Then export this to Bonita Portal and <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/organization-in-bonita-portal/organization-maintenance/manage-users/manage-a-user">manage the users in the Bonita Portal</a>.</p>
+
+<h2 id="other-considerations">Other considerations</h2>
+
+<ul>
+  <li>If you are specifying actor mapping in Bonita Studio, you do not need to duplicate the whole organization structure in Bonita Studio, only the elements that are used in actor mapping.<br />
+However, you can choose to have the whole structure in the Studio. In this way, you can manage all the information in one place, then load it into Bonita Portal using the organization export/import features.</li>
+  <li>It is possible to map an actor to an individual user. This is not generally recommended, but in rare cases it can be useful, typically for solving a problem or escalating an issue.</li>
+  <li>When deciding how to map actors for a process, you also need to take into account the <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actor-filtering">actor filters</a> that are specified in the process definition.</li>
+  <li>If you are using the LDAP synchronizer, consider using <a href="/bonita_doc/bonita/7.10/installation/advanced-bonita-platform-installation/security-and-authentication/active-directory-or-ldap-authentication">LDAP authentication</a>.</li>
+</ul>
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>

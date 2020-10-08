@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Lifecycle and profiles</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Lifecycle and profiles | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Lifecycle and profiles" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Lifecycle and profiles. Lifecycle and profilesThis page explains the lifecycle of creating an application or a process using Bonita and putting it into production. At different stages in the lifecycle, different people with different knowledge and skills play roles. These people are identified by profiles. There are" />
+<meta property="og:description" content="Lifecycle and profiles. Lifecycle and profilesThis page explains the lifecycle of creating an application or a process using Bonita and putting it into production. At different stages in the lifecycle, different people with different knowledge and skills play roles. These people are identified by profiles. There are" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Lifecycle and profiles","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles","description":"Lifecycle and profiles. Lifecycle and profilesThis page explains the lifecycle of creating an application or a process using Bonita and putting it into production. At different stages in the lifecycle, different people with different knowledge and skills play roles. These people are identified by profiles. There are","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.10">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.10</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/lifecycle-and-profiles.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="lifecycle-and-profiles">Lifecycle and profiles</h1>
+
+<p>This page explains the lifecycle of creating an application or a process using Bonita and putting it into production. At different stages in the lifecycle, different people with different knowledge and skills play roles. These people are identified by profiles.</p>
+
+<p><img src="images/images-6_0/lifecycle-app.png" alt="Lifecycle and profiles diagram" class="img-responsive" /></p>
+
+<p>There are three major phases in the lifecycle.This page introduces these three phases, and explains how the Bonita components use components to manage the features presented to users.</p>
+
+<div class="list-group"><a href="/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles#application-creation-phase" class="list-group-item toc-h2">Application creation phase</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles#system-creation-phase" class="list-group-item toc-h2">System creation phase</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles#production-phase" class="list-group-item toc-h2">Production phase</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/application-and-process-design-overview/lifecycle-and-profiles#profiles-and-bonita-components" class="list-group-item toc-h2">Profiles and Bonita components</a>
+</div>
+<h2 id="application-creation-phase">Application creation phase</h2>
+
+<p id="application-creation-phase">During this phase, the business analyst specifies the processes that are in the application and <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/diagrams/diagram-overview">creates the process diagrams</a>. The application developer takes the specification of each process and creates a running process, adding forms, scripts or Java code if required. Each process is tested and debugged. When a process is complete, it is exported ready for deployment.</p>
+
+<p>This phase needs only the Bonita Studio component of Bonita. See the <a href="/bonita_doc/bonita/7.10/installation/bonita-bpm-studio-installation">Bonita Studio installation overview</a> for details of how to install Bonita Studio for process creation.</p>
+
+<p>The application developer also creates the application pages. When the pages are complete, they are exported and deployed in Bonita Portal. The application developer then builds the application, specifying the menus and navigation.</p>
+
+<h2 id="system-creation-phase">System creation phase</h2>
+
+<p>During this phase, which typically runs in parallel with the end of the application creation phase, the platform administrator prepares
+the infrastructure needed to support the deployed application. This infrastructure includes Bonita, and prerequisites such as a
+database and an application server. There are many options for how Bonita can be installed: see the <a href="/bonita_doc/bonita/7.10/installation/bonita-bpm-installation-overview">Installation overview</a> for details.</p>
+
+<p>Preparing the system also includes <a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/organization-overview">defining the organization</a>, with all the users, groups, and roles required for running processes and applications. Bonita Studio contains an example organization, ACME, which you can use for testing.</p>
+
+<p>When configuration is complete, the system is ready for application deployment. The administrator deploys the processes and the application pages, and updates the configuration as needed, including <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actors">mapping process actors</a> to users in the organization.</p>
+
+<h2 id="production-phase">Production phase</h2>
+
+<p>To <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/process-maintenance/processes">deploy a process</a>, you import it into Bonita Portal and start it. After the process is started, process instances can be started. The details of how process instances are started depend on the process definition.</p>
+
+<p>To deploy an application, you import pages into Bonita Portal and then use the application builder to specify the application menus and navigation.</p>
+
+<p>After deployment, you can use the Bonita Portal <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/live-update">live update</a> options to update an application or process that is in production.</p>
+
+<h2 id="profiles-and-bonita-components">Profiles and Bonita components</h2>
+
+<p>Bonita Studio and Bonita Portal manage the features available according to the profile of the user.</p>
+
+<p>In Bonita Studio, a user selects a profile at login, and can change profile at any time. The application developer profile gives access to all features of Bonita Studio. You can also configure the features that are visible to your profile, hiding items that are not relevant to your activity, to make the interface cleaner and easier to navigate.</p>
+
+<p>In Bonita Portal, a profile is associated to a login, and by default only a user with the administrator profile can <a href="/bonita_doc/bonita/7.10/application-and-process-design/profiles/profiles-overview">change the profile of a user.</a> A user can have any number of profiles. It is also possible to define <a href="/bonita_doc/bonita/7.10/bonita-portal-administration/user-profiles/custom-profiles">custom profiles</a>.</p>
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>

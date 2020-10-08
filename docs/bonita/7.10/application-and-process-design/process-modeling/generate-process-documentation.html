@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Generate process documentation</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Generate process documentation | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Generate process documentation" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Generate process documentation. Generate process documentationNote For Bonita Enterprise, Performance, Efficiency, and Teamwork editions only. Overview. Overview. OverviewoverviewWhen a process is open in Bonita Studio, it is possible to generate documentation, containing a summary of individual elements in the proc" />
+<meta property="og:description" content="Generate process documentation. Generate process documentationNote For Bonita Enterprise, Performance, Efficiency, and Teamwork editions only. Overview. Overview. OverviewoverviewWhen a process is open in Bonita Studio, it is possible to generate documentation, containing a summary of individual elements in the proc" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Generate process documentation","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation","description":"Generate process documentation. Generate process documentationNote For Bonita Enterprise, Performance, Efficiency, and Teamwork editions only. Overview. Overview. OverviewoverviewWhen a process is open in Bonita Studio, it is possible to generate documentation, containing a summary of individual elements in the proc","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.10">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.10</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/generate-process-documentation.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="generate-process-documentation">Generate process documentation</h1>
+
+<div class="alert alert-info">
+<p><strong>Note:</strong> For Bonita Enterprise, Performance, Efficiency, and Teamwork editions only.</p>
+</div>
+
+<div class="list-group"><a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation#overview" class="list-group-item toc-h2">Overview</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation#what-will-be-exported-in-the-documentation" class="list-group-item toc-h2">What will be exported in the documentation?</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation#generate-process-documentation" class="list-group-item toc-h2">Generate process documentation</a><a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/generate-process-documentation#result" class="list-group-item toc-h2">Result</a>
+</div>
+<h2 id="overview">Overview</h2>
+
+<p id="overview">When a process is open in Bonita Studio, it is possible to generate documentation, containing a summary of individual elements in the process. This is like a process report. Choose the settings for the format of the export file, how the report will be presented, choose a logo to display and its size in pixels.</p>
+
+<h2 id="what-will-be-exported-in-the-documentation">What will be exported in the documentation?</h2>
+
+<p>You will see the elements contained in the process definition. The documentation generated contains:</p>
+
+<ul>
+  <li>a description of BPMN elements</li>
+  <li>an image of the process</li>
+  <li>a list of activities</li>
+  <li>tables showing groups, actors, tasks, sequence flows, connectors, data, data types, deadlines, dependencies, messages, message flows, and KPIs</li>
+  <li>template settings</li>
+</ul>
+
+<p>The following are not included in the generated documentation:</p>
+
+<ul>
+  <li>contract definitions</li>
+  <li>context information</li>
+  <li>form mapping</li>
+  <li>form information</li>
+</ul>
+
+<p>The way the different elements in the process are presented on paper can be easily configured in a pop-up window, before exporting.</p>
+
+<p>In the optional settings in the pop-up window, you can choose to:</p>
+
+<ul>
+  <li>export the report in different formats: .pdf, .doc, .html, .rtf, .ppt</li>
+  <li>show or hide a description of the BPMN elements</li>
+  <li>change the colour of headings</li>
+  <li>display your logo</li>
+</ul>
+
+<h2 id="generate-process-documentation">Generate process documentation</h2>
+
+<ol>
+  <li>Go to the Menu bar &gt; Process.</li>
+  <li>In the dropdown menu, click on <em><strong>Generate documentation</strong></em>.</li>
+</ol>
+
+<p>A popup window will be displayed where you can configure a number of parameters for the exported file.<br />
+In the optional settings in the pop-up window, you can choose to:</p>
+
+<ul>
+  <li>export the report in .pdf, .doc, .html, .rtf, or .ppt format</li>
+  <li>show or hide a description of the BPMN elements</li>
+  <li>show or hide empty properties</li>
+  <li>change the colour of the background for H1 and H2</li>
+  <li>define the size of the logo in pixels (10-150 pixels)</li>
+  <li>set the path where a logo is found on your computer, by browsing straight to it</li>
+  <li>display a logo on the first page or on all pages</li>
+  <li>Once the parameters have been set, click on the‚ Generate button to export the file</li>
+</ul>
+
+<h2 id="result">Result</h2>
+
+<p>A report about the process will be generated and exported:</p>
+
+<ul>
+  <li>in the format you chose</li>
+  <li>with the presentation you chose</li>
+  <li>to the place on your computer you chose</li>
+</ul>
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>

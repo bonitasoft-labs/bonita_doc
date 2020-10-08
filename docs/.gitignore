@@ -1,0 +1,10 @@
+_site
+.sass-cache
+.jekyll-metadata
+_bonita
+_bcd
+_ici
+*.pyc
+node_modules
+package-lock.json
+bundle.js

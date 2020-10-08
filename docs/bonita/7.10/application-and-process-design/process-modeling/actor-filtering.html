@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="">
+<!-- head -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>Actor filters</title>
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"> 
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+    <link rel="stylesheet" href="/bonita_doc/assets/main.css">
+    <!-- <link rel="stylesheet" href="/bonita_doc/assets/richleland-pygments-css/vs.css"> --> 
+    <!-- jekyll-seo-tag -->
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Actor filters | Bonitasoft Documentation Prototype</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Actor filters" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Actor filters. Actor filtersAn actor filter refines the list of users who can perform a task, by filtering the list of users mapped to the actor.The following standard actor filters are provided Single user assigns the task to the specified user. Task performer assigns the task to the user who performed the speci" />
+<meta property="og:description" content="Actor filters. Actor filtersAn actor filter refines the list of users who can perform a task, by filtering the list of users mapped to the actor.The following standard actor filters are provided Single user assigns the task to the specified user. Task performer assigns the task to the user who performed the speci" />
+<link rel="canonical" href="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actor-filtering" />
+<meta property="og:url" content="http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actor-filtering" />
+<meta property="og:site_name" content="Bonitasoft Documentation Prototype" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-01T11:29:20+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Actor filters","dateModified":"2020-10-01T11:29:20+02:00","datePublished":"2020-10-01T11:29:20+02:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actor-filtering"},"url":"http://0.0.0.0:4000/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actor-filtering","description":"Actor filters. Actor filtersAn actor filter refines the list of users who can perform a task, by filtering the list of users mapped to the actor.The following standard actor filters are provided Single user assigns the task to the specified user. Task performer assigns the task to the user who performed the speci","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- favicons and rss -->
+    <link rel="alternate" type="application/rss+xml" title="Bonitasoft Documentation Prototype" href="/bonita_doc/feed.xml">
+    <link rel="icon" type="image/png" sizes="32x32" href="/bonita_doc/assets/favicon/bonita-32_0.png">
+</head>
+<body>
+    <!-- header --><div class="documentationHeader">
+    <nav class="navbar navbar-default">
+      <div id="top-links" class="container-fluid">
+          <div class="row">
+             <ul class="inline pull-right">
+                 <li><a href="http://www.bonitasoft.com/about-us/news" style="color: white">News</a></li>
+                 <li><a href="http://community.bonitasoft.com/" style="color: white">Community</a></li>
+                 <li><a href="http://customer.bonitasoft.com/" style="color: white">Customer portal</a></li>
+                 <li><a href="http://partner.bonitasoft.com/home" style="color: white">Partners</a></li>
+             </ul>
+          </div>
+      </div>
+      <div class="container-fluid main_nav">
+        <div class="navbar-header">
+          <a class="logo">
+            <img alt="Bonitasoft" src="/bonita_doc/assets/img/logo_white.png">
+          </a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown" >
+            <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bonita <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                
+                
+                <li role="menuitem">
+                        <a class="version" href="/bonita_doc/bonita/7.8">7.8 </a>
+                </li>
+      
+                
+                
+                <!-- <li class="menu-item dropdown dropdown-submenu">
+                    <a class="dropdown-toggle">Other versions</a>
+                    <ul class="dropdown-menu">
+                        <li >
+                            <a href="" class="version"></a>
+                        </li>
+                    </ul>
+                </li> -->
+  
+            </ul>
+          </li>
+          <li class="dropdown">
+          <a class="version" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add-ons <span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+
+              
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">bcd</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/bcd/1.0">1.0</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+               
+              
+                
+                    <li class="menu-item dropdown dropdown-submenu" >
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ici</a>
+                        <ul class="dropdown-menu">
+                            
+                                <li class="addOnVersion" >
+                                    <a class="version" href="/bonita_doc/ici/1.1">1.1</a>
+                                </li>
+                            
+                            
+                        </ul>
+                    </li>
+                
+                
+               
+              
+                
+                
+               
+              
+          </ul>
+          </li>
+        </ul>
+        <div id="react-search"></div>
+      </div>
+     
+    </nav>
+  </div><div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"><div id="navigationHeader" class="documentationNavigationHeader">
+    <h2><a href="/bonita_doc/bonita/7.10">
+            
+            <img src="/bonita_doc/assets/img/logo_bonita.png" />
+            
+                
+
+                <span>Bonita  7.10</span>
+        </a>
+    </h2>
+</div>
+
+<div class="documentationNavigation">
+  
+    <!-- Create an array to store the current category --><!-- Start iterate in categories  -->
+    <ul></ul>
+</div></div>
+            <div class="col-md-9 content--noPaddingRight" >
+                <div class="documentationContent">
+                    <div class="documentationPage">
+                            <a href="https://github.com/bonitasoft/bonita-doc/edit/7.10/md/actor-filtering.md" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+                       <article>
+                        <h1 id="actor-filters">Actor filters</h1>
+
+<p>An actor filter refines the list of users who can perform a task, by filtering the list of users mapped to the actor.</p>
+
+<p>The following standard actor filters are provided:</p>
+
+<ul>
+  <li><em>Single user</em> assigns the task to the specified user.</li>
+  <li><em>Task performer</em> assigns the task to the user who performed the specified previous human task (in earlier versions with was known as actor continuity).</li>
+  <li><em>Initiator</em> assigns the task to the user who initiated the process.</li>
+  <li><em>Initiator manager</em> assigns the task to the manager of the user who initiated the process.</li>
+  <li><em>User manager</em> assigns the task to the manager of the user who would be assigned to the task if the filter were not present.</li>
+  <li><em>Users with Custom information</em> is a new actor filter used to assign tasks to users based on <a href="/bonita_doc/bonita/7.10/application-and-process-design/organization/custom-user-information-in-bonita-bpm-studio">custom information</a> (available from 6.3.2).</li>
+</ul>
+
+<p>You can create additional actor filters to meet the needs of your process. An actor filter consists of a definition and an implementation. This means that you can modify the definition and implementation independently. For example, if you update the implementation to improve performance, there is no need to modify the definition.</p>
+
+<p>An actor filter definition defines the properties of the actor filter and defines the wizard that used to configure the actor filter when it is used in a process. An actor filter implementation consists of a set of properties and a Java class. Bonita Studio provides the following options from the <strong>Development</strong> menu for managing actor filters:</p>
+
+<ul>
+  <li>New definition… Create a new actor filter definition, specifying the properties, the input required by the actor filter, the dialog in the configuration wizard, and the languages supported in the wizard.</li>
+  <li>Edit definition… Modify the definition of an actor filter. You cannot modify the definition of a standard actor filter.</li>
+  <li>New implementation… Create the implementation of an actor filter by specifying the properties including the Java class name and package. The wizard automatically creates a stub of the Java code, with comments indicating where you need to supply code. You can create a new implementation for a standard actor filter.</li>
+  <li>Edit implementation… Modify the implementation of an actor filter. You cannot modify the implementation of a standard actor filter; however, you can create a new implementation.</li>
+  <li>Export… Export the actor filter files in a zip.</li>
+  <li>Import… Import a zip containing the actor filter files.</li>
+</ul>
+
+<p>You can also create additional actor filters by creating the necessary files directly, as described in <a href="/bonita_doc/bonita/7.10/development/bonita-artifacts/creating-an-actor-filter">Creating an actor filter</a>.</p>
+
+<p>For details of how to apply an actor filter to a task or lane, see <a href="/bonita_doc/bonita/7.10/application-and-process-design/process-modeling/actors">Actors</a>.</p>
+
+<p>When you add an actor filter to a process, Bonita Studio automatically adds an implementation snapshot jar file for the actor filter to your workspace. For example, if you add the single user actor filter, the file <code class="highlighter-rouge">bonita-userfilter-single-user-impl-</code><em><code class="highlighter-rouge">x.y.z</code></em><code class="highlighter-rouge">-SNAPSHOT.jar</code> is added to your workspace, where <em><code class="highlighter-rouge">x.y.z</code></em> is the version of the implementation jar file.</p>
+
+                       </article>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <!-- scripts --><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+    <script src="/bonita_doc/assets/javascripts/active_link.js"></script>
+
+    <script src="/bonita_doc/assets/javascripts/collapse.js"></script>
+    <script src="/bonita_doc/assets/javascripts/bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/react/0.14.7/react-dom.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/searchkit/0.10.0/bundle.js"></script></body>
+</html>
