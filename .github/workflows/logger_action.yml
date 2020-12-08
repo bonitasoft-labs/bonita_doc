@@ -26,4 +26,12 @@ jobs:
           echo "Branch: ${{ github.event.inputs.branch }}"
           echo "Component: ${{ github.event.inputs.component }}"
           
+      - name: Create commit message
+        if: (github.event_name == 'workflow_dispatch' && github.event.inputs.component == '')
+        run: 
+          echo "commit_message=deploy ${{github.sha}} from manual request" >> $GITHUB_ENV
+          
+      - name: Log commit message
+        run: echo "Commit message = ${commit_message}"
+          
       
