@@ -11,6 +11,8 @@ on:
          description: 'Branch of component'
       component: 
          description: 'Name of component which triggers the build'
+  push:
+    branches: main
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -27,14 +29,19 @@ jobs:
           echo "Component: ${{ github.event.inputs.component }}"
           
       - name: Create commit message if no component defined
-        if: (github.event_name == 'workflow_dispatch' && github.event.inputs.component == '')
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.component == ''
         run: 
           echo "commit_message=deploy ${{github.sha}} from manual request" >> $GITHUB_ENV
           
       - name: Create commit message if component defined
-        if: (github.event_name == 'workflow_dispatch' && github.event.inputs.component != '')
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.component != ''
         run: 
           echo "commit_message=deploy ${{ github.event.inputs.component }} ${{ github.event.inputs.branch }} update" >> $GITHUB_ENV
+          
+      - name: Create commit message if push
+        if: github.event_name == 'push'
+        run: 
+          echo "commit_message=deploy ${{ github.sha }}" >> $GITHUB_ENV  
           
       - name: Log commit message
         run: echo "Commit message = ${commit_message}"
