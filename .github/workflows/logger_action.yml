@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:    
       branch: 
-         description: 'Branch to build'
-         required: true
-         default: '7.8'
+         description: 'Branch of component'
+      component: 
+         description: 'Name of component which triggers the build'
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -24,4 +24,6 @@ jobs:
       - name: Run a one-line script
         run: |
           echo "Branch: ${{ github.event.inputs.branch }}"
+          echo "Component: ${{ github.event.inputs.component }}"
+          
       
